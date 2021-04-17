@@ -28,6 +28,7 @@ namespace Idkmod.Items.Weapons.Guns
 			item.ranged = true; // sets the damage type to ranged
 			item.width = 20; // hitbox width of the item
 			item.height = 20; // hitbox height of the item
+			item.scale = 0.8f;
 			item.useTime = 5; // The item's use time in ticks (60 ticks == 1 second.)
 			item.useAnimation = 10; // The length of the item's use animation in ticks (60 ticks == 1 second.)
 			item.reuseDelay = 15;
