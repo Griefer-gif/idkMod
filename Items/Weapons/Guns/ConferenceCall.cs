@@ -46,11 +46,14 @@ namespace Idkmod.Items.Weapons.Guns
 			for (int i = 0; i < numberProjectiles; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(2)); // 2 degree spread.
-				type = ModContent.ProjectileType<idkmod.Projectiles.CCBullet>();                                                                                                // If you want to randomize the speed to stagger the projectile
+				type = ModContent.ProjectileType<idkmod.Projectiles.CCBullet>();                                                                                                
 				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				
 			}
+			
 			return false;
         }
+		
 
 		public override Vector2? HoldoutOffset()
 		{

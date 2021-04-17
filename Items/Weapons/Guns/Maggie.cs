@@ -44,17 +44,23 @@ namespace Idkmod.Items.Weapons.Guns
 		}
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			int numberProjectiles = 6; // 4 or 5 shots
+			int numberProjectiles = 6;
 			for (int i = 1; i < numberProjectiles + 1; i++)
 			{
-				damage = damage / i;
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(10)); // 30 degree spread.
-																												// If you want to randomize the speed to stagger the projectiles
-																												// float scale = 1f - (Main.rand.NextFloat() * .3f);
-																												// perturbedSpeed = perturbedSpeed * scale; 
+				damage = (damage * 3) / (i * 2);
+				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5)); // 30 degree spread.
+																											   
 				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+
+
 			}
 			return false; // return false because we don't want tmodloader to shoot projectile
 		}
+
+		public override bool ConsumeAmmo(Player player)
+		{
+			return !(player.itemAnimation < item.useAnimation - 2);
+		}
+
 	}
 }
