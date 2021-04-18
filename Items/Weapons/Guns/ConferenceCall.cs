@@ -54,9 +54,8 @@ namespace Idkmod.Items.Weapons.Guns
 			
 			return false;
         }
-		
 
-		public override Vector2? HoldoutOffset()
+        public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-8, 3);
 		}

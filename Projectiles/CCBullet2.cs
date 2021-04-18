@@ -32,7 +32,7 @@ namespace idkmod.Projectiles
 			projectile.tileCollide = true;          //Can the projectile collide with tiles?
 			projectile.extraUpdates = 1;            //Set to above 0 if you want the projectile to update multiple time in a frame
 			aiType = ProjectileID.Bullet;
-			projectile.penetrate = 1;             //Act exactly like default Bullet
+			projectile.penetrate = 1;             
 		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
