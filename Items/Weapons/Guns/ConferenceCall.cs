@@ -15,7 +15,7 @@ namespace Idkmod.Items.Weapons.Guns
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Conference Call");
-            Tooltip.SetDefault("'Let's just ping everyone all at once.' Fires multiple shots that split into more shots");
+            Tooltip.SetDefault("Fires multiple shots that split into more shots");
         }
 
         public override void SetDefaults()
@@ -58,6 +58,12 @@ namespace Idkmod.Items.Weapons.Guns
         public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-8, 3);
+		}
+
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			tooltips.Add(new TooltipLine(mod, "", "Ignores ammo type"));
+			tooltips.Add(new TooltipLine(mod, "", "'Let's just ping everyone all at once.'"));
 		}
 	}
 }

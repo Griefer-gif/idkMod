@@ -18,7 +18,7 @@ namespace Idkmod.Items.Weapons.Guns
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Infinity");
-			Tooltip.SetDefault("'It's closer than you think! (no it isn't)', Does not consume ammo, Converts Musket balls into high speed bullets");
+			Tooltip.SetDefault("Does not consume ammo");
 		}
 
 		public int num = 0;
@@ -99,6 +99,12 @@ namespace Idkmod.Items.Weapons.Guns
 		public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-3, 0);
+		}
+
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			tooltips.Add(new TooltipLine(mod, "", "Converts Musket balls into high speed bullets."));
+			tooltips.Add(new TooltipLine(mod, "", "'It's closer than you think! (no it isn't)'"));
 		}
 	}
 }

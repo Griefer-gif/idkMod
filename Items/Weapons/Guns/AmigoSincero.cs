@@ -10,21 +10,24 @@ using Microsoft.Xna.Framework;
 
 namespace Idkmod.Items.Weapons.Guns
 {
-	class Slagga : ModItem
+	class AmigoSincero : ModItem
 	{
+
+
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Slagga");
-			Tooltip.SetDefault("fires 3 ichor shots per shot, ammo type is ignored.");
+			DisplayName.SetDefault("Amigo Sincero");
+			Tooltip.SetDefault("Damage ignores enemy defence");
 		}
 
 		public override void SetDefaults()
 		{
-			item.damage = 20;
+			item.damage = 200; // Sets the item's damage. Note that projectiles shot by this weapon will use its and the used ammunition's damage added together.
+			item.crit = 10;
 			item.ranged = true; // sets the damage type to ranged
 			item.width = 20; // hitbox width of the item
 			item.height = 20; // hitbox height of the item
-			item.scale = 0.6f;
+			item.scale = 1.2f;
 			item.useTime = 2; // The item's use time in ticks (60 ticks == 1 second.)
 			item.useAnimation = 2; // The length of the item's use animation in ticks (60 ticks == 1 second.)
 			item.reuseDelay = 15;
@@ -38,40 +41,34 @@ namespace Idkmod.Items.Weapons.Guns
 			item.shoot = ProjectileID.PurificationPowder; //idk why but all the guns in the vanilla source have this
 			item.shootSpeed = 50f; // the speed of the projectile (measured in pixels per frame)
 			item.useAmmo = AmmoID.Bullet; // The "ammo Id" of the ammo item that this weapon uses. Note that this is not an item Id, but just a magic value.
+			
 		}
 
 		public override Vector2? HoldoutOffset()
 		{
-			return new Vector2(-4, 0);
+			return new Vector2(-8, 0);
 		}
 
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			float numberProjectiles = 3; // 3, 4, or 5 shots
-			float rotation = MathHelper.ToRadians(2);
-			position += Vector2.Normalize(new Vector2(speedX, speedY)) * 45f;
-			for (int i = 0; i < numberProjectiles; i++)
-			{
-				type = ModContent.ProjectileType<idkmod.Projectiles.SlaggaBullet>();
-				damage = damage / 2;
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * .2f; // Watch out for dividing by 0 if there is only 1 projectile.
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
-			}
+        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        {
+			return true;
+        }
 
+        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+        {
 			
+        }
 
-			return false;
+        public override void HoldItem(Player player)
+        {
+			player.armorPenetration = 9999;
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			tooltips.Add(new TooltipLine(mod, "", "decreased bullet damage."));
-			tooltips.Add(new TooltipLine(mod, "", "'blagaga'"));
+			tooltips.Add(new TooltipLine(mod, "", "'A true friend can penetrate any barrier.'"));
 		}
 
-        public override void HoldItem(Player player)
-        {
-			
-        }
-    }
+
+	}
 }

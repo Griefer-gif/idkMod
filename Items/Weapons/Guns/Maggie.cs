@@ -17,7 +17,7 @@ namespace Idkmod.Items.Weapons.Guns
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Maggie");
-			Tooltip.SetDefault("Monty's wife don't take no guff. – Fires 6 projectiles per shot.");
+			Tooltip.SetDefault("Fires 6 projectiles per shot.");
 		}
 
 		public int num = 0;
@@ -60,6 +60,12 @@ namespace Idkmod.Items.Weapons.Guns
 		public override bool ConsumeAmmo(Player player)
 		{
 			return !(player.itemAnimation < item.useAnimation - 2);
+		}
+
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			//tooltips.Add(new TooltipLine(mod, "", "Converts Musket balls into high speed bullets."));
+			tooltips.Add(new TooltipLine(mod, "", "'Monty's wife don't take no guff.'"));
 		}
 
 	}

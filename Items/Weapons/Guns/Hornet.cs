@@ -17,7 +17,7 @@ namespace Idkmod.Items.Weapons.Guns
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Hornet");
-			Tooltip.SetDefault("Right click to fire a burst of innacurate bullets. Converts musket balls to Cursed Bullets while bursting.");
+			Tooltip.SetDefault("Right click to fire a burst of innacurate bullets.");
 		}
 
 		public int num = 0;
@@ -103,6 +103,12 @@ namespace Idkmod.Items.Weapons.Guns
 		public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-2, 0);
+		}
+
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			tooltips.Add(new TooltipLine(mod, "", "Converts musket balls to Cursed Bullets while bursting."));
+			tooltips.Add(new TooltipLine(mod, "", "'Fear the Swarm!'"));
 		}
 	}
 }
