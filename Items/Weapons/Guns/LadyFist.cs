@@ -10,28 +10,27 @@ using Microsoft.Xna.Framework;
 
 namespace Idkmod.Items.Weapons.Guns
 {
-    class Hornet : ModItem
-    {
-		
+	class LadyFist : ModItem
+	{
+
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Hornet");
-			Tooltip.SetDefault("Right click to fire a burst of innacurate bullets.");
+			DisplayName.SetDefault("Lady fist");
+			Tooltip.SetDefault("+200% critical damage");
 		}
-
-		public int num = 0;
 
 		public override void SetDefaults()
 		{
 			item.damage = 20; // Sets the item's damage. Note that projectiles shot by this weapon will use its and the used ammunition's damage added together.
+			item.crit = 15;
 			item.ranged = true; // sets the damage type to ranged
 			item.width = 20; // hitbox width of the item
 			item.height = 20; // hitbox height of the item
 			item.scale = 0.8f;
 			item.useTime = 5; // The item's use time in ticks (60 ticks == 1 second.)
-			item.useAnimation = 10; // The length of the item's use animation in ticks (60 ticks == 1 second.)
-			item.reuseDelay = 15;
+			item.useAnimation = 5; // The length of the item's use animation in ticks (60 ticks == 1 second.)
+			item.reuseDelay = 10;
 			item.useStyle = ItemUseStyleID.HoldingOut; // how you use the item (swinging, holding out, etc)
 			item.noMelee = true; //so the item's animation doesn't do damage
 			item.knockBack = 4; // Sets the item's knockback. Note that projectiles shot by this weapon will use its and the used ammunition's knockback added together.
@@ -51,63 +50,37 @@ namespace Idkmod.Items.Weapons.Guns
 			return !(player.itemAnimation < item.useAnimation - 2);
 		}
 
-		public override bool AltFunctionUse(Player player)
-		{
-			return true;
-		}
-
 		public override bool CanUseItem(Player player)
 		{
-			if (player.altFunctionUse == 2)
-			{
-				item.useStyle = ItemUseStyleID.HoldingOut;
-				item.useTime = 5;
-				item.useAnimation = 30;
-				item.damage = 10;
-				
-			}
-			else
-			{
-				item.useStyle = ItemUseStyleID.HoldingOut;
-				item.useTime = 0;
-				item.useAnimation = 0;
-				item.damage = 30;
-				
-			}
+			
 			return base.CanUseItem(player);
 		}
 
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			var R = new Random();
-			// Fix the speedX and Y to point them horizontally.
-			
-			// Add random Rotation
-			Vector2 speed = new Vector2(speedX, speedY);
-			if (player.altFunctionUse == 2)
-			{
-				speed = speed.RotatedByRandom(MathHelper.ToRadians(R.Next(30)));
-				
-				if (type == ProjectileID.Bullet) // or ProjectileID.WoodenArrowFriendly
-				{
-					type = ProjectileID.CursedBullet; // or ProjectileID.FireArrow;
-				}
-			}
-					
-			speedX = speed.X;
-			speedY = speed.Y;
-			
-			return true;
+			return false;
 		}
 
-		public override Vector2? HoldoutOffset()
+		
+
+        public override void GetWeaponCrit(Player player, ref int crit)
+        {
+			
+        }
+
+        public override void HoldItem(Player player)
+        {
+			player.rangedCrit = 15;
+        }
+
+        public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-2, 0);
 		}
 
-		public override void ModifyTooltips(List<TooltipLine> tooltips)
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			tooltips.Add(new TooltipLine(mod, "", "Converts musket balls to Cursed Bullets while bursting."));
+			tooltips.Add(new TooltipLine(mod, "", "Critical rate is set to 15% no matter what."));
 			tooltips.Add(new TooltipLine(mod, "", "'Fear the Swarm!'"));
 		}
 	}
