@@ -45,7 +45,7 @@ namespace idkmod.Projectiles
 			//	Color color = projectile.GetAlpha(lightColor) * ((float)(projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
 			//	spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0f);
 			//}
-			Dust.NewDust(projectile.oldPosition, projectile.width, projectile.height, DustID.Enchanted_Gold, 0, 0, 255, Color.White, 0.8f);
+			Dust.NewDust(projectile.oldPosition, projectile.width, projectile.height, DustID.Enchanted_Gold, 0, 0, 255, Color.White, 1f);
 			return true;
 		}
 
@@ -58,7 +58,7 @@ namespace idkmod.Projectiles
 		{
 			if (crit)
 			{
-				damage *= 3;
+				damage *= 2;
 			}
 		}
 

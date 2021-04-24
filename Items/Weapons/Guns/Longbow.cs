@@ -24,8 +24,9 @@ namespace Idkmod.Items.Weapons.Guns
 
 		public override void SetDefaults()
 		{
-			item.damage = 20; 
-			item.ranged = true; 
+			item.damage = 18; 
+			item.ranged = true;
+			item.crit = 10;
 			item.width = 20; 
 			item.height = 20; 
 			item.scale = 1f;
@@ -49,7 +50,7 @@ namespace Idkmod.Items.Weapons.Guns
 			int numberProjectiles = 1;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5)); // 2 degree spread.
+				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(3)); // 2 degree spread.
 				type = ModContent.ProjectileType<idkmod.Projectiles.LongbowArrow>();
 				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 
