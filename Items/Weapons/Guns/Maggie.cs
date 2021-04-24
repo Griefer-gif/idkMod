@@ -51,9 +51,12 @@ namespace Idkmod.Items.Weapons.Guns
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5)); // 30 degree spread.
 																											   
 				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
-
+				
 
 			}
+			
+			//Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/BaneS1").WithVolume(.7f).WithPitchVariance(.5f));
+
 			return false; // return false because we don't want tmodloader to shoot projectile
 		}
 

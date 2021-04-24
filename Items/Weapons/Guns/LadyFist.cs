@@ -17,7 +17,7 @@ namespace Idkmod.Items.Weapons.Guns
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Lady fist");
-			Tooltip.SetDefault("+200% critical damage");
+			Tooltip.SetDefault("+800% critical damage");
 		}
 
 		public override void SetDefaults()
@@ -35,7 +35,7 @@ namespace Idkmod.Items.Weapons.Guns
 			item.noMelee = true; //so the item's animation doesn't do damage
 			item.knockBack = 4; // Sets the item's knockback. Note that projectiles shot by this weapon will use its and the used ammunition's knockback added together.
 			item.value = 10000; // how much the item sells for (measured in copper)
-			item.rare = ItemRarityID.Quest; // the color that the item's name will be in-game
+			item.rare = ItemRarityID.Cyan; // the color that the item's name will be in-game
 			item.UseSound = SoundID.Item11; // The sound that this item plays when used.
 			item.autoReuse = true; // if you can hold click to automatically use it again
 			item.shoot = ProjectileID.PurificationPowder; //idk why but all the guns in the vanilla source have this
@@ -50,38 +50,34 @@ namespace Idkmod.Items.Weapons.Guns
 			return !(player.itemAnimation < item.useAnimation - 2);
 		}
 
-		public override bool CanUseItem(Player player)
+		public override void HoldItem(Player player)
 		{
+			if(player.rangedCrit > 40)
+            {
+				player.rangedCrit /= 2;
+            }
+            else
+            {
+				player.rangedCrit = 20;
+            }
 			
-			return base.CanUseItem(player);
 		}
 
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			return false;
+			type = ModContent.ProjectileType<idkmod.Projectiles.LadyFistBullet>(); 
+			return true;
 		}
 
-		
-
-        public override void GetWeaponCrit(Player player, ref int crit)
-        {
-			
-        }
-
-        public override void HoldItem(Player player)
-        {
-			player.rangedCrit = 15;
-        }
-
-        public override Vector2? HoldoutOffset()
+		public override Vector2? HoldoutOffset()
 		{
 			return new Vector2(-2, 0);
 		}
 
         public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			tooltips.Add(new TooltipLine(mod, "", "Critical rate is set to 15% no matter what."));
-			tooltips.Add(new TooltipLine(mod, "", "'Fear the Swarm!'"));
+			tooltips.Add(new TooltipLine(mod, "", "crit rate is divided by 2, if below 20%, is set to 20%"));
+			tooltips.Add(new TooltipLine(mod, "", "'Love is a Lady Finger. True Love is a Lady Fist.'"));
 		}
 	}
 }

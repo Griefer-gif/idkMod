@@ -32,8 +32,8 @@ namespace Idkmod.Items.Weapons.Guns
 			item.useStyle = ItemUseStyleID.HoldingOut; 
 			item.noMelee = true;
 			item.knockBack = 4; 
-			item.value = 10000; 
-			item.rare = ItemRarityID.Green; 
+			item.value = 10000;
+			item.rare = ItemRarityID.Quest;
 			item.UseSound = SoundID.Item11; 
 			item.autoReuse = true;
 			item.shoot = ProjectileID.PurificationPowder; 

@@ -86,7 +86,7 @@ namespace idkmod.Mounts
 				return;
 			}
 			Rectangle rect = player.getRect();
-			Dust.NewDust(new Vector2(rect.X, rect.Y), rect.Width, rect.Height, 49);
+			Dust.NewDust(new Vector2(rect.X, rect.Y), rect.Width, rect.Height, DustID.Mythril);
 		}
 
 		// Since only a single instance of ModMountData ever exists, we can use player.mount._mountSpecificData to store additional data related to a specific mount.
