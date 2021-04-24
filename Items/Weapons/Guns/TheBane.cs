@@ -22,7 +22,7 @@ namespace Idkmod.Items.Weapons.Guns
 
 		public override void SetDefaults()
 		{
-			item.damage = 80;
+			item.damage = 100;
 			item.ranged = true;
 			item.width = 20;
 			item.height = 20;

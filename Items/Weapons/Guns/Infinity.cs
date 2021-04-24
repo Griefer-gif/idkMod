@@ -26,7 +26,7 @@ namespace Idkmod.Items.Weapons.Guns
 
 		public override void SetDefaults()
 		{
-			item.damage = 20; // Sets the item's damage. Note that projectiles shot by this weapon will use its and the used ammunition's damage added together.
+			item.damage = 5; // Sets the item's damage. Note that projectiles shot by this weapon will use its and the used ammunition's damage added together.
 			item.ranged = true; // sets the damage type to ranged
 			item.width = 20; // hitbox width of the item
 			item.height = 20; // hitbox height of the item

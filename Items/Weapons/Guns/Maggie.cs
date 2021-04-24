@@ -24,7 +24,7 @@ namespace Idkmod.Items.Weapons.Guns
 
 		public override void SetDefaults()
 		{
-			item.damage = 20; // Sets the item's damage. Note that projectiles shot by this weapon will use its and the used ammunition's damage added together.
+			item.damage = 15; // Sets the item's damage. Note that projectiles shot by this weapon will use its and the used ammunition's damage added together.
 			item.ranged = true; // sets the damage type to ranged
 			item.width = 20; // hitbox width of the item
 			item.height = 20; // hitbox height of the item
@@ -47,12 +47,11 @@ namespace Idkmod.Items.Weapons.Guns
 			int numberProjectiles = 6;
 			for (int i = 1; i < numberProjectiles + 1; i++)
 			{
-				damage = (damage * 3) / (i * 2);
+				damage = (damage * 4) / (i * 2);
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5)); // 30 degree spread.
 																											   
 				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 				
-
 			}
 			
 			//Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/Custom/BaneS1").WithVolume(.7f).WithPitchVariance(.5f));
