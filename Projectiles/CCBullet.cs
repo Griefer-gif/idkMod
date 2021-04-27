@@ -45,6 +45,9 @@ namespace idkmod.Projectiles
 				Color color = projectile.GetAlpha(lightColor) * ((float)(projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
 				spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0f);
 			}
+
+			Dust.NewDust(projectile.oldPosition, projectile.width, projectile.height, DustID.YellowTorch, projectile.oldVelocity.X, projectile.oldVelocity.Y, 0, Color.White, 0.3f);
+
 			return true;
 		}
 

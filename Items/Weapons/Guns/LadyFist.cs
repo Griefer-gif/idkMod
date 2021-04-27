@@ -77,7 +77,9 @@ namespace Idkmod.Items.Weapons.Guns
         public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			tooltips.Add(new TooltipLine(mod, "", "crit rate is divided by 2, if below 20%, is set to 20%"));
-			tooltips.Add(new TooltipLine(mod, "", "'Love is a Lady Finger. True Love is a Lady Fist.'"));
+			var quote = new TooltipLine(mod, "", "'Love is a Lady Finger. True Love is a Lady Fist.'");
+			quote.overrideColor = Color.Red;
+			tooltips.Add(quote);
 		}
 	}
 }

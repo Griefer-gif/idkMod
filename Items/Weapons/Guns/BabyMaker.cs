@@ -57,6 +57,7 @@ namespace Idkmod.Items.Weapons.Guns
 				item.reuseDelay = 5;
 				shotNum = 0;
 			}
+
 			shotNum++;
 
 			return true;
@@ -64,7 +65,9 @@ namespace Idkmod.Items.Weapons.Guns
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			tooltips.Add(new TooltipLine(mod, "", "'Who's a widdle gunny wunny!!! '"));
+			var quote = new TooltipLine(mod, "", "'Who's a widdle gunny wunny!!! '");
+			quote.overrideColor = Color.Red;
+			tooltips.Add(quote);
 		}
 	}
 }

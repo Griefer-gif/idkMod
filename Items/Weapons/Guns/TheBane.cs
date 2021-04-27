@@ -71,8 +71,9 @@ namespace Idkmod.Items.Weapons.Guns
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			//tooltips.Add(new TooltipLine(mod, "", "Crit damage is doubled"));
-			//tooltips.Add(new TooltipLine(mod, "", "'Ceci n'est pas une sniper rifle!'"));
+			var quote = new TooltipLine(mod, "", "'It's closer than you think! (no it isn't)'");
+			quote.overrideColor = Color.Red;
+			tooltips.Add(quote);
 		}
 	}
 }

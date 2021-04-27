@@ -54,7 +54,7 @@ namespace Idkmod.Items.Weapons.Guns
 			{
 				for (int i = 0; i < 10; i++)
                 {
-					Dust.NewDust(position, 5, 5, 127, speedX, speedY, 0, Color.Green, 1.1f);
+					Dust.NewDust(position, 5, 5, DustID.Flare, speedX, speedY, 0, Color.Green, 1.1f);
 				}
 
 				item.shootSpeed = 0.1f;
@@ -72,7 +72,9 @@ namespace Idkmod.Items.Weapons.Guns
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			tooltips.Add(new TooltipLine(mod, "", "Converted bullets have a very slow speed"));
-			tooltips.Add(new TooltipLine(mod, "", "'Fear the Swarm!'"));
+			var quote = new TooltipLine(mod, "", "'Abt Natural'");
+			quote.overrideColor = Color.Red;
+			tooltips.Add(quote);
 		}
 	}
 }

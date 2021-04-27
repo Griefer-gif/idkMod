@@ -1,8 +1,10 @@
 ﻿using Idkmod;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ModLoader.IO;
 using Terraria.Utilities;
 
 namespace idkmod.Items.Accessories.Shields
@@ -14,6 +16,9 @@ namespace idkmod.Items.Accessories.Shields
 		private const int RechargeRate = 2;
 		public bool GotHit = true;
 		public int hitTimer = 0;
+
+		public override bool CloneNewInstances => true;
+
 		public override void SetStaticDefaults()
 		{
 			Tooltip.SetDefault("Adds a +0.5 damage multiplier if the shield is full");
@@ -21,8 +26,9 @@ namespace idkmod.Items.Accessories.Shields
 
 		public override void SetDefaults()
 		{
-			item.width = 20;
-			item.height = 20;
+			item.width = 10;
+			item.height = 10;
+			item.scale = 0.5f;
 			item.accessory = true;
 			item.value = Item.sellPrice(silver: 30);
 			item.rare = ItemRarityID.Quest;
@@ -107,9 +113,26 @@ namespace idkmod.Items.Accessories.Shields
 		
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
+			var quote = new TooltipLine(mod, "", "'Float like a butterfly…'");
+			quote.overrideColor = Color.Red;
+			var chargeTooltip = new TooltipLine(mod, "chargeToolTip", $"shield current health: {CurrentHealth} ");
 			tooltips.Add(new TooltipLine(mod, "", "Shield maximum capacity: 100  " ));
 			tooltips.Add(new TooltipLine(mod, "", "Shield recharge rate: 2  "));
-			tooltips.Add(new TooltipLine(mod, "", "'Float like a butterfly…'"));
+			tooltips.Add(chargeTooltip);
+			tooltips.Add(quote);
+		}
+
+		public override TagCompound Save()
+		{
+			return new TagCompound
+			{
+				[nameof(CurrentHealth)] = CurrentHealth,
+			};
+		}
+
+		public override void Load(TagCompound tag)
+		{
+			CurrentHealth = tag.GetInt(nameof(CurrentHealth));
 		}
 
 	}

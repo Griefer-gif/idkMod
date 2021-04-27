@@ -49,16 +49,6 @@ namespace Idkmod.Items.Weapons.Guns
 			return new Vector2(-8, 0);
 		}
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-        {
-			return true;
-        }
-
-        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
-        {
-			
-        }
-
         public override void HoldItem(Player player)
         {
 			player.armorPenetration = 9999;
@@ -66,7 +56,9 @@ namespace Idkmod.Items.Weapons.Guns
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			tooltips.Add(new TooltipLine(mod, "", "'A true friend can penetrate any barrier.'"));
+			var quote = new TooltipLine(mod, "", "'A true friend can penetrate any barrier.'");
+			quote.overrideColor = Color.Red;
+			tooltips.Add(quote);
 		}
 
 

@@ -67,7 +67,9 @@ namespace Idkmod.Items.Weapons.Guns
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			//tooltips.Add(new TooltipLine(mod, "", "Converts Musket balls into high speed bullets."));
-			tooltips.Add(new TooltipLine(mod, "", "'Monty's wife don't take no guff.'"));
+			var quote = new TooltipLine(mod, "", "'Monty's wife don't take no guff.'");
+			quote.overrideColor = Color.Red;
+			tooltips.Add(quote);
 		}
 
 	}

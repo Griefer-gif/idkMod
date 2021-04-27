@@ -63,7 +63,9 @@ namespace Idkmod.Items.Weapons.Guns
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			tooltips.Add(new TooltipLine(mod, "", "Ignores ammo type"));
-			tooltips.Add(new TooltipLine(mod, "", "'Let's just ping everyone all at once.'"));
+			var quote = new TooltipLine(mod, "", "'Let's just ping everyone all at once.'");
+			quote.overrideColor = Color.Red;
+			tooltips.Add(quote);
 		}
 	}
 }

@@ -66,7 +66,9 @@ namespace Idkmod.Items.Weapons.Guns
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			tooltips.Add(new TooltipLine(mod, "", "decreased bullet damage."));
-			tooltips.Add(new TooltipLine(mod, "", "'blagaga'"));
+			var quote = new TooltipLine(mod, "", "'blagaga'");
+			quote.overrideColor = Color.Red;
+			tooltips.Add(quote);
 		}
 
         public override void HoldItem(Player player)

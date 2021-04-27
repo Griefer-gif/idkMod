@@ -105,7 +105,9 @@ namespace Idkmod.Items.Weapons.Guns
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			tooltips.Add(new TooltipLine(mod, "", "Converts Musket balls into high speed bullets."));
-			tooltips.Add(new TooltipLine(mod, "", "'It's closer than you think! (no it isn't)'"));
+			var quote = new TooltipLine(mod, "", "'It's closer than you think! (no it isn't)'");
+			quote.overrideColor = Color.Red;
+			tooltips.Add(quote);
 		}
 	}
 }
