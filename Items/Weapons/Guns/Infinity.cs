@@ -54,6 +54,13 @@ namespace Idkmod.Items.Weapons.Guns
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 
+
+			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 20f;
+			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
+			{
+				position += muzzleOffset;
+			}
+
 			Vector2 perturbedSpeed = new Vector2(speedX, speedY);
 			Vector2 perturbedSpeed2 = new Vector2(speedX, speedY);
 
@@ -61,12 +68,6 @@ namespace Idkmod.Items.Weapons.Guns
 			{
 				type = ProjectileID.BulletHighVelocity; // or ProjectileID.FireArrow;
 			}
-
-			//Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 25f;
-			//if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
-			//{
-			//	position += muzzleOffset;
-			//}
 			
 			if (num <= -3)
 			{
