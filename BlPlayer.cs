@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -11,45 +12,63 @@ namespace Idkmod
 {
     public class BlPlayer : Terraria.ModLoader.ModPlayer
     {
-        public float shieldMaxHealth = 0;
-        public float shieldCHealth = 0;
-        public float shieldRRate = 0;
+        public int shieldMaxHealth;
+        public int shieldCHealth;
         public bool gotHit;
-        public float shieldTimer = 0;
-
+        public int HitTimer;
+        public int shieldsEquipped;
         public const int maxUses = 1;
         public int LifeCrystal;
 
+        public override bool CloneNewInstances => true;
 
-        public override void Hurt(bool pvp, bool quiet, double damage, int hitDirection, bool crit)
+        public override void PreUpdate()
         {
-            shieldCHealth -= (float)damage;
-            if(shieldCHealth <= 0)
+            if (shieldsEquipped <= 0)
+            {
+                HitTimer = 0;
+                shieldCHealth = 0;
+            }
+        }
+
+        public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
+        {
+            //-----------------------------------
+            //shield recharge code
+            gotHit = true;
+
+            HitTimer = 0;
+
+            if (shieldCHealth < 1)
             {
                 shieldCHealth = 0;
             }
-            gotHit = true;
-        }
-        public override void OnHitByNPC(NPC npc, int damage, bool crit)
-        {
-            npc.AddBuff(39, 1000);
-        }
 
-        public override void ModifyHitByNPC(NPC npc, ref int damage, ref bool crit)
-        {
-            if (shieldCHealth > 0)
+            if (shieldCHealth >= 1)
             {
-                damage = -1;
+                shieldCHealth -= damage;
+
+                if (shieldCHealth < 1)
+                {
+                    shieldCHealth = 0;
+                }
+
+                return false;
             }
+            else
+            {
+                gotHit = true;
+            }
+
+            //----------------------------
+            return true;
         }
 
         public override void ResetEffects()
         {
             shieldMaxHealth = 0;
-            shieldCHealth = 0;
-            shieldRRate = 0;
-            gotHit = false;
-            shieldTimer = 0;
+            shieldsEquipped = 0;
+            
             player.statLifeMax2 += LifeCrystal * 25;
         }
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
@@ -62,7 +81,9 @@ namespace Idkmod
         {
             return new TagCompound
             {
-                {"LifeCrystal",LifeCrystal }
+                //{"LifeCrystal",LifeCrystal }
+                [nameof(LifeCrystal)] = LifeCrystal,
+
             };
         }
 
