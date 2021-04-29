@@ -7,11 +7,11 @@ using Terraria.ModLoader;
 
 namespace idkmod.Projectiles
 {
-	public class SlaggaBullet : ModProjectile
+	public class FireBullet : ModProjectile
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("SlaggaBullet");     //The English name of the projectile
+			DisplayName.SetDefault("FireBullet");     //The English name of the projectile
 			ProjectileID.Sets.TrailCacheLength[projectile.type] = 10;    //The length of old position to be recorded
 			ProjectileID.Sets.TrailingMode[projectile.type] = 0;        //The recording mode
 		}
@@ -45,13 +45,15 @@ namespace idkmod.Projectiles
 				Color color = projectile.GetAlpha(lightColor) * ((float)(projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
 				spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0f);
 			}
-			Dust.NewDust(projectile.oldPosition, 10, 10, DustID.PurpleTorch, projectile.oldVelocity.X, projectile.oldVelocity.Y, Scale: 0.8f);
+
+			Dust.NewDust(projectile.oldPosition, 10, 10, DustID.OrangeTorch, projectile.oldVelocity.X, projectile.oldVelocity.Y, Scale: 0.8f);
+
 			return true;
 		}
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			target.AddBuff(BuffID.Ichor, 600, false);
+			target.AddBuff(BuffID.OnFire, 600, false);
 		}
 
 		public override void Kill(int timeLeft)
