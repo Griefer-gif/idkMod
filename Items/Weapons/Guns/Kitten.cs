@@ -57,10 +57,18 @@ namespace Idkmod.Items.Weapons.Guns
 
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
+			timer++;
+			if (timer == 5)
+			{
+				player.statLife += 1; 
+				timer = 0;
+			}
+
+
 			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 35f;
 			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
 			{
-
+				
 				position += muzzleOffset;
 			}
 
@@ -84,7 +92,7 @@ namespace Idkmod.Items.Weapons.Guns
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			//tooltips.Add(new TooltipLine(mod, "", "Fires fire bullets"));
+			tooltips.Add(new TooltipLine(mod, "", "Heals 1 HP every 5 shots"));
 
 			var quote = new TooltipLine(mod, "", "'We're all mad here. I'm mad. You're mad.'");
 			quote.overrideColor = Color.Red;
