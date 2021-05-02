@@ -45,7 +45,8 @@ namespace idkmod.Projectiles
 				Color color = projectile.GetAlpha(lightColor) * ((float)(projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
 				spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0f);
 			}
-			Dust.NewDust(projectile.oldPosition, 10, 10, DustID.PurpleTorch, projectile.oldVelocity.X, projectile.oldVelocity.Y, Scale: 0.8f);
+			var dustIndex = Dust.NewDust(projectile.oldPosition, 10, 10, DustID.PurpleTorch, projectile.oldVelocity.X, projectile.oldVelocity.Y, Scale: 0.8f);
+			Main.dust[dustIndex].noGravity = true;
 			return true;
 		}
 
