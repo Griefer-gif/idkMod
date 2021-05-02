@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
+using idkmod.Projectiles.
 
 namespace Idkmod.Items.Weapons.Guns
 {
@@ -64,16 +65,20 @@ namespace Idkmod.Items.Weapons.Guns
 				timer = 0;
 			}
 
-			type = ModContent.ProjectileType<idkmod.Projectiles.FireBullet>();
+			if(type == ProjectileID.ChlorophyteBullet)
+            {
+				type = ModContent.ProjectileType<FireBullet>();
+			}
+			
 			Vector2 velocity = new Vector2(speedX, speedY);
 			Projectile.NewProjectile(position, velocity, type, damage, knockBack, player.whoAmI);
 
-			return false;
+			return true;
         }
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			tooltips.Add(new TooltipLine(mod, "", "Fires fire bullets"));
+			tooltips.Add(new TooltipLine(mod, "", "Fires incendiary bullets"));
 
 			var quote = new TooltipLine(mod, "", "'...but when I'm bad, I'm better.'");
 			quote.overrideColor = Color.Red;

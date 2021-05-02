@@ -47,12 +47,12 @@ namespace Idkmod.Items.Weapons.Guns
 
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-			float numberProjectiles = 3; // 3, 4, or 5 shots
+			float numberProjectiles = 3;
 			float rotation = MathHelper.ToRadians(2);
 			position += Vector2.Normalize(new Vector2(speedX, speedY)) * 45f;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
-				type = ModContent.ProjectileType<idkmod.Projectiles.SlaggaBullet>();
+				type = ModContent.ProjectileType<idkmod.Projectiles.SlaggBullet>();
 				damage = damage / 2;
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * .2f; // Watch out for dividing by 0 if there is only 1 projectile.
 				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);

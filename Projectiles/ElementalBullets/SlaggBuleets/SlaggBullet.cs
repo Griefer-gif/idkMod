@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace idkmod.Projectiles
 {
-	public class SlaggaBullet : ModProjectile
+	public class SlaggBullet : ModProjectile
 	{
 		public override void SetStaticDefaults()
 		{
