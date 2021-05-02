@@ -22,8 +22,8 @@ namespace Idkmod.Items.Weapons.Guns
 		{
 			item.damage = 50; // Sets the item's damage. Note that projectiles shot by this weapon will use its and the used ammunition's damage added together.
 			item.ranged = true; // sets the damage type to ranged
-			item.width = 40; // hitbox width of the item
-			item.height = 20; // hitbox height of the item
+			item.width = 10; // hitbox width of the item
+			item.height = 10; // hitbox height of the item
 			item.useTime = 1; // The item's use time in ticks (60 ticks == 1 second.)
 			item.useAnimation = 1; // The length of the item's use animation in ticks (60 ticks == 1 second.)
 			item.reuseDelay = 30;
@@ -42,6 +42,9 @@ namespace Idkmod.Items.Weapons.Guns
 
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
+
+			
+
 			type = ModContent.ProjectileType<idkmod.Projectiles.Harold.Harold1>();
 			float numberProjectiles = 3;
 			float rotation = MathHelper.ToRadians(2);
