@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
+using idkmod.Projectiles.ElementalBullets.FireBullets;
 
 namespace Idkmod.Items.Weapons.Guns
 {
@@ -57,6 +58,8 @@ namespace Idkmod.Items.Weapons.Guns
 
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
+			int typeElement;
+
 			timer++;
 			if (timer == 5)
 			{
@@ -64,6 +67,14 @@ namespace Idkmod.Items.Weapons.Guns
 				timer = 0;
 			}
 
+			if (type == ProjectileID.ChlorophyteBullet)
+			{
+				typeElement = ModContent.ProjectileType<FireBulletHoming>();
+			}
+			else
+			{
+				typeElement = ModContent.ProjectileType<FireBullet>();
+			}
 
 			Vector2 muzzleOffset = Vector2.Normalize(new Vector2(speedX, speedY)) * 35f;
 			if (Collision.CanHit(position, 0, 0, position + muzzleOffset, 0, 0))
@@ -72,22 +83,16 @@ namespace Idkmod.Items.Weapons.Guns
 				position += muzzleOffset;
 			}
 
-			type = ModContent.ProjectileType<idkmod.Projectiles.FireBullet>();
-			int numberProjectiles = 2; //og = 15
+			int numberProjectiles = 3; //og = 15
 			for (int i = 0; i < numberProjectiles; i++)
 			{
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(10)); // 2 degree spread.
-				type = ModContent.ProjectileType<idkmod.Projectiles.FireBullet>();
+				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, typeElement, damage, knockBack, player.whoAmI);
 				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
-
 
 			}
 
-			
-			//Vector2 velocity = new Vector2(speedX, speedY);
-			//Projectile.NewProjectile(position, velocity, type, damage, knockBack, player.whoAmI);
-
-			return true;
+			return false;
 		}
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)

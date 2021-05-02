@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
+using idkmod.Projectiles;
 
 namespace Idkmod.Items.Weapons.Guns
 {
@@ -42,14 +43,20 @@ namespace Idkmod.Items.Weapons.Guns
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
+			if (type == ProjectileID.ChlorophyteBullet)
+			{
+				type = ModContent.ProjectileType<CCBulletHoming>();
+			}
+			else
+			{
+				type = ModContent.ProjectileType<CCBullet>();
+			}
+
 			int numberProjectiles = 8; //og = 15
 			for (int i = 0; i < numberProjectiles; i++)
 			{
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(2)); // 2 degree spread.
-				type = ModContent.ProjectileType<idkmod.Projectiles.CCBullet>();                                                                                                
+				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(2)); // 2 degree spread.                                                                                               
 				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
-				
-				
 			}
 			
 			return false;
@@ -62,7 +69,7 @@ namespace Idkmod.Items.Weapons.Guns
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			tooltips.Add(new TooltipLine(mod, "", "Ignores ammo type"));
+			//tooltips.Add(new TooltipLine(mod, "", "Ignores ammo type"));
 			var quote = new TooltipLine(mod, "", "'Let's just ping everyone all at once.'");
 			quote.overrideColor = Color.Red;
 			tooltips.Add(quote);

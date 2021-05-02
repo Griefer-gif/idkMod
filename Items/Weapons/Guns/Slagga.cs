@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
+using idkmod.Projectiles.ElementalBullets.SlaggBullets;
 
 namespace Idkmod.Items.Weapons.Guns
 {
@@ -47,18 +48,26 @@ namespace Idkmod.Items.Weapons.Guns
 
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
+			int typeElement;
+
 			float numberProjectiles = 3;
 			float rotation = MathHelper.ToRadians(2);
 			position += Vector2.Normalize(new Vector2(speedX, speedY)) * 45f;
 			for (int i = 0; i < numberProjectiles; i++)
 			{
-				type = ModContent.ProjectileType<idkmod.Projectiles.SlaggBullet>();
+				if(type == ProjectileID.ChlorophyteBullet){
+					typeElement = ModContent.ProjectileType<SlaggBulletHoming>();
+				}
+				else
+				{
+					typeElement = ModContent.ProjectileType<SlaggBullet>();
+				}
+
 				damage = damage / 2;
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * .2f; // Watch out for dividing by 0 if there is only 1 projectile.
 				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, typeElement, damage, knockBack, player.whoAmI);
 			}
-
-			
 
 			return false;
 		}

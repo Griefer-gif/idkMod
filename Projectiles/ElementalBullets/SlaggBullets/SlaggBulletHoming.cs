@@ -4,19 +4,19 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace idkmod.Projectiles.ElementalBullets.FireBullets
+namespace idkmod.Projectiles.ElementalBullets.SlaggBullets
 {
-	public class FireBulletHoming : ModProjectile
+	public class SlaggBulletHoming : ModProjectile
 	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Incendiary bullet homing");
+			DisplayName.SetDefault("Slag bullet homing");
 		}
 
 		public override void SetDefaults()
 		{
 			projectile.CloneDefaults(ProjectileID.ChlorophyteBullet);
-			
+
 			aiType = ProjectileID.ChlorophyteBullet;
 		}
 
@@ -31,7 +31,7 @@ namespace idkmod.Projectiles.ElementalBullets.FireBullets
 				spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0f);
 			}
 
-			var dustIndex = Dust.NewDust(projectile.oldPosition, 10, 10, DustID.OrangeTorch, projectile.oldVelocity.X, projectile.oldVelocity.Y, Scale: 0.8f);
+			var dustIndex = Dust.NewDust(projectile.oldPosition, 10, 10, DustID.PurpleTorch, projectile.oldVelocity.X, projectile.oldVelocity.Y, Scale: 0.8f);
 			Main.dust[dustIndex].noGravity = true;
 			return true;
 		}
@@ -47,10 +47,10 @@ namespace idkmod.Projectiles.ElementalBullets.FireBullets
 			return true;
 		}
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
-        {
-			target.AddBuff(BuffID.OnFire, 600, false);
+		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		{
+			target.AddBuff(BuffID.Ichor, 600, false);
 		}
 
-    }
+	}
 }

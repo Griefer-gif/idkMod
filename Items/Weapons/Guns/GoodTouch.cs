@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
-using idkmod.Projectiles.
+using idkmod.Projectiles.ElementalBullets.FireBullets;
 
 namespace Idkmod.Items.Weapons.Guns
 {
@@ -58,6 +58,8 @@ namespace Idkmod.Items.Weapons.Guns
 
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
+			int typeElement;
+
 			timer++;
 			if(timer == 3)
             {
@@ -67,11 +69,15 @@ namespace Idkmod.Items.Weapons.Guns
 
 			if(type == ProjectileID.ChlorophyteBullet)
             {
-				type = ModContent.ProjectileType<FireBullet>();
+				typeElement = ModContent.ProjectileType <FireBulletHoming>();
+			}
+            else
+            {
+				typeElement = ModContent.ProjectileType<FireBullet>();
 			}
 			
 			Vector2 velocity = new Vector2(speedX, speedY);
-			Projectile.NewProjectile(position, velocity, type, damage, knockBack, player.whoAmI);
+			Projectile.NewProjectile(position, velocity, typeElement, damage, knockBack, player.whoAmI);
 
 			return true;
         }
