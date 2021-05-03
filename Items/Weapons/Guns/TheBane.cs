@@ -12,7 +12,6 @@ namespace Idkmod.Items.Weapons.Guns
 {
 	class TheBane : ModItem
 	{
-		private bool hold;
 
 		public override void SetStaticDefaults()
 		{
@@ -40,7 +39,6 @@ namespace Idkmod.Items.Weapons.Guns
 			item.shoot = ProjectileID.PurificationPowder;
 			item.shootSpeed = 16f;
 			item.useAmmo = AmmoID.Bullet;
-			hold = false;
 		}
 
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
@@ -71,7 +69,7 @@ namespace Idkmod.Items.Weapons.Guns
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			var quote = new TooltipLine(mod, "", "'It's closer than you think! (no it isn't)'");
+			var quote = new TooltipLine(mod, "", "'in Spain, stays mainly on the plain.'");
 			quote.overrideColor = Color.Red;
 			tooltips.Add(quote);
 		}

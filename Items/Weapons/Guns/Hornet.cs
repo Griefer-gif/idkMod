@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
+using idkmod.Projectiles.ElementalBullets.CorrosiveBullets;
 
 namespace Idkmod.Items.Weapons.Guns
 {
@@ -80,24 +81,34 @@ namespace Idkmod.Items.Weapons.Guns
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 			var R = new Random();
+			int typeElement;
 			// Fix the speedX and Y to point them horizontally.
+
+
+			if (type == ProjectileID.ChlorophyteBullet)
+			{
+				typeElement = ModContent.ProjectileType<CorrosiveBulletHoming>();
+			}
+			else
+			{
+				typeElement = ModContent.ProjectileType<CorrosiveBullet>();
+			}
 			
+
 			// Add random Rotation
 			Vector2 speed = new Vector2(speedX, speedY);
 			if (player.altFunctionUse == 2)
 			{
 				speed = speed.RotatedByRandom(MathHelper.ToRadians(R.Next(30)));
-				
-				if (type == ProjectileID.Bullet) // or ProjectileID.WoodenArrowFriendly
-				{
-					type = ProjectileID.CursedBullet; // or ProjectileID.FireArrow;
-				}
 			}
 					
 			speedX = speed.X;
 			speedY = speed.Y;
-			
-			return true;
+
+			Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
+			Projectile.NewProjectile(position.X, position.Y, speedX, speedY, typeElement, damage, knockBack, player.whoAmI);
+
+			return false;
 		}
 
 		public override Vector2? HoldoutOffset()

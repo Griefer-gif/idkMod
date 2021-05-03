@@ -5,9 +5,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace idkmod.Projectiles.ElementalBullets.FireBullets
+namespace idkmod.Projectiles.ElementalBullets.CorrosiveBullets
 {
-	public class FireBullet : ModProjectile
+	public class CorrosiveBullet : ModProjectile
 	{
 		public override void SetStaticDefaults()
 		{
@@ -32,7 +32,7 @@ namespace idkmod.Projectiles.ElementalBullets.FireBullets
 			projectile.tileCollide = true;          //Can the projectile collide with tiles?
 			projectile.extraUpdates = 1;            //Set to above 0 if you want the projectile to update multiple time in a frame
 			aiType = ProjectileID.Bullet;           //Act exactly like default Bullet
-		
+
 		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
@@ -45,7 +45,7 @@ namespace idkmod.Projectiles.ElementalBullets.FireBullets
 				spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0f);
 			}
 
-			var dustIndex = Dust.NewDust(projectile.oldPosition, 10, 10, DustID.OrangeTorch, projectile.oldVelocity.X, projectile.oldVelocity.Y, Scale: 0.8f);
+			var dustIndex = Dust.NewDust(projectile.oldPosition, 10, 10, DustID.GreenTorch, projectile.oldVelocity.X, projectile.oldVelocity.Y, Scale: 0.8f);
 			Main.dust[dustIndex].noGravity = true;
 			return true;
 		}
@@ -57,8 +57,7 @@ namespace idkmod.Projectiles.ElementalBullets.FireBullets
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			//target.AddBuff(ModContent.BuffType<Buffs.Electrocuted>(), 120, false);
-			target.AddBuff(ModContent.BuffType<Buffs.Burning>(), 120, false);
+			target.AddBuff(ModContent.BuffType<Buffs.Melting>(), 120, false);
 		}
 
 		public override void Kill(int timeLeft)
