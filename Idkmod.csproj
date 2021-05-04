@@ -15,7 +15,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Projectiles\ElementalBullets\ExplosiveBullets\" />
-    <Folder Include="Projectiles\ElementalBullets\ShockBullets\" />
     <Folder Include="Sounds\Item\" />
   </ItemGroup>
 </Project>

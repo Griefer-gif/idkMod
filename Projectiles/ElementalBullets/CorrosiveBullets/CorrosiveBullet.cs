@@ -9,6 +9,7 @@ namespace idkmod.Projectiles.ElementalBullets.CorrosiveBullets
 {
 	public class CorrosiveBullet : ModProjectile
 	{
+		
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("FireBullet");     //The English name of the projectile
@@ -57,7 +58,12 @@ namespace idkmod.Projectiles.ElementalBullets.CorrosiveBullets
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			target.AddBuff(ModContent.BuffType<Buffs.Melting>(), 120, false);
+			Random r = new Random();
+			if (r.Next(3) == 0)
+			{
+				target.AddBuff(ModContent.BuffType<Buffs.Melting>(), 120, false);
+			}
+			
 		}
 
 		public override void Kill(int timeLeft)

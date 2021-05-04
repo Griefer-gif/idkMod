@@ -45,7 +45,7 @@ namespace idkmod.Projectiles.Harold
 			//	spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0f);
 			//}
 
-			int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, 55, 0f, 0f, 10, default(Color), 1f);
+			int dustIndex = Dust.NewDust(new Vector2(projectile.position.X, projectile.position.Y), projectile.width, projectile.height, DustID.Pixie, 0f, 0f, 10, default(Color), 1f);
 			Main.dust[dustIndex].noGravity = true;
 
 			return true;

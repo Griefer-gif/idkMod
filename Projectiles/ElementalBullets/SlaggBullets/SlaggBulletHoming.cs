@@ -49,7 +49,7 @@ namespace idkmod.Projectiles.ElementalBullets.SlaggBullets
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			target.AddBuff(BuffID.Ichor, 600, false);
+			target.AddBuff(ModContent.BuffType<Buffs.Burning>(), 600, false);
 		}
 
 	}

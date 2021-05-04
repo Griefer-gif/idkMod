@@ -1,4 +1,5 @@
 ﻿using Idkmod;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
 using Terraria.ID;
@@ -16,7 +17,7 @@ namespace idkmod.Items.Accessories.Shields
 		public int hitTimer = 0;
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Adds 100 health but has no shield capacity");
+			Tooltip.SetDefault("Adds 150 health but has no shield capacity");
 		}
 
 		public override void SetDefaults()
@@ -99,7 +100,7 @@ namespace idkmod.Items.Accessories.Shields
 			//         Shield Effects
 			//------------------------------------------
 
-			player.statLifeMax2 += 30;
+			player.statLifeMax2 += 150;
 
 			//----------------------------------------------
 
@@ -108,9 +109,11 @@ namespace idkmod.Items.Accessories.Shields
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
+			var quote = new TooltipLine(mod, "", "'It takes more than that to kill a Bull Moose.'");
+			quote.overrideColor = Color.Red;
 			tooltips.Add(new TooltipLine(mod, "", "Shield maximum capacity: 0  "));
 			tooltips.Add(new TooltipLine(mod, "", "Shield recharge rate: 0  "));
-			tooltips.Add(new TooltipLine(mod, "", "'It takes more than that to kill a Bull Moose.'"));
+			tooltips.Add(quote);
 		}
 
 

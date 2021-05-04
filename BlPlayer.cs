@@ -18,7 +18,7 @@ namespace Idkmod
         public bool Slagg;
         public int shieldMaxHealth;
         public int shieldCHealth;
-        public bool gotHit;
+        public bool gotHit = true;
         public int HitTimer;
         public int shieldsEquipped;
         public const int maxUses = 1;
@@ -26,15 +26,6 @@ namespace Idkmod
         Random random = new Random();
 
         public override bool CloneNewInstances => true;
-
-        public override void PreUpdate()
-        {
-            if (shieldsEquipped <= 0)
-            {
-                HitTimer = 0;
-                shieldCHealth = 0;
-            }
-        }
 
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
@@ -44,21 +35,27 @@ namespace Idkmod
 
             HitTimer = 0;
 
-            if (shieldCHealth < 1)
+            if (shieldCHealth < 0)
             {
                 shieldCHealth = 0;
             }
 
             if (shieldCHealth >= 1)
             {
-                shieldCHealth -= damage;
+                int Cdamage = damage - player.statDefense;
+                if(Cdamage <= 0)
+                {
+                    Cdamage = 1;
+                }
 
-                if (shieldCHealth < 1)
+                shieldCHealth -= Cdamage;
+
+                if (shieldCHealth < 0)
                 {
                     shieldCHealth = 0;
                 }
 
-                return false;
+                damage = 1;
             }
             else
             {
@@ -71,6 +68,11 @@ namespace Idkmod
 
         public override void ResetEffects()
         {
+            if(shieldMaxHealth == 0)
+            {
+                HitTimer = 0;
+                shieldCHealth = 0;
+            }
             shieldMaxHealth = 0;
             shieldsEquipped = 0;
             Corrosive = false;

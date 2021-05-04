@@ -102,6 +102,7 @@ namespace Idkmod
 
             if(Fire)
             {
+
                 int DamageDB = 26;
                 if (Slagg)
                 {
