@@ -38,7 +38,7 @@ namespace Idkmod.Items.Weapons.Guns
 			item.knockBack = 4; // Sets the item's knockback. Note that projectiles shot by this weapon will use its and the used ammunition's knockback added together.
 			item.value = 10000; // how much the item sells for (measured in copper)
 			item.rare = ItemRarityID.Quest; // the color that the item's name will be in-game
-			item.UseSound = SoundID.Item11; // The sound that this item plays when used.
+			item.UseSound = SoundID.Item41; // The sound that this item plays when used.
 			item.autoReuse = true; // if you can hold click to automatically use it again
 			item.shoot = ProjectileID.PurificationPowder; //idk why but all the guns in the vanilla source have this
 			item.shootSpeed = 16f; // the speed of the projectile (measured in pixels per frame)
@@ -107,6 +107,7 @@ namespace Idkmod.Items.Weapons.Guns
 
 			Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI);
 			Projectile.NewProjectile(position.X, position.Y, speedX, speedY, typeElement, damage, knockBack, player.whoAmI);
+			Main.PlaySound(SoundID.Item41, position);
 
 			return false;
 		}

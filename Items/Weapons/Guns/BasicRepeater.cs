@@ -37,7 +37,7 @@ namespace Idkmod.Items.Weapons.Guns
 			item.knockBack = 4;
 			item.value = 10000; 
 			item.rare = ItemRarityID.White; 
-			item.UseSound = SoundID.Item11; 
+			item.UseSound = SoundID.Item41; 
 			item.autoReuse = true; 
 			item.shoot = ProjectileID.PurificationPowder; 
 			item.shootSpeed = 10f; 
@@ -61,6 +61,7 @@ namespace Idkmod.Items.Weapons.Guns
 			speedX = speed.X;
 			speedY = speed.Y;
 
+			Main.PlaySound(SoundID.Item41, position);
 			return true;
 		}
 

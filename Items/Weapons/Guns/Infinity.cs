@@ -93,6 +93,7 @@ namespace Idkmod.Items.Weapons.Guns
 			}
 
 			Projectile.NewProjectile(position.X, position.Y, perturbedSpeed2.X, perturbedSpeed2.Y, type, damage, knockBack, player.whoAmI);
+			Main.PlaySound(SoundID.Item11, position);
 
 			return true;
 		}
