@@ -58,7 +58,7 @@ namespace idkmod.Projectiles.ElementalBullets.FireBullets
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			if(r.Next(3) == 0)
+			if(r.Next(2) == 0)
             {
 				target.AddBuff(ModContent.BuffType<Buffs.Burning>(), 120, false);
 			}

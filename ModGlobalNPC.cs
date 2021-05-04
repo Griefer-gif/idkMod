@@ -206,7 +206,7 @@ namespace Idkmod
                 //Dust generation
                 if (Main.rand.Next(4) < 3)
                 {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, DustID.BlueFairy, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 1.5f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 277, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 3f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;
@@ -218,7 +218,7 @@ namespace Idkmod
                 }
 
                 //Color of the light that the npc emits
-                Lighting.AddLight(npc.position, 0.51f, 153f, 255f);
+                Lighting.AddLight(npc.position, 0.51f, 1.53f, 2.55f);
             }
 
             if(Fire)

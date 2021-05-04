@@ -59,7 +59,7 @@ namespace idkmod.Projectiles.ElementalBullets.CorrosiveBullets
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
 			Random r = new Random();
-			if (r.Next(3) == 0)
+			if (r.Next(2) == 0)
 			{
 				target.AddBuff(ModContent.BuffType<Buffs.Melting>(), 120, false);
 			}
