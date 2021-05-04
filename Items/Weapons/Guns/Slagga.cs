@@ -63,7 +63,7 @@ namespace Idkmod.Items.Weapons.Guns
 					typeElement = ModContent.ProjectileType<SlaggBullet>();
 				}
 
-				damage = damage / 2;
+				damage /= 2;
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * .2f; // Watch out for dividing by 0 if there is only 1 projectile.
 				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, typeElement, damage, knockBack, player.whoAmI);
@@ -75,9 +75,11 @@ namespace Idkmod.Items.Weapons.Guns
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			tooltips.Add(new TooltipLine(mod, "", "decreased bullet damage."));
-			var quote = new TooltipLine(mod, "", "'blagaga'");
-			quote.overrideColor = Color.Red;
-			tooltips.Add(quote);
+            var quote = new TooltipLine(mod, "", "'blagaga'")
+            {
+                overrideColor = Color.Red
+            };
+            tooltips.Add(quote);
 		}
 
         public override void HoldItem(Player player)

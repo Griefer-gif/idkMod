@@ -23,7 +23,7 @@ namespace Idkmod
         public int shieldsEquipped;
         public const int maxUses = 1;
         public int LifeCrystal;
-        Random random = new Random();
+        readonly Random random = new Random();
 
         public override bool CloneNewInstances => true;
 

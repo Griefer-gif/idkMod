@@ -9,7 +9,6 @@ namespace idkmod.Projectiles.ElementalBullets.FireBullets
 {
 	public class FireBulletHoming : FireBullet
 	{
-		Random r = new Random();
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Incendiary bullet homing");

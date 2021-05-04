@@ -9,7 +9,7 @@ namespace idkmod.Projectiles.ElementalBullets.FireBullets
 {
 	public class FireBullet : ModProjectile
 	{
-		Random r = new Random();
+        readonly Random r = new Random();
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("FireBullet");     //The English name of the projectile

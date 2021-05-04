@@ -64,10 +64,12 @@ namespace Idkmod.Items.Weapons.Guns
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			//tooltips.Add(new TooltipLine(mod, "", "Ignores ammo type"));
-			var quote = new TooltipLine(mod, "", "'Did I fire six shots, or only five? Three? Seven. Whatever.'");
-			quote.overrideColor = Color.Red;
-			tooltips.Add(quote);
+            //tooltips.Add(new TooltipLine(mod, "", "Ignores ammo type"));
+            var quote = new TooltipLine(mod, "", "'Did I fire six shots, or only five? Three? Seven. Whatever.'")
+            {
+                overrideColor = Color.Red
+            };
+            tooltips.Add(quote);
 		}
 	}
 }

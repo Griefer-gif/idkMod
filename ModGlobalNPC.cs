@@ -8,7 +8,7 @@ namespace Idkmod
 {
     class ModGlobalNPC : GlobalNPC
     {
-        Random random = new Random();
+        readonly Random random = new Random();
         public override bool InstancePerEntity => true;
 
         public bool Corrosive;
@@ -186,7 +186,7 @@ namespace Idkmod
                 //Dust generation
                 if (Main.rand.Next(4) < 3)
                 {
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, DustID.Venom, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default(Color), 1.5f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, DustID.Venom, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, default, 1.5f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;

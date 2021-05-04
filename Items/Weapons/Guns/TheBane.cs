@@ -69,9 +69,11 @@ namespace Idkmod.Items.Weapons.Guns
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			var quote = new TooltipLine(mod, "", "'in Spain, stays mainly on the plain.'");
-			quote.overrideColor = Color.Red;
-			tooltips.Add(quote);
+            var quote = new TooltipLine(mod, "", "'in Spain, stays mainly on the plain.'")
+            {
+                overrideColor = Color.Red
+            };
+            tooltips.Add(quote);
 		}
 	}
 }

@@ -119,9 +119,11 @@ namespace Idkmod.Items.Weapons.Guns
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			tooltips.Add(new TooltipLine(mod, "", "Converts musket balls to Cursed Bullets while bursting."));
-			var quote = new TooltipLine(mod, "", "'Fear the Swarm!'");
-			quote.overrideColor = Color.Red;
-			tooltips.Add(quote);
+            var quote = new TooltipLine(mod, "", "'Fear the Swarm!'")
+            {
+                overrideColor = Color.Red
+            };
+            tooltips.Add(quote);
 		}
 	}
 }

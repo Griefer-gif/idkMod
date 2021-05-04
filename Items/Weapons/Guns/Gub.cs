@@ -71,13 +71,19 @@ namespace Idkmod.Items.Weapons.Guns
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			tooltips.Add(new TooltipLine(mod, "", "Converted bullets have a very slow speed"));
-			var Element = new TooltipLine(mod, "", "Corrosive weapon");
-			Element.overrideColor = Color.Green;
-			var ElementE = new TooltipLine(mod, "", "Corrosion damage scales with low enemy health");
-			ElementE.overrideColor = Color.Green;
-			var quote = new TooltipLine(mod, "", "'Abt Natural'");
-			quote.overrideColor = Color.Red;
-			tooltips.Add(Element);
+            var Element = new TooltipLine(mod, "", "Corrosive weapon")
+            {
+                overrideColor = Color.Green
+            };
+            var ElementE = new TooltipLine(mod, "", "Corrosion damage scales with low enemy health")
+            {
+                overrideColor = Color.Green
+            };
+            var quote = new TooltipLine(mod, "", "'Abt Natural'")
+            {
+                overrideColor = Color.Red
+            };
+            tooltips.Add(Element);
 			tooltips.Add(ElementE);
 			tooltips.Add(quote);
 		}

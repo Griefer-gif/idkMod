@@ -99,9 +99,11 @@ namespace Idkmod.Items.Weapons.Guns
 		{
 			tooltips.Add(new TooltipLine(mod, "", "Heals 1 HP every 5 shots"));
 
-			var quote = new TooltipLine(mod, "", "'We're all mad here. I'm mad. You're mad.'");
-			quote.overrideColor = Color.Red;
-			tooltips.Add(quote);
+            var quote = new TooltipLine(mod, "", "'We're all mad here. I'm mad. You're mad.'")
+            {
+                overrideColor = Color.Red
+            };
+            tooltips.Add(quote);
 		}
 
 

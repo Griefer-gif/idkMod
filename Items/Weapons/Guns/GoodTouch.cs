@@ -86,9 +86,11 @@ namespace Idkmod.Items.Weapons.Guns
 		{
 			tooltips.Add(new TooltipLine(mod, "", "Fires incendiary bullets"));
 
-			var quote = new TooltipLine(mod, "", "'...but when I'm bad, I'm better.'");
-			quote.overrideColor = Color.Red;
-			tooltips.Add(quote);
+            var quote = new TooltipLine(mod, "", "'...but when I'm bad, I'm better.'")
+            {
+                overrideColor = Color.Red
+            };
+            tooltips.Add(quote);
 		}
 
 
