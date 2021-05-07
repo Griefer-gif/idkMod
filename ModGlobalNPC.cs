@@ -15,6 +15,7 @@ namespace Idkmod
         public bool Fire;
         public bool Shock;
         public bool Slagg;
+        public bool SEbuff;
 
         public override void ResetEffects(NPC npc)
         {
@@ -26,7 +27,6 @@ namespace Idkmod
 
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
-            
             if (Corrosive)
             {
                 int DamageDB = 20;

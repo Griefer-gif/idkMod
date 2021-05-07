@@ -1,22 +1,35 @@
-using IL.Terraria;
+
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Graphics;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using Terraria;
+using Terraria.GameContent.Dyes;
+using Terraria.GameContent.UI;
+using Terraria.Graphics.Effects;
+using Terraria.Graphics.Shaders;
+using Terraria.ID;
+using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.UI;
 
 namespace Idkmod
 {
-	public class Idkmod : Mod
-	{
-        //public static int ArmorPenetration(Player player, Projectile projectile, int defense, int penetration)
-        //{
-        //    int damage = 0;
-        //    if (defense >= penetration)
-        //    {
-        //        damage = projectile.damage + (int)(penetration * 0.5);
-        //    }
-        //    else
-        //    {
-        //        damage = projectile.damage + (int)(defense * 0.5);
-        //    }
-        //    return damage;
-        //}
+
+    public class Idkmod : Mod
+    {
+        public static ModHotKey DarkArtsHotKey;
+
+        public override void Load()
+        {
+            DarkArtsHotKey = RegisterHotKey("Dark Arts", "F");
+        }
+
+        public override void Unload()
+        {
+            DarkArtsHotKey = null;
+        }
     }
 }

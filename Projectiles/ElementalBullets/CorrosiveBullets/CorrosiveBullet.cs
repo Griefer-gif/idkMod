@@ -19,6 +19,7 @@ namespace idkmod.Projectiles.ElementalBullets.CorrosiveBullets
 
 		public override void SetDefaults()
 		{
+			projectile.damage = 0;
 
 			projectile.width = 8;               //The width of projectile hitbox
 			projectile.height = 8;              //The height of projectile hitbox

@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Terraria;
 using Terraria.DataStructures;
+using Terraria.GameInput;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
@@ -12,6 +14,8 @@ namespace Idkmod
 {
     public class BlPlayer : Terraria.ModLoader.ModPlayer
     {
+        public bool DarkArtsBuff;
+        public bool DarkArts;
         public bool Corrosive;
         public bool Fire;
         public bool Shock;
@@ -29,6 +33,12 @@ namespace Idkmod
 
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
+            //Dark Arts
+            if(DarkArtsBuff)
+            {
+                return false;
+            }
+
             //-----------------------------------
             //shield recharge code
             gotHit = true;
@@ -81,6 +91,14 @@ namespace Idkmod
             Slagg = false;
 
             player.statLifeMax2 += LifeCrystal * 25;
+        }
+
+        public override void ProcessTriggers(TriggersSet triggersSet)
+        {
+            if (Idkmod.DarkArtsHotKey.JustPressed && player.GetModPlayer<BlPlayer>().DarkArts)
+            {
+                player.AddBuff(ModContent.BuffType<Buffs.DarkArtsBuff>(), 600);
+            }
         }
 
         public override void UpdateDead()
