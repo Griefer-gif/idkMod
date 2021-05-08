@@ -35,10 +35,13 @@ namespace Idkmod.Items
 
         public override bool UseItem(Player player)
         {
-            Main.NewText("ShieldMaxHealth " + player.GetModPlayer<BlPlayer>().shieldMaxHealth
-                + " ShieldCHealth " + player.GetModPlayer<BlPlayer>().shieldCHealth
-                + " GotHit = " + player.GetModPlayer<BlPlayer>().gotHit);
-             return true;
+            Main.NewText("list start :");
+            foreach (NPC Npc in player.GetModPlayer<BlPlayer>().DANpcs)
+            {
+                Main.NewText(Npc.FullName);
+            }
+
+            return true;
         }
     }
 }

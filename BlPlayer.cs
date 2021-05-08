@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,9 @@ using Terraria.GameInput;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using idkmod.Projectiles;
+using idkmod.Buffs;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Idkmod
 {
@@ -16,6 +20,7 @@ namespace Idkmod
     {
         public bool DarkArtsBuff;
         public bool DarkArts;
+        public bool DarkArtsCD;
         public bool Corrosive;
         public bool Fire;
         public bool Shock;
@@ -27,7 +32,9 @@ namespace Idkmod
         public int shieldsEquipped;
         public const int maxUses = 1;
         public int LifeCrystal;
+        public List<NPC> DANpcs = new List<NPC>();
         readonly Random random = new Random();
+
 
         public override bool CloneNewInstances => true;
 
@@ -36,6 +43,7 @@ namespace Idkmod
             //Dark Arts
             if(DarkArtsBuff)
             {
+                player.immune = false;
                 return false;
             }
 
@@ -58,7 +66,11 @@ namespace Idkmod
                     Cdamage = 1;
                 }
 
-                shieldCHealth -= Cdamage;
+                if(!DarkArtsBuff)
+                {
+                    shieldCHealth -= Cdamage;
+                }
+                
 
                 if (shieldCHealth < 0)
                 {
@@ -78,6 +90,16 @@ namespace Idkmod
 
         public override void ResetEffects()
         {
+            if(!player.HasBuff(ModContent.BuffType<idkmod.Buffs.DarkArtsBuff>()))
+            {
+                for (int i = 0; i < DANpcs.Count; i++)
+                {
+
+                    int damage = (int)player.meleeDamageMult * 999;
+                    DANpcs[i].StrikeNPC(damage, 3, 1, crit: true);
+                }
+                DANpcs.Clear();
+            }
             if(shieldMaxHealth == 0)
             {
                 HitTimer = 0;
@@ -89,15 +111,35 @@ namespace Idkmod
             Fire = false;
             Shock = false;
             Slagg = false;
+            DarkArts = false;
+            DarkArtsBuff = false;
+            DarkArtsCD = false;
 
             player.statLifeMax2 += LifeCrystal * 25;
         }
 
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
-            if (Idkmod.DarkArtsHotKey.JustPressed && player.GetModPlayer<BlPlayer>().DarkArts)
+            if (Idkmod.DarkArtsHotKey.JustPressed && player.GetModPlayer<BlPlayer>().DarkArts && !DarkArtsBuff && !DarkArtsCD)
             {
-                player.AddBuff(ModContent.BuffType<Buffs.DarkArtsBuff>(), 600);
+                
+                player.AddBuff(ModContent.BuffType<idkmod.Buffs.DarkArtsBuff>(), 300);
+                player.AddBuff(ModContent.BuffType<DarkArtsCD>(), 1200);
+            }
+
+            if (Idkmod.DarkArtsHotKey.JustPressed && player.HasBuff(ModContent.BuffType<idkmod.Buffs.DarkArtsBuff>()) && DANpcs.Count > 0)
+            {
+
+                for(int i = 0; i < DANpcs.Count; i++)
+                {
+
+                    int damage = (int)player.meleeDamageMult * 999;
+                    DANpcs[i].StrikeNPC(damage, 3, 1, crit:true);
+                    
+                }
+
+                DANpcs.Clear();
+                player.ClearBuff(ModContent.BuffType<idkmod.Buffs.DarkArtsBuff>());
             }
         }
 
@@ -254,6 +296,16 @@ namespace Idkmod
                 [nameof(LifeCrystal)] = LifeCrystal,
 
             };
+        }
+
+        public override void DrawEffects(PlayerDrawInfo drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
+        {
+            if(DarkArtsBuff)
+            {
+                r = 0f;
+                g = 0f;
+                b = 0f;
+            }
         }
 
         public override void Load(TagCompound tag)

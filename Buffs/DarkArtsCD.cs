@@ -4,12 +4,12 @@ using Terraria.ModLoader;
 
 namespace idkmod.Buffs
 {
-    class DarkArtsBuff : ModBuff
-    {
+	class DarkArtsCD : ModBuff
+	{
 		public override void SetDefaults()
 		{
-			DisplayName.SetDefault("Dark arts");
-			Description.SetDefault("You are surrounded by shadows");
+			DisplayName.SetDefault("Overloaded!");
+			Description.SetDefault("Cannot use Dark Arts");
 			Main.debuff[Type] = true;
 			Main.pvpBuff[Type] = false;
 			Main.buffNoSave[Type] = true;
@@ -17,10 +17,7 @@ namespace idkmod.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.moveSpeed += 10f;
-			player.maxRunSpeed += 10f;
-			
-			player.GetModPlayer<BlPlayer>().DarkArtsBuff = true;
+			player.GetModPlayer<BlPlayer>().DarkArtsCD = true;
 		}
 
 	}

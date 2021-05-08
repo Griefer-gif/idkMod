@@ -3,6 +3,7 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using idkmod.Buffs;
 
 namespace Idkmod
 {
@@ -10,12 +11,21 @@ namespace Idkmod
     {
         readonly Random random = new Random();
         public override bool InstancePerEntity => true;
-
         public bool Corrosive;
         public bool Fire;
         public bool Shock;
         public bool Slagg;
         public bool SEbuff;
+        public bool Shadowed;
+        
+        public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
+        {
+            if(!target.GetModPlayer<BlPlayer>().DANpcs.Contains(npc) && target.GetModPlayer<BlPlayer>().DANpcs.Count <= 5 && target.GetModPlayer<BlPlayer>().DarkArtsBuff)
+            {
+                    target.GetModPlayer<BlPlayer>().DANpcs.Add(npc);
+                    npc.AddBuff(ModContent.BuffType<Shadowed>(), 250, false);
+            }
+        }
 
         public override void ResetEffects(NPC npc)
         {
@@ -23,7 +33,10 @@ namespace Idkmod
             Fire = false;
             Shock = false;
             Slagg = false;
+            Shadowed = false;
         }
+
+        
 
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
@@ -181,7 +194,30 @@ namespace Idkmod
                 Lighting.AddLight(npc.position, 0f, 2.55f, 0f);
             }
 
-            if(Slagg)
+            if (Shadowed)
+            {
+                drawColor = Color.Black;
+                if (Main.rand.Next(4) < 3)
+                {
+                    
+                    //Dust generation
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 54, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, Color.Black, 1f);
+                    Main.dust[dust].noGravity = true;
+                    Main.dust[dust].velocity *= 1.8f;
+                    Main.dust[dust].velocity.Y -= 0.5f;
+                    Main.dust[dust].color = Color.Black;
+                    if (Main.rand.NextBool(4))
+                    {
+                        Main.dust[dust].noGravity = false;
+                        Main.dust[dust].scale *= 0.5f;
+                    }
+                }
+
+                //Color of the light that the npc emits
+                Lighting.AddLight(npc.position, 0f, 0f, 0f);
+            }
+
+            if (Slagg)
             {
                 //Dust generation
                 if (Main.rand.Next(4) < 3)
