@@ -13,12 +13,13 @@ using Terraria.ModLoader.IO;
 using idkmod.Projectiles;
 using idkmod.Buffs;
 using Microsoft.Xna.Framework.Graphics;
+using idkmod.Dusts;
 
 namespace Idkmod
 {
     public class BlPlayer : Terraria.ModLoader.ModPlayer
     {
-        short dustSmoke = DustID.Smoke;
+        int dustSmoke = ModContent.DustType<DarkArtsDust>();
         public bool DarkArtsBuff;
         public bool DarkArts;
         public bool DarkArtsCD;
@@ -95,7 +96,34 @@ namespace Idkmod
             {
                 for (int i = 0; i < DANpcs.Count; i++)
                 {
+                    int rand = random.Next(2);
+                    for (int u = 25; u > 0; u--)
+                    {
 
+                        if (rand == 1)
+                        {
+                            int dust = Dust.NewDust(DANpcs[i].position, 16, 16, dustSmoke, -5, 5, 0, Color.Black, 1);
+                            Main.dust[dust].scale = 2f;
+                            Main.dust[dust].velocity *= 1.5f;
+                            Main.dust[dust].noGravity = true;
+                            int dust2 = Dust.NewDust(DANpcs[i].position, 16, 16, dustSmoke, 5, -5, 0, Color.Black, 1);
+                            Main.dust[dust2].scale = 2f;
+                            Main.dust[dust2].velocity *= 1.5f;
+                            Main.dust[dust2].noGravity = true;
+                        }
+                        else
+                        {
+                            int dust = Dust.NewDust(DANpcs[i].position, 16, 16, dustSmoke, 5, 5, 0, Color.Black, 1);
+                            Main.dust[dust].scale = 2f;
+                            Main.dust[dust].velocity *= 1.5f;
+                            Main.dust[dust].noGravity = true;
+                            int dust2 = Dust.NewDust(DANpcs[i].position, 16, 16, dustSmoke, -5, -5, 0, Color.Black, 1);
+                            Main.dust[dust2].scale = 2f;
+                            Main.dust[dust2].velocity *= 1.5f;
+                            Main.dust[dust2].noGravity = true;
+                        }
+
+                    }
                     int damage = (int)player.meleeDamageMult * 999;
                     DANpcs[i].StrikeNPC(damage, 3, 1, crit: true);
                 }
@@ -129,6 +157,7 @@ namespace Idkmod
                     int dust = Dust.NewDust(player.position, 16, 16, dustSmoke, 0f, 0f, 0, Color.Black, 1);
                     Main.dust[dust].scale = 2f;
                     Main.dust[dust].velocity *= 2f;
+                    Main.dust[dust].noGravity = true;
                 }
 
                 player.AddBuff(ModContent.BuffType<DarkArtsBuff>(), 300);
@@ -148,19 +177,23 @@ namespace Idkmod
                         {
                             int dust = Dust.NewDust(DANpcs[i].position, 16, 16, dustSmoke, -5, 5, 0, Color.Black, 1);
                             Main.dust[dust].scale = 2f;
-                            Main.dust[dust].velocity *= 0.5f;
+                            Main.dust[dust].velocity *= 1.5f;
+                            Main.dust[dust].noGravity = true;
                             int dust2 = Dust.NewDust(DANpcs[i].position, 16, 16, dustSmoke, 5, -5, 0, Color.Black, 1);
                             Main.dust[dust2].scale = 2f;
-                            Main.dust[dust2].velocity *= 0.5f;
+                            Main.dust[dust2].velocity *= 1.5f;
+                            Main.dust[dust2].noGravity = true;
                         }
                         else
                         {
                             int dust = Dust.NewDust(DANpcs[i].position, 16, 16, dustSmoke, 5, 5, 0, Color.Black, 1);
                             Main.dust[dust].scale = 2f;
-                            Main.dust[dust].velocity *= 0.5f;
+                            Main.dust[dust].velocity *= 1.5f;
+                            Main.dust[dust].noGravity = true;
                             int dust2 = Dust.NewDust(DANpcs[i].position, 16, 16, dustSmoke, -5, -5, 0, Color.Black, 1);
                             Main.dust[dust2].scale = 2f;
-                            Main.dust[dust2].velocity *= 0.5f;
+                            Main.dust[dust2].velocity *= 1.5f;
+                            Main.dust[dust2].noGravity = true;
                         }
                         
                     }
@@ -343,9 +376,10 @@ namespace Idkmod
             {
                 if (Main.rand.NextBool(5))
                 {
-                    int dust = Dust.NewDust(drawInfo.position, 16, 16, DustID.Smoke, 0f, 0f, 0, Color.Black);
+                    int dust = Dust.NewDust(drawInfo.position, 16, 16, dustSmoke, 0f, 0f, 0, Color.Black);
                     Main.dust[dust].scale = 2f;
-                    Main.dust[dust].velocity *= 0.5f;
+                    Main.dust[dust].noGravity = true;
+                    
                 }
                 r = 0f;
                 g = 0f;
