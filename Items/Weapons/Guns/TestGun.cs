@@ -46,7 +46,7 @@ namespace Idkmod.Items.Weapons.Guns
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
 
-			type = ModContent.ProjectileType<idkmod.Projectiles.SwordProj.SwordStickProj0>();
+			type = ModContent.ProjectileType<idkmod.Projectiles.DarkArtsProjectile>();
 
 			// Add random Rotation
 

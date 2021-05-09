@@ -4,6 +4,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using idkmod.Buffs;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
 namespace Idkmod
 {
@@ -17,7 +19,7 @@ namespace Idkmod
         public bool Slagg;
         public bool SEbuff;
         public bool Shadowed;
-        
+
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
             if(!target.GetModPlayer<BlPlayer>().DANpcs.Contains(npc) && target.GetModPlayer<BlPlayer>().DANpcs.Count <= 5 && target.GetModPlayer<BlPlayer>().DarkArtsBuff)
@@ -196,12 +198,12 @@ namespace Idkmod
 
             if (Shadowed)
             {
+                
                 drawColor = Color.Black;
                 if (Main.rand.Next(4) < 3)
-                {
-                    
+                {   
                     //Dust generation
-                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 54, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, Color.Black, 1f);
+                    int dust = Dust.NewDust(npc.position - new Vector2(2f, 2f), npc.width + 4, npc.height + 4, 54, npc.velocity.X * 0.4f, npc.velocity.Y * 0.4f, 100, Color.Black, 2f);
                     Main.dust[dust].noGravity = true;
                     Main.dust[dust].velocity *= 1.8f;
                     Main.dust[dust].velocity.Y -= 0.5f;

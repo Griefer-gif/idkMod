@@ -129,10 +129,15 @@ namespace Idkmod
 
             if (Idkmod.DarkArtsHotKey.JustPressed && player.HasBuff(ModContent.BuffType<idkmod.Buffs.DarkArtsBuff>()) && DANpcs.Count > 0)
             {
-
+                SpriteBatch spriteB = Main.spriteBatch;
                 for(int i = 0; i < DANpcs.Count; i++)
                 {
+                    spriteB.Begin();
+                    Vector2 drawPos = DANpcs[0].position;
 
+                    Color color = Color.Black;
+                    spriteB.Draw(Main.projectileTexture[ModContent.ProjectileType<DarkArtsProjectile>()], drawPos, null, color, DANpcs[0].rotation, DANpcs[0].position - new Vector2(10, 10), 10f, SpriteEffects.None, 0f);
+                    spriteB.End();
                     int damage = (int)player.meleeDamageMult * 999;
                     DANpcs[i].StrikeNPC(damage, 3, 1, crit:true);
                     
