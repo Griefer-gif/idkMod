@@ -200,6 +200,12 @@ namespace Idkmod
             {
                 
                 drawColor = Color.Black;
+                if (Main.rand.NextBool(10))
+                {
+                    int dust = Dust.NewDust(npc.position, 16, 16, DustID.Smoke, 0f, 0f, 0, Color.Black);
+                    Main.dust[dust].scale = 2f;
+                    Main.dust[dust].velocity *= 0.5f;
+                }
                 if (Main.rand.Next(4) < 3)
                 {   
                     //Dust generation

@@ -18,6 +18,7 @@ namespace Idkmod
 {
     public class BlPlayer : Terraria.ModLoader.ModPlayer
     {
+        short dustSmoke = DustID.Smoke;
         public bool DarkArtsBuff;
         public bool DarkArts;
         public bool DarkArtsCD;
@@ -122,29 +123,62 @@ namespace Idkmod
         {
             if (Idkmod.DarkArtsHotKey.JustPressed && player.GetModPlayer<BlPlayer>().DarkArts && !DarkArtsBuff && !DarkArtsCD)
             {
-                
-                player.AddBuff(ModContent.BuffType<idkmod.Buffs.DarkArtsBuff>(), 300);
+                for (int i = 0; i < 75; i++)
+                {
+
+                    int dust = Dust.NewDust(player.position, 16, 16, dustSmoke, 0f, 0f, 0, Color.Black, 1);
+                    Main.dust[dust].scale = 2f;
+                    Main.dust[dust].velocity *= 2f;
+                }
+
+                player.AddBuff(ModContent.BuffType<DarkArtsBuff>(), 300);
                 player.AddBuff(ModContent.BuffType<DarkArtsCD>(), 1200);
             }
 
             if (Idkmod.DarkArtsHotKey.JustPressed && player.HasBuff(ModContent.BuffType<idkmod.Buffs.DarkArtsBuff>()) && DANpcs.Count > 0)
             {
-                SpriteBatch spriteB = Main.spriteBatch;
+                
                 for(int i = 0; i < DANpcs.Count; i++)
                 {
-                    spriteB.Begin();
-                    Vector2 drawPos = DANpcs[0].position;
-
-                    Color color = Color.Black;
-                    spriteB.Draw(Main.projectileTexture[ModContent.ProjectileType<DarkArtsProjectile>()], drawPos, null, color, DANpcs[0].rotation, DANpcs[0].position - new Vector2(10, 10), 10f, SpriteEffects.None, 0f);
-                    spriteB.End();
+                    int rand = random.Next(2);
+                    for (int u = 25; u > 0; u--)
+                    {
+                        
+                        if(rand == 1)
+                        {
+                            int dust = Dust.NewDust(DANpcs[i].position, 16, 16, dustSmoke, -5, 5, 0, Color.Black, 1);
+                            Main.dust[dust].scale = 2f;
+                            Main.dust[dust].velocity *= 0.5f;
+                            int dust2 = Dust.NewDust(DANpcs[i].position, 16, 16, dustSmoke, 5, -5, 0, Color.Black, 1);
+                            Main.dust[dust2].scale = 2f;
+                            Main.dust[dust2].velocity *= 0.5f;
+                        }
+                        else
+                        {
+                            int dust = Dust.NewDust(DANpcs[i].position, 16, 16, dustSmoke, 5, 5, 0, Color.Black, 1);
+                            Main.dust[dust].scale = 2f;
+                            Main.dust[dust].velocity *= 0.5f;
+                            int dust2 = Dust.NewDust(DANpcs[i].position, 16, 16, dustSmoke, -5, -5, 0, Color.Black, 1);
+                            Main.dust[dust2].scale = 2f;
+                            Main.dust[dust2].velocity *= 0.5f;
+                        }
+                        
+                    }
                     int damage = (int)player.meleeDamageMult * 999;
                     DANpcs[i].StrikeNPC(damage, 3, 1, crit:true);
                     
                 }
 
+                for (int i = 0; i < 75; i++)
+                {
+
+                    int dust = Dust.NewDust(player.position, 16, 16, DustID.Smoke, 0f, 0f, 0, Color.Black, 1);
+                    Main.dust[dust].scale = 2f;
+                    Main.dust[dust].velocity *= 1.5f;
+                }
+
                 DANpcs.Clear();
-                player.ClearBuff(ModContent.BuffType<idkmod.Buffs.DarkArtsBuff>());
+                player.ClearBuff(ModContent.BuffType<DarkArtsBuff>());
             }
         }
 
@@ -307,6 +341,12 @@ namespace Idkmod
         {
             if(DarkArtsBuff)
             {
+                if (Main.rand.NextBool(5))
+                {
+                    int dust = Dust.NewDust(drawInfo.position, 16, 16, DustID.Smoke, 0f, 0f, 0, Color.Black);
+                    Main.dust[dust].scale = 2f;
+                    Main.dust[dust].velocity *= 0.5f;
+                }
                 r = 0f;
                 g = 0f;
                 b = 0f;
