@@ -20,6 +20,9 @@ namespace Idkmod
     public class BlPlayer : Terraria.ModLoader.ModPlayer
     {
         int dustSmoke = ModContent.DustType<DarkArtsDust>();
+        public Queue<Projectile> psyFlyQueue  = new Queue<Projectile>();
+        public bool PsyFlyEquip;
+        public Projectile PsyFlyTarget;
         public bool DarkArtsBuff;
         public bool DarkArts;
         public bool DarkArtsCD;
@@ -39,6 +42,42 @@ namespace Idkmod
 
 
         public override bool CloneNewInstances => true;
+
+        public override void PostUpdate()
+        {
+            if(PsyFlyEquip == true)
+            {
+                //Main.NewText(psyFlyQueue.Count);
+                for (int i = 0; i < Main.projectile.Count(); i++)
+                {
+                    if (psyFlyQueue.Count > 0)
+                    { 
+                        if (psyFlyQueue.Peek().Distance(player.Center) > 100f || psyFlyQueue.Peek().active == false)
+                        {
+
+                            {
+                                psyFlyQueue.Dequeue();
+                            }
+                        }
+                    }
+
+                    if (Main.projectile[i].Distance(player.Center) < 100f && psyFlyQueue.Contains(Main.projectile[i]) == false && Main.projectile[i].hostile)
+                    {
+                        if(psyFlyQueue.Count < 5)
+                        {
+                            psyFlyQueue.Enqueue(Main.projectile[i]);
+                        }
+
+                    }
+                }
+
+                if(psyFlyQueue.Count > 0)
+                {
+                    PsyFlyTarget = psyFlyQueue.Peek();
+                }
+            }
+            
+        }
 
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
         {
@@ -129,11 +168,13 @@ namespace Idkmod
                 }
                 DANpcs.Clear();
             }
+
             if(shieldMaxHealth == 0)
             {
                 HitTimer = 0;
                 shieldCHealth = 0;
             }
+
             shieldMaxHealth = 0;
             shieldsEquipped = 0;
             Corrosive = false;
@@ -143,6 +184,7 @@ namespace Idkmod
             DarkArts = false;
             DarkArtsBuff = false;
             DarkArtsCD = false;
+            PsyFlyEquip = false;
 
             player.statLifeMax2 += LifeCrystal * 25;
         }
@@ -217,10 +259,16 @@ namespace Idkmod
 
         public override void UpdateDead()
         {
+            PsyFlyEquip = false;
             Corrosive = false;
             Fire = false;
             Shock = false;
             Slagg = false;
+            DarkArtsCD = false;
+            DarkArts = false;
+            DarkArtsBuff = false;
+            HitTimer = 0;
+            shieldCHealth = 0;
         }
 
         public override void UpdateBadLifeRegen()

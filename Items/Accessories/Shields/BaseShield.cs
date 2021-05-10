@@ -13,6 +13,7 @@ namespace Idkmod.Items.Accessories.Shields
 	{
 		public void ShieldRechargeUpdate(Player player, int MaxHealth, int CurrentHealth, int RechargeRate, int hitTimer)
 		{
+
 			if (player.GetModPlayer<BlPlayer>().gotHit == true && CurrentHealth != MaxHealth)
 			{
 				hitTimer = player.GetModPlayer<BlPlayer>().HitTimer;
@@ -38,6 +39,15 @@ namespace Idkmod.Items.Accessories.Shields
 			if (player.GetModPlayer<BlPlayer>().gotHit == false && CurrentHealth < MaxHealth)
 			{
 				player.GetModPlayer<BlPlayer>().shieldCHealth += RechargeRate;
+			}
+
+			//
+			//checking if Current health is > than max health
+			//
+
+			if (player.GetModPlayer<BlPlayer>().shieldCHealth > player.GetModPlayer<BlPlayer>().shieldMaxHealth)
+			{
+				player.GetModPlayer<BlPlayer>().shieldCHealth = player.GetModPlayer<BlPlayer>().shieldMaxHealth;
 			}
 		}
 

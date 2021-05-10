@@ -35,11 +35,10 @@ namespace Idkmod.Items
 
         public override bool UseItem(Player player)
         {
-            Main.NewText("list start :");
-            foreach (NPC Npc in player.GetModPlayer<BlPlayer>().DANpcs)
-            {
-                Main.NewText(Npc.FullName);
-            }
+            //Main.NewText("list start :");
+
+            Main.NewText(player.GetModPlayer<BlPlayer>().psyFlyQueue.Count);
+            Main.NewText(player.GetModPlayer<BlPlayer>().PsyFlyEquip);
 
             return true;
         }

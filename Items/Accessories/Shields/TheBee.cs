@@ -50,7 +50,7 @@ namespace idkmod.Items.Accessories.Shields
 			//-----------------------------
 			//Shield effects here
 			//-----------------------------
-			if (MaxHealth == CurrentHealth && player.GetModPlayer<BlPlayer>().shieldsEquipped == 1)
+			if (MaxHealth >= CurrentHealth && player.GetModPlayer<BlPlayer>().shieldsEquipped == 1)
 			{
 				player.allDamage += 0.5f;
 			}

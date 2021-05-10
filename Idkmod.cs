@@ -34,7 +34,7 @@ namespace Idkmod
                 _shieldHealthBar.SetState(shieldHealthBar);
             }
 
-                DarkArtsHotKey = RegisterHotKey("Dark Arts", "F");
+            DarkArtsHotKey = RegisterHotKey("Dark Arts", "F");
         }
 
         public override void UpdateUI(GameTime gameTime)

@@ -20,6 +20,7 @@ namespace idkmod.Buffs
 			if(!npc.boss)
             {
 				npc.velocity = new Microsoft.Xna.Framework.Vector2(0, 0);
+				npc.noGravity = true;
 			}
 			
 			npc.GetGlobalNPC<ModGlobalNPC>().Shadowed = true;
