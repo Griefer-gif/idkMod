@@ -38,12 +38,14 @@ namespace idkmod.Projectiles
 
 		public override void Kill(int timeLeft)
 		{
-			int damage = projectile.damage * 3;
-			var velocity = projectile.oldVelocity.RotatedBy(MathHelper.ToRadians(-170)); 
-			Projectile.NewProjectile(projectile.oldPosition, velocity, ModContent.ProjectileType<BBullet>(), damage, 0, 0, 0, 0);
-			var velocity2 = projectile.oldVelocity.RotatedBy(MathHelper.ToRadians(-190));
-			Projectile.NewProjectile(projectile.oldPosition, velocity2, ModContent.ProjectileType<BBullet>(), damage, 0, 0, 0, 0);
-
+			if (projectile.owner == Main.myPlayer)
+			{
+				int damage = projectile.damage * 3;
+				var velocity = projectile.oldVelocity.RotatedBy(MathHelper.ToRadians(-170));
+				Projectile.NewProjectile(projectile.oldPosition, velocity, ModContent.ProjectileType<BBullet>(), damage, 0, 0, 0, 0);
+				var velocity2 = projectile.oldVelocity.RotatedBy(MathHelper.ToRadians(-190));
+				Projectile.NewProjectile(projectile.oldPosition, velocity2, ModContent.ProjectileType<BBullet>(), damage, 0, 0, 0, 0);
+			}
 			// This code and the similar code above in OnTileCollide spawn dust from the tiles collided with. SoundID.Item10 is the bounce sound you hear.
 			Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
 			Main.PlaySound(SoundID.Item10, projectile.position);

@@ -27,7 +27,7 @@ namespace Idkmod.Items.Accessories.BindingOfIsaac
             item.height = 10;
             item.scale = 0.5f;
             item.accessory = true;
-            item.buffType = ModContent.BuffType<idkmod.Buffs.PsyFlyBuff>();
+            item.buffType = ModContent.BuffType<idkmod.Buffs.Minions.PsyFlyBuff>();
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -36,7 +36,7 @@ namespace Idkmod.Items.Accessories.BindingOfIsaac
             //{
             //    player.GetModPlayer<BlPlayer>().psyFlyQueue.Peek().active = false;
             //}
-            player.AddBuff(ModContent.BuffType<idkmod.Buffs.PsyFlyBuff>(), 2000);
+            player.AddBuff(ModContent.BuffType<idkmod.Buffs.Minions.PsyFlyBuff>(), 2000);
             player.AddBuff(item.buffType, 2);
             position = player.position;
             //player.GetModPlayer<BlPlayer>().PsyFlyEquip = true;

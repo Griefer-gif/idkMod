@@ -38,34 +38,40 @@ namespace idkmod.Projectiles
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			Random r = new Random();
+			if (projectile.owner == Main.myPlayer)
+			{
+				Random r = new Random();
 
-			Vector2 speed = new Vector2(180f, 0);
-			Vector2 speed2 = new Vector2(-180f, 0);
+				Vector2 speed = new Vector2(180f, 0);
+				Vector2 speed2 = new Vector2(-180f, 0);
 
-			Vector2 diference = new Vector2(-800f, 0f);
-			Vector2 diference2 = new Vector2(800f, 0f);
+				Vector2 diference = new Vector2(-800f, 0f);
+				Vector2 diference2 = new Vector2(800f, 0f);
 
-			Vector2 position = projectile.oldPosition + diference;
-			Vector2 position2 = projectile.oldPosition + diference2;
-			Projectile.NewProjectile(position, speed, ModContent.ProjectileType<HighBulletNonCol>(), damage, 0, 0, 0, 0);
-			Projectile.NewProjectile(position2, speed2, ModContent.ProjectileType<HighBulletNonCol>(), damage, 0, 0, 0, 0);
+				Vector2 position = projectile.oldPosition + diference;
+				Vector2 position2 = projectile.oldPosition + diference2;
+				Projectile.NewProjectile(position, speed, ModContent.ProjectileType<HighBulletNonCol>(), damage, 0, 0, 0, 0);
+				Projectile.NewProjectile(position2, speed2, ModContent.ProjectileType<HighBulletNonCol>(), damage, 0, 0, 0, 0);
+			}
 		}
 
 		public override void Kill(int timeLeft)
 		{
-			Random r = new Random();
+			if (projectile.owner == Main.myPlayer)
+			{
+				Random r = new Random();
 
-			Vector2 speed = new Vector2(180f, 0);
-			Vector2 speed2 = new Vector2(-180f, 0);
+				Vector2 speed = new Vector2(180f, 0);
+				Vector2 speed2 = new Vector2(-180f, 0);
 
-			Vector2 diference = new Vector2(-800f, 0f);
-			Vector2 diference2 = new Vector2(800f, 0f);
+				Vector2 diference = new Vector2(-800f, 0f);
+				Vector2 diference2 = new Vector2(800f, 0f);
 
-			Vector2 position = projectile.oldPosition + diference;
-			Vector2 position2 = projectile.oldPosition + diference2;
-			Projectile.NewProjectile(position, speed, ModContent.ProjectileType<HighBulletNonCol>(), projectile.damage, 0, 0, 0, 0);
-			Projectile.NewProjectile(position2, speed2, ModContent.ProjectileType<HighBulletNonCol>(), projectile.damage, 0, 0, 0, 0);
+				Vector2 position = projectile.oldPosition + diference;
+				Vector2 position2 = projectile.oldPosition + diference2;
+				Projectile.NewProjectile(position, speed, ModContent.ProjectileType<HighBulletNonCol>(), projectile.damage, 0, 0, 0, 0);
+				Projectile.NewProjectile(position2, speed2, ModContent.ProjectileType<HighBulletNonCol>(), projectile.damage, 0, 0, 0, 0);
+			}
 
 			Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
 			Main.PlaySound(SoundID.Item10, projectile.position);

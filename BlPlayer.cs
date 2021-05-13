@@ -21,8 +21,7 @@ namespace Idkmod
     {
         int dustSmoke = ModContent.DustType<DarkArtsDust>();
         public Queue<Projectile> psyFlyQueue  = new Queue<Projectile>();
-        public bool PsyFlyEquip;
-        public Projectile PsyFlyTarget;
+        public bool PsyFlyBuff;
         public bool DarkArtsBuff;
         public bool DarkArts;
         public bool DarkArtsCD;
@@ -45,14 +44,14 @@ namespace Idkmod
 
         public override void PostUpdate()
         {
-            if(PsyFlyEquip == true)
+            if(PsyFlyBuff)
             {
                 //Main.NewText(psyFlyQueue.Count);
                 for (int i = 0; i < Main.projectile.Count(); i++)
                 {
                     if (psyFlyQueue.Count > 0)
                     { 
-                        if (psyFlyQueue.Peek().Distance(player.Center) > 100f || psyFlyQueue.Peek().active == false)
+                        if (psyFlyQueue.Peek().Distance(player.Center) > 200f || psyFlyQueue.Peek().active == false)
                         {
 
                             {
@@ -61,7 +60,7 @@ namespace Idkmod
                         }
                     }
 
-                    if (Main.projectile[i].Distance(player.Center) < 100f && psyFlyQueue.Contains(Main.projectile[i]) == false && Main.projectile[i].hostile)
+                    if (Main.projectile[i].Distance(player.Center) < 200f && psyFlyQueue.Contains(Main.projectile[i]) == false && Main.projectile[i].hostile)
                     {
                         if(psyFlyQueue.Count < 5)
                         {
@@ -69,11 +68,6 @@ namespace Idkmod
                         }
 
                     }
-                }
-
-                if(psyFlyQueue.Count > 0)
-                {
-                    PsyFlyTarget = psyFlyQueue.Peek();
                 }
             }
             
@@ -184,7 +178,7 @@ namespace Idkmod
             DarkArts = false;
             DarkArtsBuff = false;
             DarkArtsCD = false;
-            PsyFlyEquip = false;
+            //PsyFlyBuff = false;
 
             player.statLifeMax2 += LifeCrystal * 25;
         }
@@ -259,7 +253,7 @@ namespace Idkmod
 
         public override void UpdateDead()
         {
-            PsyFlyEquip = false;
+            PsyFlyBuff = false;
             Corrosive = false;
             Fire = false;
             Shock = false;
@@ -399,7 +393,6 @@ namespace Idkmod
                 player.lifeRegen -= DamageDB;
             }
         }
-
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {
