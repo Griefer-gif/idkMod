@@ -178,7 +178,7 @@ namespace Idkmod
             DarkArts = false;
             DarkArtsBuff = false;
             DarkArtsCD = false;
-            //PsyFlyBuff = false;
+            PsyFlyBuff = false;
 
             player.statLifeMax2 += LifeCrystal * 25;
         }

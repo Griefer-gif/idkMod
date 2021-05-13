@@ -11,16 +11,15 @@ using idkmod.Projectiles.ElementalBullets.CorrosiveBullets;
 using idkmod.Projectiles.Minions;
 using idkmod.Buffs.Minions;
 
-namespace Idkmod.Items.Weapons.Guns
+namespace Idkmod.Items.Weapons.Summons
 {
-	class TestGun : ModItem
+	class PsyPoop : ModItem
 	{
-
 
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Example Minion Item");
-			Tooltip.SetDefault("Summons an example minion to fight for you");
+			DisplayName.SetDefault("Psy Poop");
+			Tooltip.SetDefault("Summons a Psy Fly that blocks and reflects projectiles");
 			ItemID.Sets.GamepadWholeScreenUseRange[item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
 			ItemID.Sets.LockOnIgnoresCollision[item.type] = true;
 		}
@@ -33,10 +32,11 @@ namespace Idkmod.Items.Weapons.Guns
 			item.width = 32;
 			item.height = 32;
 			item.useTime = 36;
+			item.scale = 2f;
 			item.useAnimation = 36;
 			item.useStyle = ItemUseStyleID.SwingThrow;
 			item.value = Item.buyPrice(0, 30, 0, 0);
-			item.rare = ItemRarityID.Cyan;
+			item.rare = ItemRarityID.Red;
 			item.UseSound = SoundID.Item44;
 
 			// These below are needed for a minion weapon
@@ -55,11 +55,23 @@ namespace Idkmod.Items.Weapons.Guns
 			// Here you can change where the minion is spawned. Most vanilla minions spawn at the cursor position.
 			position = Main.MouseWorld;
 
-			if(!player.GetModPlayer<BlPlayer>().PsyFlyBuff)
-            {
+			if (!player.GetModPlayer<BlPlayer>().PsyFlyBuff)
+			{
 				return true;
 			}
 			return false;
+		}
+
+		public override void ModifyTooltips(List<TooltipLine> tooltips)
+		{
+			
+			var quote = new TooltipLine(mod, "", "'The God Fly!'")
+			{
+				overrideColor = Color.Purple
+			};
+			var tt = new TooltipLine(mod, "", "Only one can be spawned at a time");
+			tooltips.Add(tt);
+			tooltips.Add(quote);
 		}
 
 	}

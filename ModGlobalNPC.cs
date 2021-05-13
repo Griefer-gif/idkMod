@@ -39,8 +39,6 @@ namespace Idkmod
             Shadowed = false;
         }
 
-        
-
         public override void UpdateLifeRegen(NPC npc, ref int damage)
         {
             if (Corrosive)

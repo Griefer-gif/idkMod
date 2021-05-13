@@ -10,6 +10,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using idkmod.Projectiles.ElementalBullets.SlaggBullets;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace idkmod.Projectiles.Minions
 {
@@ -45,7 +46,7 @@ namespace idkmod.Projectiles.Minions
 			// Only determines the damage type
 			projectile.minion = true;
 			// Amount of slots this minion occupies from the total minion slots available to the player (more on that later)
-			projectile.minionSlots = 0f;
+			projectile.minionSlots = 1f;
 			// Needed so the minion doesn't despawn on collision with enemies or tiles
 			projectile.penetrate = -1;
 			projectile.scale = 1.5f;
@@ -154,15 +155,15 @@ namespace idkmod.Projectiles.Minions
 					Vector2 Velocity = player.GetModPlayer<BlPlayer>().psyFlyQueue.Peek().velocity.RotatedBy(MathHelper.ToRadians(180));
 					if (projectile.owner == Main.myPlayer)
                     {
-						Projectile.NewProjectile(projectile.Center, Velocity, ModContent.ProjectileType<PsyFlyReflectProj>(), 1, player.GetModPlayer<BlPlayer>().psyFlyQueue.Peek().knockBack, Main.myPlayer);
+						Projectile.NewProjectile(projectile.Center, Velocity, ModContent.ProjectileType<PsyFlyReflectProj>(), player.GetModPlayer<BlPlayer>().psyFlyQueue.Peek().damage, player.GetModPlayer<BlPlayer>().psyFlyQueue.Peek().knockBack, Main.myPlayer);
 					}
 					player.GetModPlayer<BlPlayer>().psyFlyQueue.Peek().active = false;
 				}
 			}
 			else
 			{
-
-				if (distanceToIdlePosition > 20f)
+				speed = 10f;
+				if (distanceToIdlePosition > 5f)
 				{
 					// The immediate range around the player (when it passively floats about)
 
@@ -202,6 +203,18 @@ namespace idkmod.Projectiles.Minions
 			Lighting.AddLight(projectile.Center, Color.White.ToVector3() * 0.78f);
 			#endregion
 		}
-	}
+
+        public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+        {
+			Player player = Main.player[projectile.owner];
+			if(player.GetModPlayer<BlPlayer>().psyFlyQueue.Count > 0)
+            {
+				int dust = Dust.NewDust(projectile.Center, 10, 10, DustID.PurpleTorch, Scale: 2f);
+				Main.dust[dust].noGravity = true;
+			}
+            return true;
+        }
+        
+    }
 }
 
