@@ -12,8 +12,6 @@ namespace Idkmod.Items.Weapons.Guns
 {
 	class AmigoSincero : ModItem
 	{
-
-
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Amigo Sincero");
