@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework;
 using idkmod.Projectiles;
 using idkmod.Projectiles.ElementalBullets.ShockBullets;
 
-namespace Idkmod.Items.Weapons.Guns.ConferenceCall
+namespace Idkmod.Items.Weapons.Guns.BL2.ConferenceCall
 {
 	class EletricityCC : ConferenceCall
 	{

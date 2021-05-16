@@ -9,7 +9,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using idkmod.Projectiles.ElementalBullets.SlaggBullets;
 
-namespace Idkmod.Items.Weapons.Guns
+namespace Idkmod.Items.Weapons.Guns.BL2
 {
 	class Slagga : ModItem
 	{

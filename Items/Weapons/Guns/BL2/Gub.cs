@@ -11,7 +11,7 @@ using idkmod.Projectiles;
 using idkmod.Projectiles.ElementalBullets.FireBullets;
 using idkmod.Projectiles.ElementalBullets.CorrosiveBullets;
 
-namespace Idkmod.Items.Weapons.Guns
+namespace Idkmod.Items.Weapons.Guns.BL2
 {
     class Gub : ModItem
     {

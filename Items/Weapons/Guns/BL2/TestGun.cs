@@ -11,7 +11,7 @@ using idkmod.Projectiles.ElementalBullets.CorrosiveBullets;
 using idkmod.Projectiles.Minions;
 using idkmod.Buffs.Minions;
 
-namespace Idkmod.Items.Weapons.Guns
+namespace Idkmod.Items.Weapons.Guns.BL2
 {
 	class TestGun : ModItem
 	{

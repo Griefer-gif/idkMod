@@ -415,7 +415,7 @@ namespace Idkmod
         {
             if(DarkArtsBuff)
             {
-                if (Main.rand.NextBool(5))
+                if (Main.rand.NextBool(2))
                 {
                     int dust = Dust.NewDust(drawInfo.position, 16, 16, dustSmoke, 0f, 0f, 0, Color.Black);
                     Main.dust[dust].scale = 2f;

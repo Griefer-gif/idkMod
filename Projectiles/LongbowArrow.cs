@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using idkmod.Buffs;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -51,7 +52,7 @@ namespace idkmod.Projectiles
 
 		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
 		{
-			target.AddBuff(BuffID.OnFire, 600, false);
+			target.AddBuff(ModContent.BuffType<Burning>(), 600, false);
 		}
 
 		public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)

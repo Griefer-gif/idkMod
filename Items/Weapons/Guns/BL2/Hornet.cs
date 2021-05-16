@@ -9,7 +9,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using idkmod.Projectiles.ElementalBullets.CorrosiveBullets;
 
-namespace Idkmod.Items.Weapons.Guns
+namespace Idkmod.Items.Weapons.Guns.BL2
 {
     class Hornet : ModItem
     {

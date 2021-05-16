@@ -9,7 +9,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using idkmod.Projectiles;
 
-namespace Idkmod.Items.Weapons.Guns.ConferenceCall
+namespace Idkmod.Items.Weapons.Guns.BL2.ConferenceCall
 {
     class ConferenceCall : ModItem
     {

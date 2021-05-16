@@ -8,7 +8,7 @@ using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 
-namespace Idkmod.Items.Weapons.Guns
+namespace Idkmod.Items.Weapons.Guns.BL2
 {
 	class UnkemptHarold : ModItem
 	{

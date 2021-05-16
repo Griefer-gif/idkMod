@@ -11,7 +11,7 @@ using idkmod.Projectiles;
 using idkmod.Projectiles.ElementalBullets.FireBullets;
 
 
-namespace Idkmod.Items.Weapons.Guns.ConferenceCall
+namespace Idkmod.Items.Weapons.Guns.BL2.ConferenceCall
 {
 	class FireCC : ConferenceCall
 	{
