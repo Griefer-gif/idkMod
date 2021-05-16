@@ -19,7 +19,7 @@ namespace Idkmod
 {
     public class BlPlayer : Terraria.ModLoader.ModPlayer
     {
-        int dustSmoke = ModContent.DustType<DarkArtsDust>();
+        int dustSmoke = DustID.Smoke;
         public Queue<Projectile> psyFlyQueue  = new Queue<Projectile>();
         public bool PsyFlyBuff;
         public bool DarkArtsBuff;
@@ -415,7 +415,7 @@ namespace Idkmod
         {
             if(DarkArtsBuff)
             {
-                if (Main.rand.NextBool(2))
+                if (Main.rand.NextBool(1))
                 {
                     int dust = Dust.NewDust(drawInfo.position, 16, 16, dustSmoke, 0f, 0f, 0, Color.Black);
                     Main.dust[dust].scale = 2f;
