@@ -42,7 +42,6 @@ namespace idkmod.Items.Accessories.Shields
 			//------------------------------------------
 
 			player.statLifeMax2 += 150;
-			
 
 			//----------------------------------------------
 		}
