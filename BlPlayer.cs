@@ -14,6 +14,8 @@ using idkmod.Projectiles;
 using idkmod.Buffs;
 using Microsoft.Xna.Framework.Graphics;
 using idkmod.Dusts;
+using Idkmod.Buffs.HK;
+using Idkmod.Projectiles.HollowKnight;
 
 namespace Idkmod
 {
@@ -21,6 +23,10 @@ namespace Idkmod
     {
         int dustSmoke = DustID.Smoke;
         public Queue<Projectile> psyFlyQueue  = new Queue<Projectile>();
+        public bool NailSpell1;
+        public bool NailSpell2;
+        public bool NailSpell3;
+        public bool NailSpellCD;
         public bool PsyFlyBuff;
         public bool DarkArtsBuff;
         public bool DarkArts;
@@ -179,17 +185,21 @@ namespace Idkmod
             DarkArtsBuff = false;
             DarkArtsCD = false;
             PsyFlyBuff = false;
+            NailSpell1 = false;
+            NailSpell2 = false;
+            NailSpell3 = false;
+            NailSpellCD = false;
 
             player.statLifeMax2 += LifeCrystal * 25;
         }
 
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
+            //effects for when the player does not already have the buff
             if (Idkmod.DarkArtsHotKey.JustPressed && player.GetModPlayer<BlPlayer>().DarkArts && !DarkArtsBuff && !DarkArtsCD)
             {
                 for (int i = 0; i < 75; i++)
                 {
-
                     int dust = Dust.NewDust(player.position, 16, 16, dustSmoke, 0f, 0f, 0, Color.Black, 1);
                     Main.dust[dust].scale = 2f;
                     Main.dust[dust].velocity *= 2f;
@@ -199,7 +209,7 @@ namespace Idkmod
                 player.AddBuff(ModContent.BuffType<DarkArtsBuff>(), 300);
                 player.AddBuff(ModContent.BuffType<DarkArtsCD>(), 1200);
             }
-
+            //effects for when he already has the buff
             if (Idkmod.DarkArtsHotKey.JustPressed && player.HasBuff(ModContent.BuffType<idkmod.Buffs.DarkArtsBuff>()) && DANpcs.Count > 0)
             {
                 
@@ -248,6 +258,12 @@ namespace Idkmod
 
                 DANpcs.Clear();
                 player.ClearBuff(ModContent.BuffType<DarkArtsBuff>());
+            }
+            //hk nail spell 1 effects
+            if(Idkmod.NailSpell1HK.JustPressed && player.GetModPlayer<BlPlayer>().NailSpell1 && !NailSpellCD)
+            {
+                Projectile.NewProjectile(player.Center, Vector2.Normalize(Main.MouseWorld - player.Center) * player.HeldItem.shootSpeed, ModContent.ProjectileType<NailSpell1Proj>(), 9999, 10, Main.myPlayer);
+                player.AddBuff(ModContent.BuffType<NailSpellCD>(), 600);
             }
         }
 

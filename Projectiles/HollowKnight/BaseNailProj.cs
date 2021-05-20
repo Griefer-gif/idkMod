@@ -6,23 +6,21 @@ using Terraria.ModLoader;
 
 namespace idkmod.Projectiles.HollowKnight
 {
-	//ported from my tAPI mod because I don't want to make artwork
-	public class OldNailProj : ModProjectile
+	//used for OldNail and Sharpened nail because they are very similar
+	public class BaseNailProj : ModProjectile
 	{
 		public override void SetDefaults()
 		{
-			//projectile.CloneDefaults(ProjectileID.Arkhalis);
 			projectile.width = 60;
 			projectile.height = 60;
-			//aiType = 959;
-			//projectile.aiStyle = 75;
 			projectile.friendly = true;
-			projectile.penetrate = -1;
+			projectile.penetrate = 20;
 			projectile.tileCollide = false;
+			//projectile.aiStyle = ProjectileID.Arkhalis;
 			//projectile.hide = true;
 			projectile.ownerHitCheck = true; //so you can't hit enemies through walls
 			projectile.melee = true;
-			projectile.timeLeft = 3;
+			projectile.timeLeft = 2;
 		}
 
         public override void AI()
@@ -32,15 +30,16 @@ namespace idkmod.Projectiles.HollowKnight
 
 			//projectile.position = player.position
 			UpdatePlayerVisuals(player, rrp);
-			projectile.Center += Vector2.Normalize(rrp);
+
+			projectile.Center += Vector2.Normalize(player.Center);
+
 		}
 
 
 		private void UpdatePlayerVisuals(Player player, Vector2 playerHandPos)
 		{
-			// Place the Prism directly into the player's hand at all times.
 			//projectile.position = playerHandPos;
-			// The beams emit from the tip of the Prism, not the side. As such, rotate the sprite by pi/2 (90 degrees).
+			// This is useless but id have to redo the sprite, so im not gonna remove it
 			projectile.rotation = projectile.velocity.ToRotation() + MathHelper.PiOver2;
 			projectile.spriteDirection = projectile.direction;
 
@@ -48,8 +47,6 @@ namespace idkmod.Projectiles.HollowKnight
 			// Constantly resetting player.itemTime and player.itemAnimation prevents the player from switching items or doing anything else.
 			player.ChangeDir(projectile.direction);
 			player.heldProj = projectile.whoAmI;
-			player.itemTime = 15;
-			player.itemAnimation = 15;
 
 			// If you do not multiply by projectile.direction, the player's hand will point the wrong direction while facing left.
 			player.itemRotation = (projectile.velocity * projectile.direction).ToRotation();

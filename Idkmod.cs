@@ -22,6 +22,9 @@ namespace Idkmod
     public class Idkmod : Mod
     {
         public static ModHotKey DarkArtsHotKey;
+        public static ModHotKey NailSpell1HK;
+        public static ModHotKey NailSpell2HK;
+        public static ModHotKey NailSpell3HK;
         private UserInterface _shieldHealthBar;
         internal ShieldHealthBar shieldHealthBar;
 
@@ -35,6 +38,9 @@ namespace Idkmod
             }
 
             DarkArtsHotKey = RegisterHotKey("Dark Arts", "F");
+            NailSpell1HK = RegisterHotKey("Nail Spell 1", "R");
+            NailSpell2HK = RegisterHotKey("Nail Spell 2", "G");
+            NailSpell3HK = RegisterHotKey("Nail Spell 3", "T");
         }
 
         public override void UpdateUI(GameTime gameTime)
@@ -62,6 +68,9 @@ namespace Idkmod
         public override void Unload()
         {
             DarkArtsHotKey = null;
+            NailSpell1HK = null;
+            NailSpell2HK = null;
+            NailSpell3HK = null;
         }
     }
 }

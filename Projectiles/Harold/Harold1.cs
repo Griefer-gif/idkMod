@@ -92,6 +92,7 @@ namespace idkmod.Projectiles.Harold
 
 				Projectile.NewProjectile(projectile.oldPosition, speed, ModContent.ProjectileType<Harold2>(), projectile.damage, 0, 0);
 				Projectile.NewProjectile(projectile.oldPosition, speed2, ModContent.ProjectileType<Harold2>(), projectile.damage, 0, 0);
+
 				Main.PlaySound(SoundID.DD2_ExplosiveTrapExplode, projectile.position);
 			}
 		}
