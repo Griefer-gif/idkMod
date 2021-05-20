@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -10,21 +11,83 @@ namespace idkmod.Projectiles.HollowKnight
 	{
 		public override void SetDefaults()
 		{
-			projectile.width = 22;
-			projectile.height = 22;
-			projectile.aiStyle = 19;
+			//projectile.CloneDefaults(ProjectileID.Arkhalis);
+			projectile.width = 60;
+			projectile.height = 60;
+			//aiType = 959;
+			//projectile.aiStyle = 75;
 			projectile.friendly = true;
 			projectile.penetrate = -1;
 			projectile.tileCollide = false;
-			projectile.hide = true;
+			//projectile.hide = true;
 			projectile.ownerHitCheck = true; //so you can't hit enemies through walls
 			projectile.melee = true;
+			projectile.timeLeft = 1;
 		}
 
-		public override void AI()
-		{
-			//int dust = Dust.NewDust(projectile.position, projectile.width, projectile.height, 6, projectile.velocity.X * 0.2f, projectile.velocity.Y * 0.2f, 100, default(Color), 1.9f);
-			//Main.dust[dust].noGravity = true;
+        public override void AI()
+        {
+
+			Player player = Main.player[projectile.owner];
+			Vector2 rrp = player.RotatedRelativePoint(player.MountedCenter, true);
+
+			//projectile.position = player.position;
+			UpdateAim(rrp, player.HeldItem.shootSpeed);
+			UpdatePlayerVisuals(player, rrp);
+
+			projectile.position += Vector2.Normalize(Main.MouseWorld) * (projectile.velocity * 5f);
 		}
+
+        private void UpdateAim(Vector2 source, float speed)
+		{
+			// Get the player's current aiming direction as a normalized vector.
+			Vector2 aim = Vector2.Normalize(Main.MouseWorld - source);
+			if (aim.HasNaNs())
+			{
+				aim = -Vector2.UnitY;
+			}
+
+			if (aim != projectile.velocity)
+			{
+				projectile.netUpdate = true;
+			}
+			projectile.velocity = aim;
+		}
+
+
+		private void UpdatePlayerVisuals(Player player, Vector2 playerHandPos)
+		{
+			// Place the Prism directly into the player's hand at all times.
+			//projectile.position = playerHandPos;
+			// The beams emit from the tip of the Prism, not the side. As such, rotate the sprite by pi/2 (90 degrees).
+			projectile.rotation = projectile.velocity.ToRotation() + MathHelper.PiOver2;
+			projectile.spriteDirection = projectile.direction;
+
+			// The Prism is a holdout projectile, so change the player's variables to reflect that.
+			// Constantly resetting player.itemTime and player.itemAnimation prevents the player from switching items or doing anything else.
+			player.ChangeDir(projectile.direction);
+			player.heldProj = projectile.whoAmI;
+			player.itemTime = 2;
+			player.itemAnimation = 2;
+
+			// If you do not multiply by projectile.direction, the player's hand will point the wrong direction while facing left.
+			player.itemRotation = (projectile.velocity * projectile.direction).ToRotation();
+		}
+
+		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
+		{
+			SpriteEffects effects = projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+			Texture2D texture = Main.projectileTexture[projectile.type];
+			int frameHeight = texture.Height / Main.projFrames[projectile.type];
+			int spriteSheetOffset = frameHeight * projectile.frame;
+			Vector2 sheetInsertPosition = (projectile.Center + Vector2.UnitY * projectile.gfxOffY - Main.screenPosition).Floor();
+
+			// The Prism is always at full brightness, regardless of the surrounding light. This is equivalent to it being its own glowmask.
+			// It is drawn in a non-white color to distinguish it from the vanilla Last Prism.
+			Color drawColor = Color.White;
+			spriteBatch.Draw(texture, sheetInsertPosition, new Rectangle?(new Rectangle(0, spriteSheetOffset, texture.Width, frameHeight)), drawColor, projectile.rotation, new Vector2(texture.Width / 2f, frameHeight / 2f), projectile.scale, effects, 0f);
+			return false;
+		}
+
 	}
 }
