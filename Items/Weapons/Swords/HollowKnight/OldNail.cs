@@ -21,7 +21,7 @@ namespace Idkmod.Items.Weapons.Swords.HollowKnight
 
 		public override void SetDefaults()
 		{
-			item.damage = 40;
+			item.damage = 10;
 			item.melee = true;
 			item.width = 20;
 			item.height = 12;
