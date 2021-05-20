@@ -22,36 +22,17 @@ namespace idkmod.Projectiles.HollowKnight
 			//projectile.hide = true;
 			projectile.ownerHitCheck = true; //so you can't hit enemies through walls
 			projectile.melee = true;
-			projectile.timeLeft = 1;
+			projectile.timeLeft = 3;
 		}
 
         public override void AI()
         {
-
 			Player player = Main.player[projectile.owner];
 			Vector2 rrp = player.RotatedRelativePoint(player.MountedCenter, true);
 
-			//projectile.position = player.position;
-			UpdateAim(rrp, player.HeldItem.shootSpeed);
+			//projectile.position = player.position
 			UpdatePlayerVisuals(player, rrp);
-
-			projectile.position += Vector2.Normalize(Main.MouseWorld) * (projectile.velocity * 5f);
-		}
-
-        private void UpdateAim(Vector2 source, float speed)
-		{
-			// Get the player's current aiming direction as a normalized vector.
-			Vector2 aim = Vector2.Normalize(Main.MouseWorld - source);
-			if (aim.HasNaNs())
-			{
-				aim = -Vector2.UnitY;
-			}
-
-			if (aim != projectile.velocity)
-			{
-				projectile.netUpdate = true;
-			}
-			projectile.velocity = aim;
+			projectile.Center += Vector2.Normalize(rrp);
 		}
 
 
@@ -67,8 +48,8 @@ namespace idkmod.Projectiles.HollowKnight
 			// Constantly resetting player.itemTime and player.itemAnimation prevents the player from switching items or doing anything else.
 			player.ChangeDir(projectile.direction);
 			player.heldProj = projectile.whoAmI;
-			player.itemTime = 2;
-			player.itemAnimation = 2;
+			player.itemTime = 15;
+			player.itemAnimation = 15;
 
 			// If you do not multiply by projectile.direction, the player's hand will point the wrong direction while facing left.
 			player.itemRotation = (projectile.velocity * projectile.direction).ToRotation();

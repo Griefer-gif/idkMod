@@ -28,7 +28,7 @@ namespace Idkmod.Items.Weapons.Swords.HollowKnight
 			item.useTime = 15;
 			item.useAnimation = 15;
 			item.reuseDelay = 30;
-			item.channel = false;
+			item.channel = true;
 			item.noUseGraphic = true;
 			item.noMelee = true;
 			item.useStyle = ItemUseStyleID.HoldingOut;
