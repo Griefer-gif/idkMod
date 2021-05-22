@@ -27,11 +27,11 @@ namespace Idkmod.Items.Accessories.BindingOfIsaac
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            if (player.GetModPlayer<BlPlayer>().DANpcs.Count >= 9 && player.GetModPlayer<BlPlayer>().DarkArtsBuff)
+            if (player.GetModPlayer<idkPlayer>().DANpcs.Count >= 9 && player.GetModPlayer<idkPlayer>().DarkArtsBuff)
             {
                 player.velocity = new Vector2(0, 0);
             }
-            player.GetModPlayer<BlPlayer>().DarkArts = true;
+            player.GetModPlayer<idkPlayer>().DarkArts = true;
             //player.AddBuff(ModContent.BuffType<Buffs.DarkArtsBuff>(), 600);
         }
 

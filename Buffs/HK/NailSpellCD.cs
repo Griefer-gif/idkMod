@@ -21,7 +21,7 @@ namespace Idkmod.Buffs.HK
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetModPlayer<BlPlayer>().NailSpellCD = true;
+			player.GetModPlayer<idkPlayer>().NailSpellCD = true;
 		}
 
 	}

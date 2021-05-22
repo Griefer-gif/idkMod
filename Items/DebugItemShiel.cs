@@ -37,8 +37,8 @@ namespace Idkmod.Items
         {
             //Main.NewText("list start :");
 
-            Main.NewText(player.GetModPlayer<BlPlayer>().psyFlyQueue.Count);
-            Main.NewText(player.GetModPlayer<BlPlayer>().PsyFlyBuff);
+            Main.NewText(player.GetModPlayer<idkPlayer>().psyFlyQueue.Count);
+            Main.NewText(player.GetModPlayer<idkPlayer>().PsyFlyBuff);
 
             return true;
         }

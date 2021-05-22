@@ -20,7 +20,7 @@ namespace idkmod.Buffs
 			player.moveSpeed += 10f;
 			player.maxRunSpeed += 10f;
 			
-			player.GetModPlayer<BlPlayer>().DarkArtsBuff = true;
+			player.GetModPlayer<idkPlayer>().DarkArtsBuff = true;
 		}
 
 	}

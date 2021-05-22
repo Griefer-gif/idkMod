@@ -22,7 +22,7 @@ namespace idkmod.Buffs.Minions
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetModPlayer<BlPlayer>().PsyFlyBuff = true;
+			player.GetModPlayer<idkPlayer>().PsyFlyBuff = true;
 			if (player.ownedProjectileCounts[ModContent.ProjectileType<PsyFlyMinion>()] > 0)
 			{
 				player.buffTime[buffIndex] = 18000;

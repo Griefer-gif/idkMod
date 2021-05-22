@@ -55,7 +55,7 @@ namespace Idkmod.Items.Weapons.Guns.BL2
 			// Here you can change where the minion is spawned. Most vanilla minions spawn at the cursor position.
 			position = Main.MouseWorld;
 
-			if(!player.GetModPlayer<BlPlayer>().PsyFlyBuff)
+			if(!player.GetModPlayer<idkPlayer>().PsyFlyBuff)
             {
 				return true;
 			}

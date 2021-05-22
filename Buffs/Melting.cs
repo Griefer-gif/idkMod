@@ -19,7 +19,7 @@ namespace idkmod.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetModPlayer<BlPlayer>().Corrosive = true;
+			player.GetModPlayer<idkPlayer>().Corrosive = true;
 		}
 
 			

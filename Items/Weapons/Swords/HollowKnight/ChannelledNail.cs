@@ -57,7 +57,7 @@ namespace Idkmod.Items.Weapons.Swords.HollowKnight
 
         public override void HoldItem(Player player)
 		{
-			player.GetModPlayer<BlPlayer>().NailSpell1UP = true;
+			player.GetModPlayer<idkPlayer>().NailSpell1UP = true;
 		}
 	}
 }

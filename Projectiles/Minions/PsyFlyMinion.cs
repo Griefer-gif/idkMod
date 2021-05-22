@@ -128,7 +128,7 @@ namespace idkmod.Projectiles.Minions
 			// friendly needs to be set to false so it doesn't damage things like target dummies while idling
 			// Both things depend on if it has a target or not, so it's just one assignment here
 			// You don't need this assignment if your minion is shooting things instead of dealing contact damage
-			projectile.friendly = player.GetModPlayer<BlPlayer>().psyFlyQueue.Count > 0;
+			projectile.friendly = player.GetModPlayer<idkPlayer>().psyFlyQueue.Count > 0;
 			#endregion
 
 			#region Movement
@@ -137,11 +137,11 @@ namespace idkmod.Projectiles.Minions
 			float speed = 30f;
 			float inertia = 5f;
 
-			if (player.GetModPlayer<BlPlayer>().psyFlyQueue.Count > 0)
+			if (player.GetModPlayer<idkPlayer>().psyFlyQueue.Count > 0)
 			{
 				// Minion has a target: attack (here, fly towards the enemy)
-				float distanceFromTarget = Vector2.Distance(player.GetModPlayer<BlPlayer>().psyFlyQueue.Peek().Center, projectile.Center);
-				Vector2 targetCenter = player.GetModPlayer<BlPlayer>().psyFlyQueue.Peek().Center;
+				float distanceFromTarget = Vector2.Distance(player.GetModPlayer<idkPlayer>().psyFlyQueue.Peek().Center, projectile.Center);
+				Vector2 targetCenter = player.GetModPlayer<idkPlayer>().psyFlyQueue.Peek().Center;
 				// The immediate range around the target (so it doesn't latch onto it when close)
 				if (distanceFromTarget > 45f)
 				{
@@ -152,12 +152,12 @@ namespace idkmod.Projectiles.Minions
 				}
 				if (distanceFromTarget < 45f)
 				{
-					Vector2 Velocity = player.GetModPlayer<BlPlayer>().psyFlyQueue.Peek().velocity.RotatedBy(MathHelper.ToRadians(180));
+					Vector2 Velocity = player.GetModPlayer<idkPlayer>().psyFlyQueue.Peek().velocity.RotatedBy(MathHelper.ToRadians(180));
 					if (projectile.owner == Main.myPlayer)
                     {
-						Projectile.NewProjectile(projectile.Center, Velocity, ModContent.ProjectileType<PsyFlyReflectProj>(), player.GetModPlayer<BlPlayer>().psyFlyQueue.Peek().damage, player.GetModPlayer<BlPlayer>().psyFlyQueue.Peek().knockBack, Main.myPlayer);
+						Projectile.NewProjectile(projectile.Center, Velocity, ModContent.ProjectileType<PsyFlyReflectProj>(), player.GetModPlayer<idkPlayer>().psyFlyQueue.Peek().damage, player.GetModPlayer<idkPlayer>().psyFlyQueue.Peek().knockBack, Main.myPlayer);
 					}
-					player.GetModPlayer<BlPlayer>().psyFlyQueue.Peek().active = false;
+					player.GetModPlayer<idkPlayer>().psyFlyQueue.Peek().active = false;
 				}
 			}
 			else
@@ -207,7 +207,7 @@ namespace idkmod.Projectiles.Minions
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
         {
 			Player player = Main.player[projectile.owner];
-			if(player.GetModPlayer<BlPlayer>().psyFlyQueue.Count > 0)
+			if(player.GetModPlayer<idkPlayer>().psyFlyQueue.Count > 0)
             {
 				int dust = Dust.NewDust(projectile.Center, 10, 10, DustID.PurpleTorch, Scale: 2f);
 				Main.dust[dust].noGravity = true;

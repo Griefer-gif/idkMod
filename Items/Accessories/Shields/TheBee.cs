@@ -40,17 +40,17 @@ namespace idkmod.Items.Accessories.Shields
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{ 
 			//things i didnt find a workaround
-			player.GetModPlayer<BlPlayer>().shieldsEquipped++;
-			player.GetModPlayer<BlPlayer>().shieldMaxHealth = MaxHealth;
+			player.GetModPlayer<idkPlayer>().shieldsEquipped++;
+			player.GetModPlayer<idkPlayer>().shieldMaxHealth = MaxHealth;
 
 			//the function to make it recharge and a update to CurrentHealth
 			ShieldRechargeUpdate(player, MaxHealth, CurrentHealth, RechargeRate, hitTimer);
-			CurrentHealth = player.GetModPlayer<BlPlayer>().shieldCHealth;
+			CurrentHealth = player.GetModPlayer<idkPlayer>().shieldCHealth;
 
 			//-----------------------------
 			//Shield effects here
 			//-----------------------------
-			if (MaxHealth >= CurrentHealth && player.GetModPlayer<BlPlayer>().shieldsEquipped == 1)
+			if (MaxHealth >= CurrentHealth && player.GetModPlayer<idkPlayer>().shieldsEquipped == 1)
 			{
 				player.allDamage += 0.5f;
 			}

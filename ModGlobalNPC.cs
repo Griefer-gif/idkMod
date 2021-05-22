@@ -23,9 +23,9 @@ namespace Idkmod
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
         {
-            if(!target.GetModPlayer<BlPlayer>().DANpcs.Contains(npc) && target.GetModPlayer<BlPlayer>().DANpcs.Count <= 5 && target.GetModPlayer<BlPlayer>().DarkArtsBuff)
+            if(!target.GetModPlayer<idkPlayer>().DANpcs.Contains(npc) && target.GetModPlayer<idkPlayer>().DANpcs.Count <= 5 && target.GetModPlayer<idkPlayer>().DarkArtsBuff)
             {
-                    target.GetModPlayer<BlPlayer>().DANpcs.Add(npc);
+                    target.GetModPlayer<idkPlayer>().DANpcs.Add(npc);
                     npc.AddBuff(ModContent.BuffType<Shadowed>(), 250, false);
             }
         }

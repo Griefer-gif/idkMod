@@ -19,7 +19,7 @@ using Idkmod.Projectiles.HollowKnight;
 
 namespace Idkmod
 {
-    public class BlPlayer : Terraria.ModLoader.ModPlayer
+    public class idkPlayer : Terraria.ModLoader.ModPlayer
     {
         int dustSmoke = DustID.Smoke;
         public Queue<Projectile> psyFlyQueue  = new Queue<Projectile>();
@@ -198,7 +198,7 @@ namespace Idkmod
         public override void ProcessTriggers(TriggersSet triggersSet)
         {
             //effects for when the player does not already have the buff
-            if (Idkmod.DarkArtsHotKey.JustPressed && player.GetModPlayer<BlPlayer>().DarkArts && !DarkArtsBuff && !DarkArtsCD)
+            if (Idkmod.DarkArtsHotKey.JustPressed && player.GetModPlayer<idkPlayer>().DarkArts && !DarkArtsBuff && !DarkArtsCD)
             {
                 for (int i = 0; i < 75; i++)
                 {
@@ -262,12 +262,12 @@ namespace Idkmod
                 player.ClearBuff(ModContent.BuffType<DarkArtsBuff>());
             }
             //hk nail spell 1 effects
-            if(Idkmod.NailSpell1HK.JustPressed && player.GetModPlayer<BlPlayer>().NailSpell1 && !NailSpellCD)
+            if(Idkmod.NailSpell1HK.JustPressed && player.GetModPlayer<idkPlayer>().NailSpell1 && !NailSpellCD)
             {
                 Projectile.NewProjectile(player.Center, Vector2.Normalize(Main.MouseWorld - player.Center) * player.HeldItem.shootSpeed, ModContent.ProjectileType<NailSpell1Proj>(), 9999, 10, Main.myPlayer);
                 player.AddBuff(ModContent.BuffType<NailSpellCD>(), 300);
             }
-            if (Idkmod.NailSpell1HK.JustPressed && player.GetModPlayer<BlPlayer>().NailSpell1UP && !NailSpellCD)
+            if (Idkmod.NailSpell1HK.JustPressed && player.GetModPlayer<idkPlayer>().NailSpell1UP && !NailSpellCD)
             {
                 Projectile.NewProjectile(player.Center, Vector2.Normalize(Main.MouseWorld - player.Center) * player.HeldItem.shootSpeed, ModContent.ProjectileType<NailSpell1ProjUP>(), 9999, 10, Main.myPlayer);
                 player.AddBuff(ModContent.BuffType<NailSpellCD>(), 600);

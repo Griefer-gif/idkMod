@@ -52,7 +52,7 @@ namespace Idkmod.UI
 		public override void Draw(SpriteBatch spriteBatch)
 		{
 
-			if (Main.LocalPlayer.GetModPlayer<BlPlayer>().shieldMaxHealth == 0)
+			if (Main.LocalPlayer.GetModPlayer<idkPlayer>().shieldMaxHealth == 0)
 			{
 				return;
 			}
@@ -63,7 +63,7 @@ namespace Idkmod.UI
 		{
 			base.DrawSelf(spriteBatch);
 
-			var modPlayer = Main.LocalPlayer.GetModPlayer<BlPlayer>();
+			var modPlayer = Main.LocalPlayer.GetModPlayer<idkPlayer>();
 			// Calculate quotient
 			float quotient = (float)modPlayer.shieldCHealth / modPlayer.shieldMaxHealth; // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
 			quotient = Utils.Clamp(quotient, 0f, 1f); // Clamping it to 0-1f so it doesn't go over that.
@@ -89,12 +89,12 @@ namespace Idkmod.UI
 		public override void Update(GameTime gameTime)
 		{
 
-			if (Main.LocalPlayer.GetModPlayer<BlPlayer>().shieldMaxHealth == 0)
+			if (Main.LocalPlayer.GetModPlayer<idkPlayer>().shieldMaxHealth == 0)
 			{
 				return;
 			}
 
-			var modPlayer = Main.LocalPlayer.GetModPlayer<BlPlayer>();
+			var modPlayer = Main.LocalPlayer.GetModPlayer<idkPlayer>();
 			// Setting the text per tick to update and show our resource values.
 			text.SetText($"Shield Health: {modPlayer.shieldCHealth} / {modPlayer.shieldMaxHealth}");
 			base.Update(gameTime);

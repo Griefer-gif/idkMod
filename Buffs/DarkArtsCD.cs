@@ -17,7 +17,7 @@ namespace idkmod.Buffs
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.GetModPlayer<BlPlayer>().DarkArtsCD = true;
+			player.GetModPlayer<idkPlayer>().DarkArtsCD = true;
 		}
 
 	}

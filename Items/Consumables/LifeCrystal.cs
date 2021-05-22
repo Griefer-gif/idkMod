@@ -26,14 +26,14 @@ namespace Idkmod.Items.Consumables
 
         public override bool CanUseItem(Player player)
         {
-            return player.statLifeMax == 500 && player.GetModPlayer<BlPlayer>().LifeCrystal < BlPlayer.maxUses;
+            return player.statLifeMax == 500 && player.GetModPlayer<idkPlayer>().LifeCrystal < idkPlayer.maxUses;
         }
 
         public override bool UseItem(Player player)
         {
             player.statLifeMax2 += 30;
             player.statLife += 30;
-            player.GetModPlayer<BlPlayer>().LifeCrystal += 1;
+            player.GetModPlayer<idkPlayer>().LifeCrystal += 1;
             if (Main.myPlayer == player.whoAmI)
             {
                 player.HealEffect(30, true);
