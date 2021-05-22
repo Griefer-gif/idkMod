@@ -11,11 +11,11 @@ using Terraria.ModLoader;
 
 namespace Idkmod.Projectiles.HollowKnight
 {
-    class NailSpell1Proj : ModProjectile
-    {
+	class NailSpell1ProjUP : ModProjectile
+	{
 		public override void SetStaticDefaults()
 		{
-			DisplayName.SetDefault("Vengeful Spirit");     //The English name of the projectile
+			DisplayName.SetDefault("Vengeful spirit upgrade");     //The English name of the projectile
 			ProjectileID.Sets.TrailCacheLength[projectile.type] = 20;    //The length of old position to be recorded
 			ProjectileID.Sets.TrailingMode[projectile.type] = 0;        //The recording mode
 		}
@@ -23,8 +23,8 @@ namespace Idkmod.Projectiles.HollowKnight
 		public override void SetDefaults()
 		{
 
-			projectile.width = 30;               //The width of projectile hitbox
-			projectile.height = 30;              //The height of projectile hitbox
+			projectile.width = 100;               //The width of projectile hitbox
+			projectile.height = 100;              //The height of projectile hitbox
 			projectile.aiStyle = 1;             //The ai style of the projectile, please reference the source code of Terraria
 			projectile.friendly = true;         //Can the projectile deal damage to enemies?
 			projectile.hostile = false;         //Can the projectile deal damage to the player?
@@ -50,14 +50,14 @@ namespace Idkmod.Projectiles.HollowKnight
 
 				Color color = projectile.GetAlpha(lightColor) * ((float)(projectile.oldPos.Length - k) / (float)projectile.oldPos.Length);
 				spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0f);
-				
+
 			}
-			
-			for(int i = 0; i < r.Next(5, 20); i++)
-            {
+
+			for (int i = 0; i < r.Next(5, 20); i++)
+			{
 				var dust = Dust.NewDust(projectile.oldPosition, projectile.width, projectile.height, DustID.PurpleTorch, projectile.oldVelocity.X, projectile.oldVelocity.Y, 0, Scale: 1.5f);
 				Main.dust[dust].noGravity = true;
-			
+
 			}
 
 			return true;

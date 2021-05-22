@@ -24,6 +24,7 @@ namespace Idkmod
         int dustSmoke = DustID.Smoke;
         public Queue<Projectile> psyFlyQueue  = new Queue<Projectile>();
         public bool NailSpell1;
+        public bool NailSpell1UP;
         public bool NailSpell2;
         public bool NailSpell3;
         public bool NailSpellCD;
@@ -186,6 +187,7 @@ namespace Idkmod
             DarkArtsCD = false;
             PsyFlyBuff = false;
             NailSpell1 = false;
+            NailSpell1UP = false;
             NailSpell2 = false;
             NailSpell3 = false;
             NailSpellCD = false;
@@ -263,6 +265,11 @@ namespace Idkmod
             if(Idkmod.NailSpell1HK.JustPressed && player.GetModPlayer<BlPlayer>().NailSpell1 && !NailSpellCD)
             {
                 Projectile.NewProjectile(player.Center, Vector2.Normalize(Main.MouseWorld - player.Center) * player.HeldItem.shootSpeed, ModContent.ProjectileType<NailSpell1Proj>(), 9999, 10, Main.myPlayer);
+                player.AddBuff(ModContent.BuffType<NailSpellCD>(), 300);
+            }
+            if (Idkmod.NailSpell1HK.JustPressed && player.GetModPlayer<BlPlayer>().NailSpell1UP && !NailSpellCD)
+            {
+                Projectile.NewProjectile(player.Center, Vector2.Normalize(Main.MouseWorld - player.Center) * player.HeldItem.shootSpeed, ModContent.ProjectileType<NailSpell1ProjUP>(), 9999, 10, Main.myPlayer);
                 player.AddBuff(ModContent.BuffType<NailSpellCD>(), 600);
             }
         }

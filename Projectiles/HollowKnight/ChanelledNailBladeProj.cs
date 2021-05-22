@@ -4,11 +4,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace idkmod.Projectiles.HollowKnight
+
+namespace Idkmod.Projectiles.HollowKnight
 {
-	//used for OldNail and Sharpened nail because they are very similar
-	public class BaseNailProj : ModProjectile
-	{
+    class ChanelledNailBladeProj : ModProjectile
+    {
 		public override void SetDefaults()
 		{
 			projectile.width = 60;
@@ -16,14 +16,15 @@ namespace idkmod.Projectiles.HollowKnight
 			projectile.friendly = true;
 			projectile.penetrate = 20;
 			projectile.tileCollide = false;
+			projectile.scale = 1.5f;
 			//projectile.hide = true;
 			projectile.ownerHitCheck = true; //so you can't hit enemies through walls
 			projectile.melee = true;
 			projectile.timeLeft = 2;
 		}
 
-        public override void AI()
-        {
+		public override void AI()
+		{
 			Player player = Main.player[projectile.owner];
 			Vector2 rrp = player.RotatedRelativePoint(player.MountedCenter, true);
 
@@ -65,6 +66,5 @@ namespace idkmod.Projectiles.HollowKnight
 			spriteBatch.Draw(texture, sheetInsertPosition, new Rectangle?(new Rectangle(0, spriteSheetOffset, texture.Width, frameHeight)), drawColor, projectile.rotation, new Vector2(texture.Width / 2f, frameHeight / 2f), projectile.scale, effects, 0f);
 			return false;
 		}
-
 	}
 }
