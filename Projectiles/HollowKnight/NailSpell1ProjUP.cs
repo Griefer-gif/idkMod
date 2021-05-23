@@ -16,7 +16,7 @@ namespace Idkmod.Projectiles.HollowKnight
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Vengeful spirit upgrade");     //The English name of the projectile
-			ProjectileID.Sets.TrailCacheLength[projectile.type] = 20;    //The length of old position to be recorded
+			ProjectileID.Sets.TrailCacheLength[projectile.type] = 10;    //The length of old position to be recorded
 			ProjectileID.Sets.TrailingMode[projectile.type] = 0;        //The recording mode
 		}
 
