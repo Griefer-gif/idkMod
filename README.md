@@ -1,4 +1,5 @@
-A mod that adds content to some games i like into terraria!
-Current Games:
+
+Current Games added:
 The binding of issac
 Borderlands 2
+Hollow Knight
