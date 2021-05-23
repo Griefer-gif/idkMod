@@ -277,13 +277,13 @@ namespace Idkmod
             if (Idkmod.NailSpell2HK.JustPressed && !NailSpellCD && player.GetModPlayer<idkPlayer>().NailSpell2 && (player.velocity.Y < -1 || player.velocity.Y > 1))
             {
                 Projectile.NewProjectile(player.Center, new Vector2(0, 10), ModContent.ProjectileType<NailSpellDiveProj>(), player.HeldItem.damage * 3, 10, Main.myPlayer);
-                player.AddBuff(ModContent.BuffType<NailSpellCD>(), 900);
+                player.AddBuff(ModContent.BuffType<NailSpellCD>(), 600);
             }
             //descending dark
             if (Idkmod.NailSpell2HK.JustPressed && !NailSpellCD && player.GetModPlayer<idkPlayer>().NailSpell2UP && (player.velocity.Y < -1 || player.velocity.Y > 1))
             {
                 Projectile.NewProjectile(player.Center, new Vector2(0, 10), ModContent.ProjectileType<NailSpellDiveProjUP>(), player.HeldItem.damage * 5, 10, Main.myPlayer);
-                player.AddBuff(ModContent.BuffType<NailSpellCD>(), 900);
+                player.AddBuff(ModContent.BuffType<NailSpellCD>(), 600);
             }
         }
 
