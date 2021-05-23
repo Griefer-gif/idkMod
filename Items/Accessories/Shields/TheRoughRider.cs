@@ -18,7 +18,7 @@ namespace idkmod.Items.Accessories.Shields
 		public int hitTimer = 0;
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Adds 150 health but has no shield capacity");
+			Tooltip.SetDefault("Adds 100 health but has no shield capacity");
 		}
 
 		public override void SetDefaults()
@@ -26,7 +26,7 @@ namespace idkmod.Items.Accessories.Shields
 			item.width = 20;
 			item.height = 20;
 			item.accessory = true;
-			item.value = Item.sellPrice(silver: 30);
+			item.value = Item.sellPrice(gold: 1);
 			item.rare = ItemRarityID.Cyan;
 
 		}
@@ -41,7 +41,7 @@ namespace idkmod.Items.Accessories.Shields
 			//         Shield Effects
 			//------------------------------------------
 
-			player.statLifeMax2 += 150;
+			player.statLifeMax2 += 100;
 
 			//----------------------------------------------
 		}

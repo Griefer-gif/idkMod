@@ -12,14 +12,29 @@ namespace Idkmod.Items
 		{
 			if (npc.type == NPCID.KingSlime)
 			{
-				Item.NewItem(npc.getRect(), mod.ItemType("TheBee"));
-				if (Main.rand.Next(7) == 0)
+				if (Main.rand.Next(5) == 0)
                 {
 					Item.NewItem(npc.getRect(), mod.ItemType("Hornet"));
 				}
 					
 			}
-			
+
+			if (npc.type == NPCID.EyeofCthulhu)
+			{
+				if (Main.rand.Next(3) == 0)
+				{
+					Item.NewItem(npc.getRect(), mod.ItemType("TheBee"));
+				}
+			}
+
+			if (npc.type == NPCID.QueenBee)
+			{
+				if (Main.rand.Next(3) == 0)
+				{
+					Item.NewItem(npc.getRect(), mod.ItemType("TheRoughRider"));
+				}
+			}
+
 		}
 	}
 }

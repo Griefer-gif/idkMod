@@ -12,7 +12,7 @@ namespace idkmod.Items.Accessories.Shields
 {
 	public class TheBee : BaseShield
 	{
-        readonly int MaxHealth = 100;
+        readonly int MaxHealth = 50;
 		public int CurrentHealth;
 		private const int RechargeRate = 2;
 		//public bool GotHit = true;
@@ -22,7 +22,7 @@ namespace idkmod.Items.Accessories.Shields
 
 		public override void SetStaticDefaults()
 		{
-			Tooltip.SetDefault("Adds a +0.5 damage multiplier if the shield is full");
+			Tooltip.SetDefault("Adds a 0.5 damage multiplier if the shield is full");
 		}
 
 		public override void SetDefaults()
@@ -68,6 +68,7 @@ namespace idkmod.Items.Accessories.Shields
 			tooltips.Add(new TooltipLine(mod, "", $"Shield recharge rate: {RechargeRate}  "));
 			tooltips.Add(chargeTooltip);
 			tooltips.Add(quote);
+			
 		}
 
 		public override TagCompound Save()
