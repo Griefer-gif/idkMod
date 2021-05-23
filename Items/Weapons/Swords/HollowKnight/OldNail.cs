@@ -12,7 +12,8 @@ using Terraria.ModLoader;
 namespace Idkmod.Items.Weapons.Swords.HollowKnight
 {
     class OldNail : ModItem
-    {
+    { 
+		//level 1 nial
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Old nail");
@@ -37,7 +38,7 @@ namespace Idkmod.Items.Weapons.Swords.HollowKnight
 			item.rare = ItemRarityID.Blue;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = false;
-			item.shoot = ModContent.ProjectileType<BaseNailProj>();
+			item.shoot = ModContent.ProjectileType<BaseNailBlade>();
 			item.shootSpeed = 10f;
 		}
     }

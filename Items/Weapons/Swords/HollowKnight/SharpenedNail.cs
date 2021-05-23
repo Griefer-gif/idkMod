@@ -13,6 +13,7 @@ namespace Idkmod.Items.Weapons.Swords.HollowKnight
 {
 	class SharpenedNail : ModItem
 	{
+		//nial level 2
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Sharpened nail");
@@ -38,7 +39,7 @@ namespace Idkmod.Items.Weapons.Swords.HollowKnight
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
 			//item.CloneDefaults(ItemID.Arkhalis);
-			item.shoot = ModContent.ProjectileType<BaseNailProj>();
+			item.shoot = ModContent.ProjectileType<BaseNailBlade>();
 			item.shootSpeed = 20f;
 		}
 

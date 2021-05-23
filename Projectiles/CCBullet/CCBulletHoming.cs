@@ -40,7 +40,6 @@ namespace idkmod.Projectiles
 		{
 			if (projectile.owner == Main.myPlayer)
 			{
-				Random r = new Random();
 
 				Vector2 speed = new Vector2(180f, 0);
 				Vector2 speed2 = new Vector2(-180f, 0);
@@ -59,7 +58,6 @@ namespace idkmod.Projectiles
 		{
 			if (projectile.owner == Main.myPlayer)
 			{
-				Random r = new Random();
 
 				Vector2 speed = new Vector2(180f, 0);
 				Vector2 speed2 = new Vector2(-180f, 0);

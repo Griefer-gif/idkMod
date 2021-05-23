@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 namespace idkmod.Projectiles.HollowKnight
 {
 	//used for OldNail and Sharpened nail because they are very similar
-	public class BaseNailProj : ModProjectile
+	public class BaseNailBlade : ModProjectile
 	{
 		public override void SetDefaults()
 		{

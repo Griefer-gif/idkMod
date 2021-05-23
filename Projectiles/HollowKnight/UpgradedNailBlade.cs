@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace Idkmod.Projectiles.HollowKnight
 {
-    class ChanelledNailBladeProj : ModProjectile
+    class UpgradedNailBlade : ModProjectile
     {
 		public override void SetDefaults()
 		{

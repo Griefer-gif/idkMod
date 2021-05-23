@@ -21,12 +21,12 @@ namespace Idkmod
 {
     public class idkPlayer : Terraria.ModLoader.ModPlayer
     {
-        int dustSmoke = DustID.Smoke;
+        readonly int dustSmoke = DustID.Smoke;
         public Queue<Projectile> psyFlyQueue  = new Queue<Projectile>();
         public bool NailSpell1;
         public bool NailSpell1UP;
         public bool NailSpell2;
-        public bool NailSpell3;
+        public bool NailSpell2UP;
         public bool NailSpellCD;
         public bool PsyFlyBuff;
         public bool DarkArtsBuff;
@@ -189,7 +189,7 @@ namespace Idkmod
             NailSpell1 = false;
             NailSpell1UP = false;
             NailSpell2 = false;
-            NailSpell3 = false;
+            NailSpell2UP = false;
             NailSpellCD = false;
 
             player.statLifeMax2 += LifeCrystal * 25;
@@ -261,16 +261,29 @@ namespace Idkmod
                 DANpcs.Clear();
                 player.ClearBuff(ModContent.BuffType<DarkArtsBuff>());
             }
-            //hk nail spell 1 effects
+            //hk nail spell 1 effects hotkey
             if(Idkmod.NailSpell1HK.JustPressed && player.GetModPlayer<idkPlayer>().NailSpell1 && !NailSpellCD)
             {
-                Projectile.NewProjectile(player.Center, Vector2.Normalize(Main.MouseWorld - player.Center) * player.HeldItem.shootSpeed, ModContent.ProjectileType<NailSpell1Proj>(), 9999, 10, Main.myPlayer);
+                Projectile.NewProjectile(player.Center, Vector2.Normalize(Main.MouseWorld - player.Center) * player.HeldItem.shootSpeed, ModContent.ProjectileType<NailSpell1Proj>(), player.HeldItem.damage * 2, 10, Main.myPlayer);
                 player.AddBuff(ModContent.BuffType<NailSpellCD>(), 300);
             }
+            //upgraded spell hotkey
             if (Idkmod.NailSpell1HK.JustPressed && player.GetModPlayer<idkPlayer>().NailSpell1UP && !NailSpellCD)
             {
-                Projectile.NewProjectile(player.Center, Vector2.Normalize(Main.MouseWorld - player.Center) * player.HeldItem.shootSpeed, ModContent.ProjectileType<NailSpell1ProjUP>(), 9999, 10, Main.myPlayer);
+                Projectile.NewProjectile(player.Center, Vector2.Normalize(Main.MouseWorld - player.Center) * player.HeldItem.shootSpeed, ModContent.ProjectileType<NailSpell1ProjUP>(), player.HeldItem.damage * 3, 10, Main.myPlayer);
                 player.AddBuff(ModContent.BuffType<NailSpellCD>(), 600);
+            }
+            //Descending thing level 1
+            if (Idkmod.NailSpell2HK.JustPressed && !NailSpellCD && player.GetModPlayer<idkPlayer>().NailSpell2 && (player.velocity.Y < -1 || player.velocity.Y > 1))
+            {
+                Projectile.NewProjectile(player.Center, new Vector2(0, 10), ModContent.ProjectileType<NailSpellDiveProj>(), player.HeldItem.damage * 3, 10, Main.myPlayer);
+                player.AddBuff(ModContent.BuffType<NailSpellCD>(), 900);
+            }
+            //descending dark
+            if (Idkmod.NailSpell2HK.JustPressed && !NailSpellCD && player.GetModPlayer<idkPlayer>().NailSpell2UP && (player.velocity.Y < -1 || player.velocity.Y > 1))
+            {
+                Projectile.NewProjectile(player.Center, new Vector2(0, 10), ModContent.ProjectileType<NailSpellDiveProjUP>(), player.HeldItem.damage * 5, 10, Main.myPlayer);
+                player.AddBuff(ModContent.BuffType<NailSpellCD>(), 900);
             }
         }
 
