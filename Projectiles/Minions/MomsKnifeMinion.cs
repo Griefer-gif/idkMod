@@ -13,64 +13,12 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Idkmod.Projectiles.Minions
 {
-	public class ExampleMinionItem : ModItem
-	{
-		
-		public override void SetStaticDefaults()
-		{
-			DisplayName.SetDefault("Example Minion Item");
-			Tooltip.SetDefault("Summons an example minion to fight for you");
-			ItemID.Sets.GamepadWholeScreenUseRange[item.type] = true; // This lets the player target anywhere on the whole screen while using a controller.
-			ItemID.Sets.LockOnIgnoresCollision[item.type] = true;
-		}
-
-		public override void SetDefaults()
-		{
-			item.damage = 30;
-			item.knockBack = 3f;
-			item.mana = 10;
-			item.width = 32;
-			item.height = 32;
-			item.useTime = 36;
-			item.useAnimation = 36;
-			item.useStyle = ItemUseStyleID.SwingThrow;
-			item.value = Item.buyPrice(0, 30, 0, 0);
-			item.rare = ItemRarityID.Cyan;
-			item.UseSound = SoundID.Item44;
-
-			// These below are needed for a minion weapon
-			item.noMelee = true;
-			item.summon = true;
-			item.buffType = ModContent.BuffType<MomsKnifeBuff>();
-			// No buffTime because otherwise the item tooltip would say something like "1 minute duration"
-			item.shoot = ModContent.ProjectileType<MomsKnifeMinion>();
-		}
-
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			// This is needed so the buff that keeps your minion alive and allows you to despawn it properly applies
-			player.AddBuff(item.buffType, 2);
-
-			// Here you can change where the minion is spawned. Most vanilla minions spawn at the cursor position.
-			position = Main.MouseWorld;
-			return true;
-		}
-
-		public override void AddRecipes()
-		{
-			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.SoulofFright, 25);
-			recipe.AddTile(TileID.MythrilAnvil);
-			recipe.SetResult(this);
-			recipe.AddRecipe();
-		}
-	}
-
 
 	public class MomsKnifeMinion : ModProjectile
 	{
 		int timer = 0;
 		bool attacking = false;
+		Vector2 targetCenter = new Vector2();
 
 		private void UpdatePlayerVisuals()
 		{
@@ -103,8 +51,8 @@ namespace Idkmod.Projectiles.Minions
 
 		public sealed override void SetDefaults()
 		{
-			projectile.width = 18;
-			projectile.height = 28;
+			projectile.width = 20;
+			projectile.height = 20;
 			// Makes the minion go through tiles freely
 			projectile.tileCollide = false;
 
@@ -117,6 +65,7 @@ namespace Idkmod.Projectiles.Minions
 			projectile.minionSlots = 1f;
 			// Needed so the minion doesn't despawn on collision with enemies or tiles
 			projectile.penetrate = -1;
+			
 		}
 
 		// Here you can decide if your minion breaks things like grass or pots
@@ -192,7 +141,7 @@ namespace Idkmod.Projectiles.Minions
 			#region Find target
 			// Starting search distance
 			float distanceFromTarget = 1000f;
-			Vector2 targetCenter = projectile.position;
+			
 			bool foundTarget = false;
 
 			// This code is required if your minion weapon has the targeting feature
@@ -245,23 +194,27 @@ namespace Idkmod.Projectiles.Minions
 			
 			if (foundTarget)
 			{
-				if(projectile.velocity == new Vector2(0, 0))
+				//spin if standing still
+				if(projectile.velocity == new Vector2(0, 0) || projectile.velocity == new Vector2(1, 1))
                 {
-					projectile.rotation = projectile.DirectionTo(targetCenter).ToRotation() + MathHelper.PiOver2;
+					projectile.rotation += timer * 2;//projectile.DirectionTo(targetCenter).ToRotation() + MathHelper.PiOver2;
 				}
 				
 				Vector2 direction = new Vector2();
-				if(timer >= 1 && timer < 300)
+				if(timer >= 1 && timer < 200)
                 {
+					//stand still if the timer is running and get the enemies direction
 					projectile.velocity = new Vector2(0, 0);
 					direction = targetCenter - projectile.Center;
 					direction.Normalize();
 				}
 				
+				//if it gets close to the target and is not attacking start the timer
 				if (distanceFromTarget < 200f && attacking == false)
                 {
 					timer++;
 
+					//when the timer hits 200 ticks, start attacking
 					if (timer >= 200)
                     {
 						direction *= speed;
@@ -272,6 +225,7 @@ namespace Idkmod.Projectiles.Minions
                 }
                 else
                 {
+					//move to target if too far and set attacking to false if there was a target
 					if(attacking == true && distanceFromTarget >= 200)
                     {
 						attacking = false;
@@ -284,7 +238,9 @@ namespace Idkmod.Projectiles.Minions
 			}
 			else
 			{
+				//if there is no target, attacking to false
 				attacking = false;
+				timer = 0;
 				// Minion doesn't have a target: return to player and idle
 				if (distanceToIdlePosition > 600f)
 				{
@@ -319,21 +275,25 @@ namespace Idkmod.Projectiles.Minions
 		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			if(timer > 0)
+			if(timer > 1)
             {
+				float directionTarget = (Vector2.Normalize(projectile.DirectionFrom(targetCenter)).ToRotation() - MathHelper.PiOver2) ;
+				//2 ghost knifes while timer is running
 				Vector2 drawOrigin = new Vector2(Main.projectileTexture[projectile.type].Width * 0.5f, projectile.height * 0.5f);
-				Vector2 drawPos = projectile.oldPos[0] - Main.screenPosition + drawOrigin + new Vector2(0f, projectile.gfxOffY) - new Vector2(timer / 6, 0);
-				Vector2 drawPos2 = projectile.oldPos[0] - Main.screenPosition + drawOrigin + new Vector2(0f, projectile.gfxOffY) + new Vector2(timer / 6, 0);
+				Vector2 drawPos = projectile.oldPos[0] - Main.screenPosition + drawOrigin + new Vector2(0f, projectile.gfxOffY) - new Vector2(timer / 8, 0);
+				Vector2 drawPos2 = projectile.oldPos[0] - Main.screenPosition + drawOrigin + new Vector2(0f, projectile.gfxOffY) + new Vector2(timer / 8, 0);
 
 				Color color = projectile.GetAlpha(lightColor) * 0.5f;
-				// idea: change the individual values
-				spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0f);
-				spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPos2, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0f);
+				color.R = (byte)(timer + 50);
+				spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPos, null, color, directionTarget, drawOrigin, projectile.scale, SpriteEffects.None, 0f);
+				spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPos2, null, color, directionTarget, drawOrigin, projectile.scale, SpriteEffects.None, 0f);
+				var dust = Dust.NewDust(projectile.oldPosition, projectile.width, projectile.height, DustID.RedTorch, projectile.oldVelocity.X, projectile.oldVelocity.Y, 0, Scale: 1.5f);
+				Main.dust[dust].noGravity = true;
 			}
 			if(attacking)
             {
 				Random r = new Random();
-				//Redraw the projectile with the color not influenced by light
+				//trail
 				Vector2 drawOrigin = new Vector2(Main.projectileTexture[projectile.type].Width * 0.5f, projectile.height * 0.5f);
 				for (int k = 0; k < projectile.oldPos.Length; k++)
 				{
@@ -343,20 +303,22 @@ namespace Idkmod.Projectiles.Minions
 					spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0f);
 
 				}
-
-				for (int i = 0; i < r.Next(5, 20); i++)
+                //dust trail
+                for (int i = 0; i < r.Next(5, 20); i++)
 				{
 					var dust = Dust.NewDust(projectile.oldPosition, projectile.width, projectile.height, DustID.Blood, projectile.oldVelocity.X, projectile.oldVelocity.Y, 0, Scale: 1.5f);
 					Main.dust[dust].noGravity = true;
 				}
+				var dust2 = Dust.NewDust(projectile.oldPosition, projectile.width, projectile.height, DustID.RedTorch, projectile.oldVelocity.X, projectile.oldVelocity.Y, 0, Scale: 1.5f);
+				Main.dust[dust2].noGravity = true;
 			}
 			
 			return true;
 		}
 
-        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
-			
+			damage += target.defense / 2;
         }
     }
 }

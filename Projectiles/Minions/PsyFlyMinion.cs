@@ -35,8 +35,8 @@ namespace idkmod.Projectiles.Minions
 
 		public sealed override void SetDefaults()
 		{
-			projectile.width = 18;
-			projectile.height = 28;
+			projectile.width = 25;
+			projectile.height = 25;
 			// Makes the minion go through tiles freely
 			projectile.tileCollide = false;
 
