@@ -31,9 +31,9 @@ namespace Idkmod.Items.Weapons.Summons
 			item.mana = 10;
 			item.width = 32;
 			item.height = 32;
-			item.useTime = 36;
+			item.useTime = 32;
 			item.scale = 2f;
-			item.useAnimation = 36;
+			item.useAnimation = 32;
 			item.useStyle = ItemUseStyleID.SwingThrow;
 			item.value = Item.buyPrice(0, 30, 0, 0);
 			item.rare = ItemRarityID.Red;

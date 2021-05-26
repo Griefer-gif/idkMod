@@ -52,7 +52,11 @@ namespace Idkmod.Items.Weapons.Summons
 
 			// Here you can change where the minion is spawned. Most vanilla minions spawn at the cursor position.
 			position = Main.MouseWorld;
-			return true;
+			if (!player.GetModPlayer<idkPlayer>().MomsKnifeBuff)
+			{
+				return true;
+			}
+			return false;
 		}
 
 		public override void AddRecipes()

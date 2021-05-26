@@ -17,10 +17,11 @@ namespace Idkmod.Projectiles.Minions
 	public class MomsKnifeMinion : ModProjectile
 	{
 		int timer = 0;
+		int timer2 = 0;
 		bool attacking = false;
 		Vector2 targetCenter = new Vector2();
 
-		private void UpdatePlayerVisuals()
+        private void UpdatePlayerVisuals()
 		{
 			if(projectile.velocity == new Vector2(0, 0))
             {
@@ -65,7 +66,7 @@ namespace Idkmod.Projectiles.Minions
 			projectile.minionSlots = 1f;
 			// Needed so the minion doesn't despawn on collision with enemies or tiles
 			projectile.penetrate = -1;
-			
+			projectile.scale = 1.5f;
 		}
 
 		// Here you can decide if your minion breaks things like grass or pots
@@ -189,7 +190,7 @@ namespace Idkmod.Projectiles.Minions
 			#region Movement
 
 			// Default movement parameters (here for attacking)
-			float speed = 40f;
+			float speed = 60f;
 			float inertia = 5f;
 			
 			if (foundTarget)
@@ -201,13 +202,27 @@ namespace Idkmod.Projectiles.Minions
 				}
 				
 				Vector2 direction = new Vector2();
-				if(timer >= 1 && timer < 200)
+				if(timer >= 1 && timer < 150)
                 {
 					//stand still if the timer is running and get the enemies direction
 					projectile.velocity = new Vector2(0, 0);
 					direction = targetCenter - projectile.Center;
 					direction.Normalize();
 				}
+
+				if(attacking)
+                {
+					timer2++;
+					if(timer2 >= 600)
+                    {
+						timer2 = 0;
+						attacking = false;
+                    }
+                }
+                else
+                {
+					timer2 = 0;
+                }
 				
 				//if it gets close to the target and is not attacking start the timer
 				if (distanceFromTarget < 200f && attacking == false)
@@ -215,15 +230,24 @@ namespace Idkmod.Projectiles.Minions
 					timer++;
 
 					//when the timer hits 200 ticks, start attacking
-					if (timer >= 200)
+					if (timer >= 150)
                     {
+						speed = 80f;
+						inertia = 60f;
 						direction *= speed;
-						projectile.velocity = (projectile.velocity * direction);
+						projectile.velocity = (projectile.velocity * (inertia - 1) + direction) / inertia;
 						attacking = true;
 						timer = 0;
 					}
                 }
-                else
+                else if(attacking && distanceFromTarget > 40 && distanceFromTarget <200)
+                {
+					direction = targetCenter - projectile.Center;
+					direction.Normalize();
+					direction *= speed;
+					projectile.velocity = (projectile.velocity * (inertia - 1) + direction) / inertia;
+				}
+				else if(distanceFromTarget >= 200)
                 {
 					//move to target if too far and set attacking to false if there was a target
 					if(attacking == true && distanceFromTarget >= 200)
@@ -306,7 +330,7 @@ namespace Idkmod.Projectiles.Minions
                 //dust trail
                 for (int i = 0; i < r.Next(5, 20); i++)
 				{
-					var dust = Dust.NewDust(projectile.oldPosition, projectile.width, projectile.height, DustID.Blood, projectile.oldVelocity.X, projectile.oldVelocity.Y, 0, Scale: 1.5f);
+					var dust = Dust.NewDust(projectile.oldPosition, projectile.width, projectile.height, DustID.RedTorch, projectile.oldVelocity.X, projectile.oldVelocity.Y, 0, Scale: 2f);
 					Main.dust[dust].noGravity = true;
 				}
 				var dust2 = Dust.NewDust(projectile.oldPosition, projectile.width, projectile.height, DustID.RedTorch, projectile.oldVelocity.X, projectile.oldVelocity.Y, 0, Scale: 1.5f);
@@ -319,6 +343,11 @@ namespace Idkmod.Projectiles.Minions
         public override void ModifyHitNPC(NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
         {
 			damage += target.defense / 2;
+        }
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+			target.immune[projectile.owner] = 5;
         }
     }
 }

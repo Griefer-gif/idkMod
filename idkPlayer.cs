@@ -29,6 +29,7 @@ namespace Idkmod
         public bool NailSpell2UP;
         public bool NailSpellCD;
         public bool PsyFlyBuff;
+        public bool MomsKnifeBuff;
         public bool DarkArtsBuff;
         public bool DarkArts;
         public bool DarkArtsCD;
@@ -186,6 +187,7 @@ namespace Idkmod
             DarkArtsBuff = false;
             DarkArtsCD = false;
             PsyFlyBuff = false;
+            MomsKnifeBuff = false;
             NailSpell1 = false;
             NailSpell1UP = false;
             NailSpell2 = false;
