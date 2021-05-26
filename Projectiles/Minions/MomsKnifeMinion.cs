@@ -141,7 +141,7 @@ namespace Idkmod.Projectiles.Minions
 
 			#region Find target
 			// Starting search distance
-			float distanceFromTarget = 1000f;
+			float distanceFromTarget = 700f;
 			
 			bool foundTarget = false;
 
@@ -240,14 +240,14 @@ namespace Idkmod.Projectiles.Minions
 						timer = 0;
 					}
                 }
-                else if(attacking && distanceFromTarget > 40 && distanceFromTarget <200)
+                else if(attacking && distanceFromTarget > 40 && distanceFromTarget < 200)
                 {
 					direction = targetCenter - projectile.Center;
 					direction.Normalize();
 					direction *= speed;
 					projectile.velocity = (projectile.velocity * (inertia - 1) + direction) / inertia;
 				}
-				else if(distanceFromTarget >= 200)
+				else if(distanceFromTarget >= 170)
                 {
 					//move to target if too far and set attacking to false if there was a target
 					if(attacking == true && distanceFromTarget >= 200)
@@ -299,7 +299,8 @@ namespace Idkmod.Projectiles.Minions
 		}
 		public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
 		{
-			if(timer > 1)
+			Random r = new Random();
+			if (timer > 1)
             {
 				float directionTarget = (Vector2.Normalize(projectile.DirectionFrom(targetCenter)).ToRotation() - MathHelper.PiOver2) ;
 				//2 ghost knifes while timer is running
@@ -316,7 +317,6 @@ namespace Idkmod.Projectiles.Minions
 			}
 			if(attacking)
             {
-				Random r = new Random();
 				//trail
 				Vector2 drawOrigin = new Vector2(Main.projectileTexture[projectile.type].Width * 0.5f, projectile.height * 0.5f);
 				for (int k = 0; k < projectile.oldPos.Length; k++)
@@ -337,6 +337,11 @@ namespace Idkmod.Projectiles.Minions
 				Main.dust[dust2].noGravity = true;
 			}
 			
+			if(r.Next(5) == 0)
+            {
+				var dust = Dust.NewDust(projectile.oldPosition, projectile.width, projectile.height, DustID.RedTorch, projectile.oldVelocity.X, projectile.oldVelocity.Y, 0, Scale: 1.5f);
+				Main.dust[dust].noGravity = true;
+			}
 			return true;
 		}
 

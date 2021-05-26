@@ -101,7 +101,7 @@ namespace Idkmod
                 shieldCHealth = 0;
             }
 
-            if (shieldCHealth >= 1)
+            if (shieldCHealth >= 1 && !player.immune)
             {
                 int Cdamage = damage - player.statDefense;
                 if(Cdamage <= 0)
