@@ -65,6 +65,13 @@ namespace Idkmod.Items.Weapons.Guns.BL2
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
+			var Element = new TooltipLine(mod, "", "Fire weapon");
+			Element.overrideColor = Color.OrangeRed;
+			var ElementE = new TooltipLine(mod, "", "Fire weapons deal more damage the more health the target has");
+			ElementE.overrideColor = Color.OrangeRed;
+			tooltips.Add(Element);
+			tooltips.Add(ElementE);
+
 			var quote = new TooltipLine(mod, "", "'Who's a widdle gunny wunny!!! '");
 			quote.overrideColor = Color.Red;
 			tooltips.Add(quote);

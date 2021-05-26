@@ -64,8 +64,13 @@ namespace Idkmod.Items.Weapons.Guns.BL2
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-            //tooltips.Add(new TooltipLine(mod, "", "Ignores ammo type"));
-            var quote = new TooltipLine(mod, "", "'Did I fire six shots, or only five? Three? Seven. Whatever.'")
+			var Element = new TooltipLine(mod, "", "EXPLOSIVE WEAPON");
+			Element.overrideColor = Color.Yellow;
+			var ElementE = new TooltipLine(mod, "", "EXPLOSIVE WEAPONS... EXPLODE!");
+			ElementE.overrideColor = Color.Yellow;
+			tooltips.Add(Element);
+			tooltips.Add(ElementE);
+			var quote = new TooltipLine(mod, "", "'Did I fire six shots, or only five? Three? Seven. Whatever.'")
             {
                 overrideColor = Color.Red
             };

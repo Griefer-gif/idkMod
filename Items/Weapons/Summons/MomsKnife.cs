@@ -67,5 +67,14 @@ namespace Idkmod.Items.Weapons.Summons
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}
-	}
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+			var quote = new TooltipLine(mod, "", "'Stab stab stab'")
+			{
+				overrideColor = Color.Red
+			};
+			tooltips.Add(quote);
+		}
+    }
 }

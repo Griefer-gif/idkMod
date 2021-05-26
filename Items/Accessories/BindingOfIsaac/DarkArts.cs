@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace Idkmod.Items.Accessories.BindingOfIsaac
@@ -14,7 +15,7 @@ namespace Idkmod.Items.Accessories.BindingOfIsaac
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dark Arts");
-            Tooltip.SetDefault("Press the HotKey to become immune to damage and mark enemies, press it again to deal massive damage");
+            Tooltip.SetDefault("Press the HotKey to become immune to damage and mark enemies,\nPress it again to deal damage");
         }
 
         public override void SetDefaults()
@@ -23,6 +24,7 @@ namespace Idkmod.Items.Accessories.BindingOfIsaac
             item.height = 10;
             item.scale = 0.5f;
             item.accessory = true;
+            item.rare = ItemRarityID.Red;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)

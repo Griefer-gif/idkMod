@@ -119,8 +119,18 @@ namespace Idkmod.Items.Weapons.Guns.BL2
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			tooltips.Add(new TooltipLine(mod, "", "Converts musket balls to Cursed Bullets while bursting."));
-            var quote = new TooltipLine(mod, "", "'Fear the Swarm!'")
+			tooltips.Add(new TooltipLine(mod, "", "Converted bullets have a very slow speed"));
+			var Element = new TooltipLine(mod, "", "Corrosive weapon")
+			{
+				overrideColor = Color.Green
+			};
+			var ElementE = new TooltipLine(mod, "", "Corrosion damage scales with low enemy health")
+			{
+				overrideColor = Color.Green
+			};
+			tooltips.Add(Element);
+			tooltips.Add(ElementE);
+			var quote = new TooltipLine(mod, "", "'Fear the Swarm!'")
             {
                 overrideColor = Color.Red
             };

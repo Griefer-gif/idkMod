@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using idkmod.Buffs;
+using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.GameContent.Achievements;
@@ -175,6 +176,11 @@ namespace idkmod.Projectiles
 			
 				AchievementsHelper.CurrentlyMining = false;
 			
+		}
+
+		public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+		{
+			target.AddBuff(ModContent.BuffType<Burning>(), 600);
 		}
 
 	}

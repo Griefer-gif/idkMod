@@ -68,7 +68,13 @@ namespace Idkmod.Items.Weapons.Guns.BL2
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
 			tooltips.Add(new TooltipLine(mod, "", "Crit damage is doubled"));
-            var quote = new TooltipLine(mod, "", "'Ceci n'est pas une sniper rifle!'")
+			var Element = new TooltipLine(mod, "", "Fire weapon");
+			Element.overrideColor = Color.OrangeRed;
+			var ElementE = new TooltipLine(mod, "", "Fire weapons deal more damage the more health the target has");
+			ElementE.overrideColor = Color.OrangeRed;
+			tooltips.Add(Element);
+			tooltips.Add(ElementE);
+			var quote = new TooltipLine(mod, "", "'Ceci n'est pas une sniper rifle!'")
             {
                 overrideColor = Color.Red
             };

@@ -63,7 +63,6 @@ namespace Idkmod.Items.Weapons.Guns.BL2
 					typeElement = ModContent.ProjectileType<SlaggBullet>();
 				}
 
-				damage /= 2;
 				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * .2f; // Watch out for dividing by 0 if there is only 1 projectile.
 				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
 				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, typeElement, damage, knockBack, player.whoAmI);
@@ -74,7 +73,12 @@ namespace Idkmod.Items.Weapons.Guns.BL2
 
 		public override void ModifyTooltips(List<TooltipLine> tooltips)
 		{
-			tooltips.Add(new TooltipLine(mod, "", "decreased bullet damage."));
+			var Element = new TooltipLine(mod, "", "Slag weapon");
+			Element.overrideColor = Color.Purple;
+			var ElementE = new TooltipLine(mod, "", "Slagged enemies take more damage from other elements");
+			ElementE.overrideColor = Color.Purple;
+			tooltips.Add(Element);
+			tooltips.Add(ElementE);
             var quote = new TooltipLine(mod, "", "'blagaga'")
             {
                 overrideColor = Color.Red

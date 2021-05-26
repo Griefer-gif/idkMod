@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using idkmod.Buffs;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -50,5 +51,10 @@ namespace idkmod.Projectiles
 			Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
 			Main.PlaySound(SoundID.Item10, projectile.position);
 		}
-	}
+
+        public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
+        {
+			target.AddBuff(ModContent.BuffType<Burning>(), 600);
+        }
+    }
 }
