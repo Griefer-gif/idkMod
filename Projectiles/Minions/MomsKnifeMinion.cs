@@ -326,6 +326,7 @@ namespace Idkmod.Projectiles.Minions
 				Vector2 drawPos2 = projectile.oldPos[0] - Main.screenPosition + drawOrigin + new Vector2(0f, projectile.gfxOffY) + new Vector2(timer / 6, 0);
 
 				Color color = projectile.GetAlpha(lightColor) * 0.5f;
+				// idea: change the individual values
 				spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPos, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0f);
 				spriteBatch.Draw(Main.projectileTexture[projectile.type], drawPos2, null, color, projectile.rotation, drawOrigin, projectile.scale, SpriteEffects.None, 0f);
 			}
