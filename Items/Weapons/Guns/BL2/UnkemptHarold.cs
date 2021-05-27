@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using Terraria;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
+using idkmod.Projectiles.ElementalBullets.ExplosiveBullets;
 
 namespace Idkmod.Items.Weapons.Guns.BL2
 {
@@ -15,7 +16,7 @@ namespace Idkmod.Items.Weapons.Guns.BL2
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Unkempt Harold");
-			Tooltip.SetDefault("fires 3 shots that split into two more shots that split again");
+			Tooltip.SetDefault("fires 3 shots that split into two more shots");
 		}
 
 		public override void SetDefaults()
@@ -35,25 +36,40 @@ namespace Idkmod.Items.Weapons.Guns.BL2
 			item.UseSound = SoundID.Item11; // The sound that this item plays when used.
 			item.autoReuse = true; // if you can hold click to automatically use it again
 			item.shoot = ProjectileID.PurificationPowder; //idk why but all the guns in the vanilla source have this
-			item.shootSpeed = 60f; //og:16f // the speed of the projectile (measured in pixels per frame)
+			item.shootSpeed = 0.5f; //og:16f // the speed of the projectile (measured in pixels per frame)
 			item.useAmmo = AmmoID.Bullet;
 
 		}
 
 		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
 		{
-
-			
-
-			type = ModContent.ProjectileType<idkmod.Projectiles.Harold.Harold1>();
-			float numberProjectiles = 3;
-			float rotation = MathHelper.ToRadians(2);
-			position += Vector2.Normalize(new Vector2(speedX, speedY)) * 45f;
-			for (int i = 0; i < numberProjectiles; i++)
+			float offsetY = 0;
+			float offsetX = 0;
+			if (speedY > 2 || speedY < -2)
 			{
-				Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * .1f; // Watch out for dividing by 0 if there is only 1 projectile.
-				Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+				offsetX = 15;
 			}
+            else
+            {
+				offsetY = 15;
+            }
+
+			type = ModContent.ProjectileType<Rocket>();
+			//3 rockets generated a bit far from each other
+			Projectile.NewProjectile(position.X + offsetX, position.Y + offsetY, speedX, speedY, type, damage, knockBack, player.whoAmI);
+			Projectile.NewProjectile(position.X, position.Y, speedX, speedY, type, damage, knockBack, player.whoAmI, 1);
+			Projectile.NewProjectile(position.X - offsetX, position.Y- offsetY, speedX, speedY, type, damage, knockBack, player.whoAmI);
+
+			//type = ModContent.ProjectileType<idkmod.Projectiles.Harold.Harold1>();
+			//float numberProjectiles = 3;
+			//float rotation = MathHelper.ToRadians(2);
+			//position += Vector2.Normalize(new Vector2(speedX, speedY)) * 45f;
+			//for (int i = 0; i < numberProjectiles; i++)
+			//{
+			//	Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * .1f; // Watch out for dividing by 0 if there is only 1 projectile.
+			//	Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+			//}
+			//return false;
 			return false;
 		}
 
