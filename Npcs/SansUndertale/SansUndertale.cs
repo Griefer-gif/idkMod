@@ -42,7 +42,7 @@ namespace Idkmod.Npcs.SansUndertale
 
         public override void AI()
         {
-			npc.position = Main.player[0].position;
+			
         }
     }
 }
