@@ -13,7 +13,9 @@ namespace Idkmod.Items.Weapons.Bows.Coronacht
 {
     public class CoronachtItem : ModItem
     {
-		//Based on spirit mod's cornucopion, ty
+		//spirit mod's cornucopion was used as reference, ty
+		//Notes: left click needs to be used once before right click works, idk why this happnes, needs fix
+		//there was a index out of bounds error while testing the bow, only happened once, but it might be a problem 
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Coronacht");
@@ -22,11 +24,11 @@ namespace Idkmod.Items.Weapons.Bows.Coronacht
 
 		public override void SetDefaults()
 		{
-			item.damage = 24;
-			item.knockBack = 8;
+			item.damage = 48;
+			item.knockBack = 15;
 			item.noMelee = true;
 			item.useTurn = false;
-
+			item.ranged = true;
 			item.crit = 20;
 			item.rare = ItemRarityID.Pink;
 			item.width = 18;
@@ -36,11 +38,10 @@ namespace Idkmod.Items.Weapons.Bows.Coronacht
 			item.UseSound = SoundID.Item1;
 			item.useStyle = ItemUseStyleID.HoldingOut;
 			item.autoReuse = false;
-			
+			item.useAmmo = AmmoID.Arrow;
 			item.shootSpeed = 50f;
 			item.value = 10000;
 			item.noUseGraphic = false;
-
 		}
 
 
@@ -49,8 +50,13 @@ namespace Idkmod.Items.Weapons.Bows.Coronacht
 			return true;
 		}
 
+		public override Vector2? HoldoutOffset()
+		{
+			return new Vector2(-5, 0);
+		}
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+
+		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
 			if(player.altFunctionUse == 2)
             {
@@ -60,14 +66,12 @@ namespace Idkmod.Items.Weapons.Bows.Coronacht
 				for (int i = 0; i < numberProjectiles; i++)
 				{
 					Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, i / (numberProjectiles - 1))) * .2f; // Watch out for dividing by 0 if there is only 1 projectile.
-					Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<CoronachtArrow>(), damage / 2, knockBack, player.whoAmI);
+					Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, ModContent.ProjectileType<CoronachtArrow>(), damage, knockBack, player.whoAmI);
 				}
 				return false;
 			}
-            else
-            {
-				return true;
-            }
+            
+			return true;
         }
 
         public override bool CanUseItem(Player player)
@@ -80,7 +84,7 @@ namespace Idkmod.Items.Weapons.Bows.Coronacht
 			{
 				item.useAmmo = AmmoID.None;
 				item.shoot = ModContent.ProjectileType<CoronachtProj>();
-				item.channel = true;//Channel so that you can held the weapon [Important]
+				item.channel = true;//allows the hold thing
 			}
 			return base.CanUseItem(player);
 		}

@@ -1,49 +1,54 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Terraria;
 using Terraria.ModLoader;
+using Terraria;
 using Terraria.ID;
-using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 using Idkmod.Projectiles.Hades;
 
-namespace Idkmod.Items.Weapons.Bows.Coronacht
+namespace Idkmod.Items.Weapons.Spears.Varatha
 {
-    public class CoronachtProj : ModProjectile
+    public class VarathaSwingProj : ModProjectile
     {
         public override void SetDefaults()
         {
             projectile.hostile = false;
             projectile.ranged = true;
-            projectile.width = 50;
-            projectile.height = 50;
+            projectile.width = 20;
+            projectile.height = 20;
             projectile.aiStyle = -1;
-            projectile.friendly = false;
-            projectile.alpha = 255;
-            projectile.penetrate = 1;
+            projectile.friendly = true;
+            projectile.penetrate = -1;
             projectile.tileCollide = false;
             projectile.timeLeft = 999999;
         }
 
         int counter = 0;
-        bool attackR = false;
+        int stacks = 0;
         public override bool PreAI()
         {
-            int arrow = ModContent.ProjectileType<CoronachtArrow>();
+           
+            
             Player player = Main.player[projectile.owner];
+            projectile.velocity = new Vector2(0, -1);
+
             Vector2 rrp = player.RotatedRelativePoint(player.MountedCenter, true);
             UpdatePlayerVisuals(player, rrp);
-            projectile.velocity = Vector2.Normalize(Main.MouseWorld - player.Center);
             if (player.channel)
             {
-                projectile.Center = player.Center;
+                //projectile.Center = player.Center;
+                //projectile.position = player.RotatedRelativePoint(player.MountedCenter, true) - new Vector2(0, 60);
+                //projectile.rotation = projectile.velocity.ToRotation() + MathHelper.ToRadians(135f);
+                //projectile.spriteDirection = projectile.direction;
+                //player.ChangeDir(projectile.direction);
+                //player.itemRotation = (projectile.velocity * projectile.direction).ToRotation();
                 counter++;
-                if (counter == 40)
+                if (counter % 40 == 0 && stacks < 4)
                 {
-                    attackR = true;
+                    stacks++;
                     //Main.NewText("stacks");
                     Main.PlaySound(SoundID.MaxMana, (int)projectile.position.X, (int)projectile.position.Y);
                     for (int i = 0; i < 100; i++)
@@ -54,20 +59,13 @@ namespace Idkmod.Items.Weapons.Bows.Coronacht
             }
             else
             {
-                if (projectile.owner == Main.myPlayer)
+                if (stacks > 0)
                 {
-                    if (attackR && counter <= 60)
-                    {
-                        //timed arrow
-                        //idk how to fix the speed, but this is ok
-                        Projectile.NewProjectile(projectile.Center, projectile.velocity * 200, arrow, projectile.damage * 2, projectile.knockBack, projectile.owner, 1);
-                    }
-                    else
-                    {
-                        //everything else
-                        Projectile.NewProjectile(projectile.Center, projectile.velocity * 100, arrow, projectile.damage, projectile.knockBack, projectile.owner);
 
-                    }
+                }
+                else
+                {
+                    Projectile.NewProjectile(player.position, Vector2.Normalize(Main.MouseWorld - player.position) * 10f, ModContent.ProjectileType<VarathaThrowProj>(), projectile.damage, projectile.knockBack, projectile.owner);
                 }
                 projectile.active = false;
             }
@@ -91,7 +89,7 @@ namespace Idkmod.Items.Weapons.Bows.Coronacht
 
         private void UpdatePlayerVisuals(Player player, Vector2 playerHandPos)
         {
-            projectile.Center = playerHandPos;
+            projectile.Center = playerHandPos - new Vector2(0, 60);
 
             projectile.rotation = projectile.velocity.ToRotation();
             projectile.spriteDirection = projectile.direction;
@@ -103,8 +101,7 @@ namespace Idkmod.Items.Weapons.Bows.Coronacht
 
             // If you do not multiply by projectile.direction, the player's hand will point the wrong direction while facing left.
             player.itemRotation = (projectile.velocity * projectile.direction).ToRotation();
+            projectile.rotation = projectile.velocity.ToRotation() + MathHelper.ToRadians(135f);
         }
     }
 }
-    
-
