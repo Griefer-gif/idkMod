@@ -24,6 +24,7 @@ namespace Idkmod.Items.Weapons.Spears.Varatha
             projectile.penetrate = -1;
             projectile.tileCollide = false;
             projectile.timeLeft = 999999;
+            projectile.scale = 1.1f;
         }
 
         int counter = 0;
@@ -39,14 +40,10 @@ namespace Idkmod.Items.Weapons.Spears.Varatha
             UpdatePlayerVisuals(player, rrp);
             if (player.channel)
             {
-                //projectile.Center = player.Center;
-                //projectile.position = player.RotatedRelativePoint(player.MountedCenter, true) - new Vector2(0, 60);
-                //projectile.rotation = projectile.velocity.ToRotation() + MathHelper.ToRadians(135f);
-                //projectile.spriteDirection = projectile.direction;
                 //player.ChangeDir(projectile.direction);
                 //player.itemRotation = (projectile.velocity * projectile.direction).ToRotation();
                 counter++;
-                if (counter % 40 == 0 && stacks < 4)
+                if (counter % 40 == 0 && stacks < 3)
                 {
                     stacks++;
                     //Main.NewText("stacks");
@@ -61,11 +58,11 @@ namespace Idkmod.Items.Weapons.Spears.Varatha
             {
                 if (stacks > 0)
                 {
-
+                    Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<VarathaSpinAttack>(), projectile.damage * stacks, projectile.knockBack, projectile.owner, stacks);
                 }
                 else
                 {
-                    Projectile.NewProjectile(player.position, Vector2.Normalize(Main.MouseWorld - player.position) * 10f, ModContent.ProjectileType<VarathaThrowProj>(), projectile.damage, projectile.knockBack, projectile.owner);
+                    Projectile.NewProjectile(player.position, Vector2.Normalize(Main.MouseWorld - player.position) * 10f, ModContent.ProjectileType<VarathaThrowProj>(), projectile.damage * 3, projectile.knockBack, projectile.owner);
                 }
                 projectile.active = false;
             }

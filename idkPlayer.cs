@@ -23,6 +23,7 @@ namespace Idkmod
     {
         readonly int dustSmoke = DustID.Smoke;
         public Queue<Projectile> psyFlyQueue  = new Queue<Projectile>();
+        public int varthaStoredProj;
         public bool NailSpell1;
         public bool NailSpell1UP;
         public bool NailSpell2;
@@ -193,6 +194,7 @@ namespace Idkmod
             NailSpell2 = false;
             NailSpell2UP = false;
             NailSpellCD = false;
+            //varthaStoredProj = 0;
 
             player.statLifeMax2 += LifeCrystal * 25;
         }

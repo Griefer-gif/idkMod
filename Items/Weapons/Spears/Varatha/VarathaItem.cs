@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Idkmod.Projectiles.Hades;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -47,23 +48,33 @@ namespace Idkmod.Items.Weapons.Spears.Varatha
 
 		public override bool CanUseItem(Player player)
 		{
-			if(player.altFunctionUse == 2)
-            {
+			if (player.ownedProjectileCounts[ModContent.ProjectileType<VarathaThrowProj>()] > 0)
+			{
+				if(player.altFunctionUse != 2)
+                {
+					Main.projectile[player.GetModPlayer<idkPlayer>().varthaStoredProj].ai[0] = 2;
+                }
+				return false;
+			}
+
+			if (player.altFunctionUse == 2)
+			{
 				item.channel = false;
 				item.autoReuse = true;
 				item.shoot = ModContent.ProjectileType<VarathaProj>();
 				// Ensures no more than one spear can be thrown out, use this when using autoReuse
 				return player.ownedProjectileCounts[item.shoot] < 1;
-				
+
 			}
-            else
-            {
+			else
+			{
 				item.useTime = 20;
 				item.useAnimation = 20;
 				item.autoReuse = false;
 				item.shoot = ModContent.ProjectileType<VarathaSwingProj>();
 				item.channel = true;
 			}
+
 			return true;
 		}
 	}
