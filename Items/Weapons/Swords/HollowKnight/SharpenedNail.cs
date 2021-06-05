@@ -26,10 +26,9 @@ namespace Idkmod.Items.Weapons.Swords.HollowKnight
 			item.melee = true;
 			item.width = 20;
 			item.height = 12;
-			item.useTime = 10;
-			item.useAnimation = 10;
-			item.reuseDelay = 30;
-			item.channel = false;
+			item.useTime = 5;
+			item.useAnimation = 5;
+			item.channel = true;
 			item.noUseGraphic = true;
 			item.noMelee = true;
 			item.useStyle = ItemUseStyleID.HoldingOut;
@@ -40,7 +39,7 @@ namespace Idkmod.Items.Weapons.Swords.HollowKnight
 			item.autoReuse = true;
 			//item.CloneDefaults(ItemID.Arkhalis);
 			item.shoot = ModContent.ProjectileType<BaseNailBlade>();
-			item.shootSpeed = 20f;
+			item.shootSpeed = 30f;
 		}
 
         public override void HoldItem(Player player)

@@ -21,7 +21,7 @@ namespace Idkmod
 {
     public class idkPlayer : Terraria.ModLoader.ModPlayer
     {
-        readonly int dustSmoke = DustID.Smoke;
+        readonly int dustSmoke = ModContent.DustType<VoidDust>();
         public Queue<Projectile> psyFlyQueue  = new Queue<Projectile>();
         public int varthaStoredProj;
         public bool NailSpell1;
@@ -206,7 +206,7 @@ namespace Idkmod
             {
                 for (int i = 0; i < 75; i++)
                 {
-                    int dust = Dust.NewDust(player.position, 16, 16, dustSmoke, 0f, 0f, 0, Color.Black, 1);
+                    int dust = Dust.NewDust(player.position, 16, 16, dustSmoke, Main.rand.Next(-30, 30), Main.rand.Next(-30, 30), 0, Color.Black, 1);
                     Main.dust[dust].scale = 2f;
                     Main.dust[dust].velocity *= 2f;
                     Main.dust[dust].noGravity = true;
@@ -457,8 +457,8 @@ namespace Idkmod
             {
                 if (Main.rand.NextBool(1))
                 {
-                    int dust = Dust.NewDust(drawInfo.position, 16, 16, dustSmoke, 0f, 0f, 0, Color.Black);
-                    Main.dust[dust].scale = 2f;
+                    int dust = Dust.NewDust(drawInfo.position, 30, 30, dustSmoke, Main.rand.Next(-10, 10), 0f, 0, Color.Black);
+                    Main.dust[dust].scale = 1.5f;
                     Main.dust[dust].noGravity = true;
                     
                 }

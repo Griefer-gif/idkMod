@@ -28,8 +28,8 @@ namespace Idkmod.Items.Weapons.Bows.Coronacht
             projectile.timeLeft = 999999;
         }
 
-        int counter = 0;
-        bool attackR = false;
+        private int counter = 0;
+        private bool attackR = false;
         public override bool PreAI()
         {
             int arrow = ModContent.ProjectileType<CoronachtArrow>();
