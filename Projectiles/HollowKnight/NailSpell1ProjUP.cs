@@ -35,7 +35,8 @@ namespace Idkmod.Projectiles.HollowKnight
 			projectile.light = 0.5f;            //How much light emit around the projectile
 			projectile.ignoreWater = true;          //Does the projectile's speed be influenced by water?
 			projectile.tileCollide = false;          //Can the projectile collide with tiles?
-			projectile.extraUpdates = 1;            //Set to above 0 if you want the projectile to update multiple time in a frame
+			projectile.extraUpdates = 1;
+			projectile.scale = 2f;
 			aiType = ProjectileID.Bullet;           //Act exactly like default Bullet
 		}
 

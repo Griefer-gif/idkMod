@@ -1,4 +1,5 @@
-﻿using idkmod.Projectiles.HollowKnight;
+﻿
+using Idkmod.Projectiles.HollowKnight;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace Idkmod.Items.Weapons.Swords.HollowKnight
 			item.rare = ItemRarityID.Blue;
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = false;
-			item.shoot = ModContent.ProjectileType<BaseNailBlade>();
+			item.shoot = ModContent.ProjectileType<OldNailBlade>();
 			item.shootSpeed = 10f;
 		}
     }

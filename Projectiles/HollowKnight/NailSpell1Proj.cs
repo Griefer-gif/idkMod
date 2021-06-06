@@ -16,7 +16,7 @@ namespace Idkmod.Projectiles.HollowKnight
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Vengeful Spirit");     //The English name of the projectile
-			ProjectileID.Sets.TrailCacheLength[projectile.type] = 20;    //The length of old position to be recorded
+			ProjectileID.Sets.TrailCacheLength[projectile.type] = 15;    //The length of old position to be recorded
 			ProjectileID.Sets.TrailingMode[projectile.type] = 0;        //The recording mode
 		}
 
@@ -36,6 +36,7 @@ namespace Idkmod.Projectiles.HollowKnight
 			projectile.ignoreWater = true;          //Does the projectile's speed be influenced by water?
 			projectile.tileCollide = false;          //Can the projectile collide with tiles?
 			projectile.extraUpdates = 1;            //Set to above 0 if you want the projectile to update multiple time in a frame
+			projectile.scale = 1.7f;
 			aiType = ProjectileID.Bullet;           //Act exactly like default Bullet
 		}
 

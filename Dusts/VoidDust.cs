@@ -13,12 +13,12 @@ namespace idkmod.Dusts
 
 		public override bool Update(Dust dust)
 		{
-			
+			//go up and go smol
 			dust.scale -= 0.01f;
 			
 			dust.position.Y -= 1;
 
-			// kill if smol.
+			// kill if too smol.
 			if (dust.scale < 0.25f)
 			{
 				dust.active = false;

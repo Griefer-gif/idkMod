@@ -29,8 +29,7 @@ namespace Idkmod.Items.Weapons.Swords.HollowKnight
 			item.height = 12;
 			item.useTime = 5;
 			item.useAnimation = 5;
-			item.reuseDelay = 30;
-			item.channel = false;
+			item.channel = true;
 			item.noUseGraphic = true;
 			item.noMelee = true;
 			item.useStyle = ItemUseStyleID.HoldingOut;
@@ -40,18 +39,7 @@ namespace Idkmod.Items.Weapons.Swords.HollowKnight
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = true;
 			item.shoot = ModContent.ProjectileType<UpgradedNailBlade>();
-			item.shootSpeed = 20f;
-		}
-
-		public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
-		{
-			if (projCount == 2)
-			{
-				Projectile.NewProjectile(position, new Vector2(speedX, speedY), ModContent.ProjectileType<NailSpell1ProjUP>(), damage * 2, knockBack, Main.myPlayer);
-				projCount = 0;
-			}
-			projCount++;
-			return true;
+			item.shootSpeed = 40f;
 		}
 
 		public override void HoldItem(Player player)

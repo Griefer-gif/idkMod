@@ -15,7 +15,7 @@ namespace Idkmod.Items.Accessories.BindingOfIsaac
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Dark Arts");
-            Tooltip.SetDefault("Press the HotKey to become immune to damage and mark enemies,\nPress it again to deal damage");
+            Tooltip.SetDefault($"Press F (default) to become immune to damage and mark enemies,\nPress F again to deal damage.\nDamage scales with the damage of the item you are holding.");
         }
 
         public override void SetDefaults()

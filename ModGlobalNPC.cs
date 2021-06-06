@@ -30,6 +30,14 @@ namespace Idkmod
             }
         }
 
+        public override void AI(NPC npc)
+        {
+			if(!npc.boss && Shadowed)
+            {
+                npc.velocity = Vector2.Zero;
+            }
+        }
+
         public override void ResetEffects(NPC npc)
         {
             Corrosive = false;

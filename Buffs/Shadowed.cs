@@ -1,4 +1,5 @@
 ﻿using Idkmod;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 
@@ -16,13 +17,7 @@ namespace idkmod.Buffs
 		}
 
 		public override void Update(NPC npc, ref int buffIndex)
-		{
-			if(!npc.boss)
-            {
-				npc.velocity = new Microsoft.Xna.Framework.Vector2(0, 0);
-				npc.noGravity = true;
-			}
-			
+		{	
 			npc.GetGlobalNPC<ModGlobalNPC>().Shadowed = true;
 		}
 

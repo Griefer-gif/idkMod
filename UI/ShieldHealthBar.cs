@@ -16,6 +16,7 @@ namespace Idkmod.UI
 		private UIText text;
 		private UIElement area;
 		private UIImage barFrame;
+		private UIImage shieldIcon;
 		private Color gradientA;
 		private Color gradientB;
 
@@ -35,15 +36,22 @@ namespace Idkmod.UI
 			barFrame.Width.Set(138, 0f);
 			barFrame.Height.Set(34, 0f);
 
+			shieldIcon = new UIImage(ModContent.GetTexture("Idkmod/UI/ShieldIcon"));
+			shieldIcon.Left.Set(-5, 0f);
+			shieldIcon.Top.Set(0, 0f);
+			shieldIcon.Width.Set(34, 0f);
+			shieldIcon.Height.Set(34, 0f);
+
 			text = new UIText("0/0", 0.8f); // text to show stat
 			text.Width.Set(138, 0f);
 			text.Height.Set(34, 0f);
 			text.Top.Set(40, 0f);
 			text.Left.Set(0, 0f);
 
-			gradientA = new Color(123, 25, 138); // A dark purple
-			gradientB = new Color(187, 91, 201); // A light purple
+			gradientA = new Color(1, 115, 255); // A dark purple
+			gradientB = new Color(1, 215, 255); // A light purple
 
+			area.Append(shieldIcon);
 			area.Append(text);
 			area.Append(barFrame);
 			Append(area);
