@@ -33,6 +33,9 @@ namespace Idkmod
         public bool DarkArtsBuff;
         public bool DarkArts;
         public bool DarkArtsCD;
+        public bool DAActive;
+        public int DATimer = 0;
+        private int DACPosition = 0;
         public bool Corrosive;
         public bool Fire;
         public bool Shock;
@@ -78,7 +81,11 @@ namespace Idkmod
                     }
                 }
             }
-            
+            if (!player.HasBuff(ModContent.BuffType<DarkArtsBuff>()) && DANpcs.Count > 0)
+            {
+                DATimer++;
+                DAReset(DANpcs, DATimer);
+            }
         }
 
         public override bool PreHurt(bool pvp, bool quiet, ref int damage, ref int hitDirection, ref bool crit, ref bool customDamage, ref bool playSound, ref bool genGore, ref PlayerDeathReason damageSource)
@@ -133,43 +140,6 @@ namespace Idkmod
 
         public override void ResetEffects()
         {
-            if(!player.HasBuff(ModContent.BuffType<DarkArtsBuff>()) && DANpcs.Count() > 0)
-            {
-                for (int i = 0; i < DANpcs.Count; i++)
-                {
-                    int damage = (int)player.HeldItem.damage * 2;
-                    //DANpcs[i].DelBuff(DANpcs[i].FindBuffIndex(ModContent.BuffType<Shadowed>()));
-                    DANpcs[i].StrikeNPC(damage, 3, 1, crit: true);
-
-                    //just so i dont get confused again, this random thing is because the dust explosion can have two variants, look at the velocity
-                    int rand = random.Next(2);
-                    for (int u = 15; u > 0; u--)
-                    {
-
-                        if (rand == 1)
-                        {
-                            int dust = Dust.NewDust(DANpcs[i].position, 16, 16, DustID.Smoke, -5, 5, 0, Color.Black, 2);
-                            Main.dust[dust].velocity *= 1.5f;
-                            Main.dust[dust].noGravity = true;
-                            int dust2 = Dust.NewDust(DANpcs[i].position, 16, 16, DustID.Smoke, 5, -5, 0, Color.Black, 2);
-                            Main.dust[dust2].velocity *= 1.5f;
-                            Main.dust[dust2].noGravity = true;
-                        }
-                        else
-                        {
-                            int dust = Dust.NewDust(DANpcs[i].position, 16, 16, DustID.Smoke, 5, 5, 0, Color.Black, 2);
-                            Main.dust[dust].velocity *= 1.5f;
-                            Main.dust[dust].noGravity = true;
-                            int dust2 = Dust.NewDust(DANpcs[i].position, 16, 16, DustID.Smoke, -5, -5, 0, Color.Black, 2);
-                            Main.dust[dust2].velocity *= 1.5f;
-                            Main.dust[dust2].noGravity = true;
-                        }
-
-                    }
-                }
-                DANpcs.Clear();
-            }
-
             if(shieldMaxHealth == 0)
             {
                 HitTimer = 0;
@@ -216,49 +186,12 @@ namespace Idkmod
             //effects for when he already has the buff
             if (Idkmod.DarkArtsHotKey.JustPressed && player.HasBuff(ModContent.BuffType<idkmod.Buffs.DarkArtsBuff>()) && DANpcs.Count > 0)
             {
-                
-                for(int i = 0; i < DANpcs.Count; i++)
-                {
-                    int damage = (int)player.HeldItem.damage * 2;
-                    DANpcs[i].StrikeNPC(damage, 3, 1, crit: true);
-                    DANpcs[i].DelBuff(DANpcs[i].FindBuffIndex(ModContent.BuffType<Shadowed>()));
-
-                    int rand = random.Next(2);
-                    for (int u = 25; u > 0; u--)
-                    {
-                        
-                        if(rand == 1)
-                        {
-                            int dust = Dust.NewDust(DANpcs[i].position, 16, 16, DustID.Smoke, -5, 5, 0, Color.Black, 1);
-                            Main.dust[dust].scale = 2f;
-                            Main.dust[dust].velocity *= 1.5f;
-                            Main.dust[dust].noGravity = true;
-                            int dust2 = Dust.NewDust(DANpcs[i].position, 16, 16, DustID.Smoke, 5, -5, 0, Color.Black, 1);
-                            Main.dust[dust2].scale = 2f;
-                            Main.dust[dust2].velocity *= 1.5f;
-                            Main.dust[dust2].noGravity = true;
-                        }
-                        else
-                        {
-                            int dust = Dust.NewDust(DANpcs[i].position, 16, 16, DustID.Smoke, 5, 5, 0, Color.Black, 1);
-                            Main.dust[dust].scale = 2f;
-                            Main.dust[dust].velocity *= 1.5f;
-                            Main.dust[dust].noGravity = true;
-                            int dust2 = Dust.NewDust(DANpcs[i].position, 16, 16, DustID.Smoke, -5, -5, 0, Color.Black, 1);
-                            Main.dust[dust2].scale = 2f;
-                            Main.dust[dust2].velocity *= 1.5f;
-                            Main.dust[dust2].noGravity = true;
-                        }
-                        
-                    }
-                }
-
-                DANpcs.Clear();
+                //method is at end of the class
+                //DAReset(DANpcs);
                 player.ClearBuff(ModContent.BuffType<DarkArtsBuff>());
 
                 for (int i = 0; i < 75; i++)
                 {
-
                     int dust = Dust.NewDust(player.position, 16, 16, DustID.Smoke, 0f, 0f, 0, Color.Black, 1);
                     Main.dust[dust].scale = 2f;
                     Main.dust[dust].velocity *= 1.5f;
@@ -472,6 +405,71 @@ namespace Idkmod
         public override void Load(TagCompound tag)
         {
             LifeCrystal = tag.GetInt("LifeCrystal");
+        }
+
+        private void DAReset(List<NPC> DAnpcs, int timer)
+        {
+           
+            Main.NewText(timer);
+            if (timer % 30 == 0 && DACPosition < DAnpcs.Count() && DAnpcs.Count() > 1)
+            {
+                Texture2D tex = Idkmod.Instance.GetTexture("Items/Accessories/BindingOfIsaac/DarkArts/DATrailStrip");
+                SpriteBatch sprite = Main.spriteBatch;
+                sprite.Begin();
+                
+                for(int i = 0; i < DACPosition; i++)
+                {
+                    Vector2 start = DAnpcs[i].Center;
+                    Vector2 end = DAnpcs[i + 1].Center;
+                    int length = (int)(start - end).Length();
+                   
+                    Main.NewText("draw!" + i);
+                    sprite.Draw(tex, start - Main.screenPosition, null, Color.Black, (end - start).ToRotation(), new Vector2(0f, tex.Height), new Vector2(length, 1) * 1, SpriteEffects.None, 0f);
+                }
+                
+                sprite.End();
+                DACPosition++;
+            }
+            else if(DACPosition >= DAnpcs.Count() - 1)
+            {
+                for (int i = 0; i < DAnpcs.Count; i++)
+                {
+
+                    int damage = (int)player.HeldItem.damage * 2;
+                    DAnpcs[i].DelBuff(DAnpcs[i].FindBuffIndex(ModContent.BuffType<Shadowed>()));
+                    DAnpcs[i].StrikeNPC(damage, 3, 1, crit: true);
+
+                    //just so i dont get confused again, this random thing is because the dust explosion can have two variants, look at the velocity
+                    int rand = random.Next(2);
+                    for (int u = 15; u > 0; u--)
+                    {
+
+                        if (rand == 1)
+                        {
+                            int dust = Dust.NewDust(DANpcs[i].position, 16, 16, DustID.Smoke, -5, 5, 0, Color.Black, 2);
+                            Main.dust[dust].velocity *= 1.5f;
+                            Main.dust[dust].noGravity = true;
+                            int dust2 = Dust.NewDust(DANpcs[i].position, 16, 16, DustID.Smoke, 5, -5, 0, Color.Black, 2);
+                            Main.dust[dust2].velocity *= 1.5f;
+                            Main.dust[dust2].noGravity = true;
+                        }
+                        else
+                        {
+                            int dust = Dust.NewDust(DANpcs[i].position, 16, 16, DustID.Smoke, 5, 5, 0, Color.Black, 2);
+                            Main.dust[dust].velocity *= 1.5f;
+                            Main.dust[dust].noGravity = true;
+                            int dust2 = Dust.NewDust(DANpcs[i].position, 16, 16, DustID.Smoke, -5, -5, 0, Color.Black, 2);
+                            Main.dust[dust2].velocity *= 1.5f;
+                            Main.dust[dust2].noGravity = true;
+                        }
+
+                    }
+
+                }
+                DAnpcs.Clear();
+                DACPosition = 0;
+                DATimer = 0;
+            }
         }
 
     }

@@ -21,14 +21,22 @@ namespace Idkmod
 
     public class Idkmod : Mod
     {
+        //idk exactly why an instance is needed, but spirit uses it to get textures, so ima yoink it
+        public static Idkmod Instance;
         public static ModHotKey DarkArtsHotKey;
         public static ModHotKey NailSpell1HK;
         public static ModHotKey NailSpell2HK;
         private UserInterface _shieldHealthBar;
         internal ShieldHealthBar shieldHealthBar;
 
+        public Idkmod()
+        {
+            Instance = this;
+        }
+
         public override void Load()
         {
+            Instance = this;
             if (!Main.dedServ)
             {
                 shieldHealthBar = new ShieldHealthBar();
@@ -65,6 +73,7 @@ namespace Idkmod
 
         public override void Unload()
         {
+            Instance = null;
             DarkArtsHotKey = null;
             NailSpell1HK = null;
             NailSpell2HK = null;

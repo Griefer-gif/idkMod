@@ -8,7 +8,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace Idkmod.Items.Accessories.BindingOfIsaac
+namespace Idkmod.Items.Accessories.BindingOfIsaac.DarkArts
 {
     class DarkArts : ModItem
     {

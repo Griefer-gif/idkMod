@@ -26,7 +26,7 @@ namespace Idkmod
             if(!target.GetModPlayer<idkPlayer>().DANpcs.Contains(npc) && target.GetModPlayer<idkPlayer>().DANpcs.Count <= 5 && target.GetModPlayer<idkPlayer>().DarkArtsBuff)
             {
                     target.GetModPlayer<idkPlayer>().DANpcs.Add(npc);
-                    npc.AddBuff(ModContent.BuffType<Shadowed>(), 250, false);
+                    npc.AddBuff(ModContent.BuffType<Shadowed>(), 600, false);
             }
         }
 
