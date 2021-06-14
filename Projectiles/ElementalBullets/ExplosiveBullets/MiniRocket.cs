@@ -49,9 +49,9 @@ namespace idkmod.Projectiles.ElementalBullets.ExplosiveBullets
 			Main.dust[dust].velocity /= 1f;
 			const double amp = 30;
 			const double freq = 0.15;
-			//needs 2 checks so it doesnt screw up at oposite axis
+			//needs 2 checks so the sin waves dont do weird stuff at different angles
 			Vector2 NVelocity = Vector2.Normalize(projectile.velocity);
-			//checks if its vertically
+			//checks if it was shot up/down
 			if (projectile.ai[0] == 1 && (NVelocity.Y > 0.5 || NVelocity.Y < -0.5))
 			{
 				projectile.position.X += (float)((Math.Cos(freq * projectile.timeLeft) / 2) * amp * freq);
@@ -61,7 +61,7 @@ namespace idkmod.Projectiles.ElementalBullets.ExplosiveBullets
 				projectile.position.X += (float)((Math.Cos(freq * projectile.timeLeft) / 2) * amp * freq) * -1;
 			}
 
-			//checks if the proj is travelling horizontally
+			//checks if it was shot left/right
 			if (projectile.ai[0] == 1 && !(NVelocity.Y > 0.5 || NVelocity.Y < -0.5))
 			{
 				projectile.position.Y += (float)((Math.Cos(freq * projectile.timeLeft) / 2) * amp * freq);

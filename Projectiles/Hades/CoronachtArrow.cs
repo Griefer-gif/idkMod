@@ -16,7 +16,7 @@ namespace Idkmod.Projectiles.Hades
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("CoronachtArrow");     //The English name of the projectile
-			ProjectileID.Sets.TrailCacheLength[projectile.type] = 10;//The length of old position to be recorded
+			ProjectileID.Sets.TrailCacheLength[projectile.type] = 5;//The length of old position to be recorded
 			ProjectileID.Sets.TrailingMode[projectile.type] = 0;        //The recording mode
 		}
 
@@ -41,7 +41,14 @@ namespace Idkmod.Projectiles.Hades
 
         public override void AI()
         {
-			Player player = Main.player[projectile.owner];
+			if(projectile.ai[0] == 1)
+            {
+				projectile.velocity *= 1.02f;
+			}
+            else
+            {
+				projectile.velocity *= 1.01f;
+			}
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, Color lightColor)
@@ -73,7 +80,14 @@ namespace Idkmod.Projectiles.Hades
 			return true;
 		}
 
-		private void DoDustEffect(Vector2 position, float distance, float minSpeed = 2f, float maxSpeed = 3f, object follow = null)
+        public override bool OnTileCollide(Vector2 oldVelocity)
+        {
+			Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
+			Main.PlaySound(SoundID.Item10, projectile.position);
+			return true;                                                                                    
+		}
+
+        private void DoDustEffect(Vector2 position, float distance, float minSpeed = 2f, float maxSpeed = 3f, object follow = null)
 		{
 			float angle = Main.rand.NextFloat(-MathHelper.Pi, MathHelper.Pi);
 			Vector2 vec = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));

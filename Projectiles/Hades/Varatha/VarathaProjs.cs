@@ -10,7 +10,9 @@ using Microsoft.Xna.Framework;
 using Idkmod.Items.Weapons.Spears.Varatha;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Idkmod.Projectiles.Hades
+//this could be in the item folder, but im not gonna do it
+
+namespace Idkmod.Projectiles.Hades.Varatha
 {
     public class VarathaThrowProj : ModProjectile
     {
@@ -76,6 +78,8 @@ namespace Idkmod.Projectiles.Hades
             {
                 projectile.ai[0] = 1;
                 projectile.timeLeft = 600;
+                projectile.tileCollide = false;
+                Collision.HitTiles(projectile.position + projectile.velocity, projectile.velocity, projectile.width, projectile.height);
             }
             
             return false;
@@ -83,12 +87,16 @@ namespace Idkmod.Projectiles.Hades
 
         public override void Kill(int timeLeft)
         {
-            for(int i = 0; i < 50; i++)
+            for(int i = 0; i < 25; i++)
             {
                 Dust.NewDust(projectile.position, 30, 30, DustID.Pixie, projectile.velocity.X * 0.3f, projectile.velocity.Y * 0.3f, newColor: Color.Black, Scale: 1f);
-                Dust.NewDust(projectile.position, 35, 35, DustID.Pixie, projectile.velocity.X * 0.3f, projectile.velocity.Y * 0.3f, newColor: Color.Aqua, Scale: 0.8f);
+                Dust.NewDust(projectile.position, 35, 35, DustID.Pixie, projectile.velocity.X * 0.3f, projectile.velocity.Y * 0.3f, newColor: Color.DarkRed, Scale: 1f);
             }
             Main.player[projectile.owner].GetModPlayer<idkPlayer>().varthaStoredProj = -1;
+            if(projectile.ai[0] == 1)
+            {
+                Main.PlaySound(SoundID.Shatter, projectile.position);
+            }
             base.Kill(timeLeft);
         }
 
@@ -98,7 +106,7 @@ namespace Idkmod.Projectiles.Hades
             {
                 for (int i = 0; i < 5; i++)
                 {
-                    Dust.NewDust(projectile.position, 16, 16, DustID.Pixie, projectile.velocity.X * 0.3f, projectile.velocity.Y * 0.3f, newColor: Color.Aqua, Scale: 0.5f);
+                    Dust.NewDust(projectile.position, 16, 16, DustID.Pixie, projectile.velocity.X * 0.3f, projectile.velocity.Y * 0.3f, newColor: Color.DarkRed, Scale: 0.7f);
                     Dust.NewDust(projectile.position, 30, 30, DustID.Pixie, projectile.velocity.X * 0.3f, projectile.velocity.Y * 0.3f, newColor: Color.Black, Scale: 0.7f);
                 }
             }
@@ -110,6 +118,36 @@ namespace Idkmod.Projectiles.Hades
                 }
             }
             
+            return true;
+        }
+    }
+
+    public class VarathaSpinAttack : ModProjectile
+    {
+        public override void SetDefaults()
+        {
+            projectile.width = 200;
+            projectile.height = 200;
+            projectile.friendly = true;
+            projectile.melee = true;
+            projectile.penetrate = 999;
+            projectile.scale = 1f;
+            projectile.timeLeft = 30;
+            projectile.light = 1f;
+            projectile.tileCollide = false;
+        }
+
+        public override void AI()
+        {
+            projectile.Center = Main.player[projectile.owner].Center;
+            Main.player[projectile.owner].velocity = Vector2.Zero;
+            //projectile.scale = projectile.ai[0];
+        }
+
+        public override bool PreAI()
+        {
+            projectile.width = 200 * (int)projectile.ai[0];
+            projectile.height = 200 * (int)projectile.ai[0];
             return true;
         }
     }

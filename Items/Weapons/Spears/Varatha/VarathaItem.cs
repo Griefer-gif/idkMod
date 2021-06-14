@@ -1,4 +1,5 @@
 ﻿using Idkmod.Projectiles.Hades;
+using Idkmod.Projectiles.Hades.Varatha;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,7 +62,7 @@ namespace Idkmod.Items.Weapons.Spears.Varatha
 			{
 				item.channel = false;
 				item.autoReuse = true;
-				item.shoot = ModContent.ProjectileType<VarathaProj>();
+				item.shoot = ModContent.ProjectileType<VarathaSpearProj>();
 				// Ensures no more than one spear can be thrown out, use this when using autoReuse
 				return player.ownedProjectileCounts[item.shoot] < 1;
 

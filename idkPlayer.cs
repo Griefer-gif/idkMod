@@ -419,8 +419,8 @@ namespace Idkmod
                 
                 for(int i = 0; i < DACPosition; i++)
                 {
-                    Vector2 start = DAnpcs[i].Center;
-                    Vector2 end = DAnpcs[i + 1].Center;
+                    Vector2 start = DAnpcs[i].Center.ToWorldCoordinates();
+                    Vector2 end = DAnpcs[i + 1].Center.ToWorldCoordinates();
                     int length = (int)(start - end).Length();
                    
                     Main.NewText("draw!" + i);

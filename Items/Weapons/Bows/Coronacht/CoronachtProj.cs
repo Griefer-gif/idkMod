@@ -14,6 +14,8 @@ namespace Idkmod.Items.Weapons.Bows.Coronacht
 {
     public class CoronachtProj : ModProjectile
     {
+        public override string Texture => "Idkmod/Items/Weapons/Bows/Coronacht/CoronachtItem";
+
         public override void SetDefaults()
         {
             projectile.hostile = false;

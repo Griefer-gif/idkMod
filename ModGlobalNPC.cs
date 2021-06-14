@@ -18,7 +18,7 @@ namespace Idkmod
         public bool Fire;
         public bool Shock;
         public bool Slagg;
-        public bool SEbuff;
+        //public bool SEbuff;
         public bool Shadowed;
 
         public override void OnHitPlayer(NPC npc, Player target, int damage, bool crit)
