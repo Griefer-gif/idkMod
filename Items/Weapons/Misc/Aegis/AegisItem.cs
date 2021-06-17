@@ -37,7 +37,6 @@ namespace Idkmod.Items.Weapons.Misc.Aegis
 			item.shootSpeed = 50f;
 			item.value = 10000;
 			item.noUseGraphic = true;
-			item.accessory = true;
 		}
 
 

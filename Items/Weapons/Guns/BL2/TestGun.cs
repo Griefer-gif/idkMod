@@ -13,7 +13,7 @@ using idkmod.Buffs.Minions;
 
 namespace Idkmod.Items.Weapons.Guns.BL2
 {
-	class TestGun : ModItem
+	abstract class TestGun : ModItem
 	{
 
 

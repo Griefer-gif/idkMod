@@ -31,21 +31,20 @@ namespace Idkmod.Items.Weapons.Bows.Coronacht
         }
 
         private int counter = 0;
-        private bool attackR = false;
+        
         public override bool PreAI()
         {
             int arrow = ModContent.ProjectileType<CoronachtArrow>();
             Player player = Main.player[projectile.owner];
             Vector2 rrp = player.RotatedRelativePoint(player.MountedCenter, true);
             UpdatePlayerVisuals(player, rrp);
-            projectile.velocity = Vector2.Normalize(Main.MouseWorld - player.Center);
+            
             if (player.channel)
             {
                 projectile.Center = player.Center;
                 counter++;
-                if (counter == 40)
+                if (counter == 50)
                 {
-                    attackR = true;
                     //Main.NewText("stacks");
                     Main.PlaySound(SoundID.MaxMana, (int)projectile.position.X, (int)projectile.position.Y);
                     for (int i = 0; i < 100; i++)
@@ -58,7 +57,7 @@ namespace Idkmod.Items.Weapons.Bows.Coronacht
             {
                 if (projectile.owner == Main.myPlayer)
                 {
-                    if (attackR && counter <= 60)
+                    if (counter <= 60 && counter >= 50)
                     {
                         //timed arrow
                         //idk how to fix the speed, but this is ok
@@ -73,9 +72,7 @@ namespace Idkmod.Items.Weapons.Bows.Coronacht
                 }
                 projectile.active = false;
             }
-            player.heldProj = projectile.whoAmI;
-            player.itemTime = 2;
-            player.itemAnimation = 2;
+            
             return true;
         }
         private void DoDustEffect(Vector2 position, float distance, float minSpeed = 2f, float maxSpeed = 3f, object follow = null)
@@ -105,6 +102,8 @@ namespace Idkmod.Items.Weapons.Bows.Coronacht
 
             // If you do not multiply by projectile.direction, the player's hand will point the wrong direction while facing left.
             player.itemRotation = (projectile.velocity * projectile.direction).ToRotation();
+
+            projectile.velocity = Vector2.Normalize(Main.MouseWorld - player.Center);
         }
     }
 }

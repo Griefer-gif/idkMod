@@ -83,7 +83,7 @@ namespace idkmod.Projectiles.SwordProj
 			for (int i = 0; i < numberProjectiles; i++)
 			{
 				var velocity = projectile.oldVelocity.RotatedBy(MathHelper.ToRadians(r.Next(120 ,230) * -1));
-				Projectile.NewProjectile(projectile.oldPosition, velocity, ModContent.ProjectileType<BBullet>(), 100, 1);
+				Projectile.NewProjectile(projectile.oldPosition, velocity, ModContent.ProjectileType<BBullet>(), 100, 1, projectile.owner);
 			}
 
 			// Spawn some dusts upon javelin death

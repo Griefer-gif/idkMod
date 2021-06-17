@@ -10,12 +10,11 @@ using Terraria.Utilities;
 
 namespace idkmod.Items.Accessories.Shields
 {
-	public class TheBee : BaseShield
+	public class TheBee : BaseShield //BaseShield has all the recharge code
 	{
         readonly int MaxHealth = 50;
 		public int CurrentHealth;
 		private const int RechargeRate = 2;
-		//public bool GotHit = true;
 		public int hitTimer;
 
 		public override bool CloneNewInstances => true;
@@ -39,18 +38,15 @@ namespace idkmod.Items.Accessories.Shields
 		
 		public override void UpdateAccessory(Player player, bool hideVisual)
 		{ 
-			//things i didnt find a workaround
-			player.GetModPlayer<idkPlayer>().shieldsEquipped++;
-			player.GetModPlayer<idkPlayer>().shieldMaxHealth = MaxHealth;
-
+			
 			//the function to make it recharge and a update to CurrentHealth
 			ShieldRechargeUpdate(player, MaxHealth, CurrentHealth, RechargeRate, hitTimer);
 			CurrentHealth = player.GetModPlayer<idkPlayer>().shieldCHealth;
 
 			//-----------------------------
-			//Shield effects here
+			//    Shield effects here
 			//-----------------------------
-			if (CurrentHealth >= MaxHealth && player.GetModPlayer<idkPlayer>().shieldsEquipped == 1)
+			if (CurrentHealth >= MaxHealth)
 			{
 				player.allDamage += 0.5f;
 			}
@@ -71,6 +67,8 @@ namespace idkmod.Items.Accessories.Shields
 			
 		}
 
+		//just learned that this does not do anything, cool
+		//save and load shield current health so it doesnt need to charge up everytime you enter a world
 		public override TagCompound Save()
 		{
 			return new TagCompound

@@ -23,7 +23,6 @@ namespace Idkmod.Items.Weapons.Misc.Aegis
             projectile.height = 60;
             projectile.aiStyle = -1;
             projectile.friendly = false;
-            
             projectile.penetrate = 1;
             projectile.tileCollide = false;
             projectile.timeLeft = 999999;
@@ -59,7 +58,7 @@ namespace Idkmod.Items.Weapons.Misc.Aegis
                 {
                     if (attackR && counter >= 30)
                     {
-                        Main.NewText("proj");
+                        //Main.NewText("proj");
                         Vector2 vel = Vector2.Normalize(Main.MouseWorld - player.Center) * 30f;
                         Projectile.NewProjectile(player.Center, vel, ModContent.ProjectileType<DashProj>(), projectile.damage, projectile.knockBack * 2, projectile.owner);
                     }
@@ -96,7 +95,7 @@ namespace Idkmod.Items.Weapons.Misc.Aegis
             projectile.rotation = projectile.velocity.ToRotation();
             projectile.spriteDirection = projectile.direction;
 
-            //allow the projectile to channel and kills it if the player stops
+            //kills it if the player stops
             if (!player.channel)
             {
                 projectile.active = false;

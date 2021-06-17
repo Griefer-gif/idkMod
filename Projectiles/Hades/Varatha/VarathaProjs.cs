@@ -16,6 +16,12 @@ namespace Idkmod.Projectiles.Hades.Varatha
 {
     public class VarathaThrowProj : ModProjectile
     {
+        private enum aiStage
+        {
+            traveling = 0,
+            HitSomething = 1,
+            GoingBack = 2
+        }
         //ai 0 = traveling
         //ai 1 = hit something
         //ai 2 = going back to player
@@ -34,24 +40,24 @@ namespace Idkmod.Projectiles.Hades.Varatha
         public override void AI()
         {
 			Player projOwner = Main.player[projectile.owner];
-            Vector2 direction = new Vector2();
+            Vector2 direction;
             float inertia = 10f;
             float speed = 30f;
             if (projectile.timeLeft <= 30 || projOwner.HeldItem.type != ModContent.ItemType<VarathaItem>())
             {
-                projectile.ai[0] = 2;
+                projectile.ai[0] = (float)aiStage.GoingBack;
             }
 
-            if (projectile.ai[0] == 0)
+            if (projectile.ai[0] == (float)aiStage.traveling)
             {
                 projectile.rotation = projectile.velocity.ToRotation() + MathHelper.ToRadians(90f);
                 projectile.velocity *= 1.03f;
             }
-            else if(projectile.ai[0] == 1)
+            else if(projectile.ai[0] == (float)aiStage.HitSomething)
             {
                 projectile.velocity = Vector2.Zero;
             }
-            else if(projectile.ai[0] == 2)
+            else if(projectile.ai[0] == (float)aiStage.GoingBack)
             {
                 direction = projOwner.Center - projectile.Center;
                 direction.Normalize();
