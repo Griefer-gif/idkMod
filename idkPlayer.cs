@@ -23,6 +23,7 @@ namespace Idkmod
     {
         public Queue<Projectile> psyFlyQueue  = new Queue<Projectile>();
         public int varthaStoredProj;
+        public bool SoulPowered;
         public bool NailSpell1;
         public bool NailSpell1UP;
         public bool NailSpell2;
@@ -162,6 +163,7 @@ namespace Idkmod
             NailSpell2 = false;
             NailSpell2UP = false;
             NailSpellCD = false;
+            SoulPowered = false;
             //varthaStoredProj = 0;
 
             player.statLifeMax2 += LifeCrystal * 25;
@@ -373,6 +375,14 @@ namespace Idkmod
             packet.Send(toWho, fromWho);
         }
 
+        public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref int damage, ref float knockback, ref bool crit, ref int hitDirection)
+        {
+            if(SoulPowered)
+            {
+                damage += damage / 10;
+            }
+        }
+
         public override TagCompound Save()
         {
             return new TagCompound
@@ -399,6 +409,16 @@ namespace Idkmod
                 r = 0f;
                 g = 0f;
                 b = 0f;
+            }
+
+            if(SoulPowered)
+            {
+                for (int i = 0; i < 1; i++)
+                {
+                    int dust = Dust.NewDust(drawInfo.position, 30, 30, DustID.WhiteTorch, 0f, 0f, 0, Color.White);
+                    Main.dust[dust].scale = 1f;
+                    Main.dust[dust].noGravity = true;
+                }
             }
         }
 

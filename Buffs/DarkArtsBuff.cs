@@ -10,7 +10,7 @@ namespace idkmod.Buffs
 		{
 			DisplayName.SetDefault("Dark arts");
 			Description.SetDefault("You are surrounded by shadows");
-			Main.debuff[Type] = true;
+			Main.debuff[Type] = false;
 			Main.pvpBuff[Type] = false;
 			Main.buffNoSave[Type] = true;
 		}

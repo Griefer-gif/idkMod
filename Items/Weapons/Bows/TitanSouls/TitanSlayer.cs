@@ -15,7 +15,7 @@ namespace Idkmod.Items.Weapons.Bows.TitanSouls
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Titan Slayer");
-			Tooltip.SetDefault("The heart-seeking bow");
+			Tooltip.SetDefault("A bow that comes with a special arrow\nThe arrow has a chance to get stuck on enemy hits, pull it back for and explosion and increased damage");
 		}
 
 		public override void SetDefaults()
@@ -49,7 +49,6 @@ namespace Idkmod.Items.Weapons.Bows.TitanSouls
 
         public override bool CanUseItem(Player player)
         {
-			//Main.NewText("yep");
             for(int i = 0; Main.projectile.Length > i; i++)
             {
 				if(Main.projectile[i].owner == player.whoAmI && Main.projectile[i].type == ModContent.ProjectileType<TitanSlayerArrow>() && Main.projectile[i].active)
