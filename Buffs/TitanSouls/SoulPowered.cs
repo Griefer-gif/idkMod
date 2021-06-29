@@ -21,8 +21,8 @@ namespace Idkmod.Buffs.TitanSouls
 
 		public override void Update(Player player, ref int buffIndex)
 		{
-			player.moveSpeed += 10f;
-			player.maxRunSpeed += 10f;
+			//player.moveSpeed += 10f;
+			//player.maxRunSpeed += 10f;
 
 			player.GetModPlayer<idkPlayer>().SoulPowered = true;
 		}
