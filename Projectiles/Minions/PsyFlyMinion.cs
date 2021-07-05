@@ -19,7 +19,6 @@ namespace idkmod.Projectiles.Minions
 		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Example Minion");
-			// Sets the amount of frames this minion has on its spritesheet
 			Main.projFrames[projectile.type] = 1;
 			// This is necessary for right-click targeting
 			ProjectileID.Sets.MinionTargettingFeature[projectile.type] = false;
@@ -37,10 +36,9 @@ namespace idkmod.Projectiles.Minions
 		{
 			projectile.width = 25;
 			projectile.height = 25;
-			// Makes the minion go through tiles freely
+			
 			projectile.tileCollide = false;
 
-			// These below are needed for a minion weapon
 			// Only controls if it deals damage to enemies on contact (more on that later)
 			projectile.friendly = true;
 			// Only determines the damage type
@@ -89,8 +87,6 @@ namespace idkmod.Projectiles.Minions
 			float minionPositionOffsetX = (10 + projectile.minionPos * 40) * -player.direction;
 			idlePosition.X += minionPositionOffsetX; // Go behind the player
 
-			// All of this code below this line is adapted from Spazmamini code (ID 388, aiStyle 66)
-
 			// Teleport to player if distance is too big
 			Vector2 vectorToIdlePosition = idlePosition - projectile.Center;
 			float distanceToIdlePosition = vectorToIdlePosition.Length();
@@ -120,16 +116,7 @@ namespace idkmod.Projectiles.Minions
 			}
 			#endregion
 
-			#region Find target
-			// Starting search distance
-			
-
-			// friendly needs to be set to true so the minion can deal contact damage
-			// friendly needs to be set to false so it doesn't damage things like target dummies while idling
-			// Both things depend on if it has a target or not, so it's just one assignment here
-			// You don't need this assignment if your minion is shooting things instead of dealing contact damage
 			projectile.friendly = player.GetModPlayer<idkPlayer>().psyFlyQueue.Count > 0;
-			#endregion
 
 			#region Movement
 
