@@ -196,7 +196,8 @@ namespace Idkmod.Npcs.TitanSoulsBoss
 			npc.noTileCollide = true;
 			npc.noGravity = true;
 			npc.friendly = false;
-			npc.HitSound = SoundID.NPCHit1;
+			//npc.HitSound = SoundID.NPCHit1;
+			npc.knockBackResist = 1f;
 			npc.DeathSound = SoundID.NPCDeath1;
 			npc.value = 25f;
 		}
@@ -351,7 +352,8 @@ namespace Idkmod.Npcs.TitanSoulsBoss
 			npc.noTileCollide = true;
 			npc.noGravity = true;
 			npc.friendly = false;
-			npc.HitSound = SoundID.NPCHit1;
+			//npc.HitSound = SoundID.NPCHit1;
+			npc.knockBackResist = 1f;
 			npc.DeathSound = SoundID.NPCDeath1;
 			npc.value = 25f;
 		}
