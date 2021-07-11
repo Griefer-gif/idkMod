@@ -28,8 +28,8 @@ namespace Idkmod.Npcs.TitanSoulsBoss
 
 		public override void SetDefaults()
 		{
-			npc.width = 128;
-			npc.height = 128;
+			npc.width = 150;
+			npc.height = 200;
 			npc.aiStyle = -1;
 			npc.damage = 34;
 			npc.defense = 2;
@@ -247,6 +247,7 @@ namespace Idkmod.Npcs.TitanSoulsBoss
 
 			//set the idle position to the left of the body
 			HoverPos = AI_HandOwner.Center - new Vector2(100, 0);
+			HoverPos.Y += 100f;
 
 			//pretty self-explanatory
 			if (AI_State == State_HoveringAtSide)
@@ -401,6 +402,7 @@ namespace Idkmod.Npcs.TitanSoulsBoss
 
 			//set the idle position to the right of the body
 			HoverPos = AI_HandOwner.Center + new Vector2(100, 0);
+			HoverPos.Y += 100f;
 
 			//pretty self-explanatory
 			if (AI_State == State_HoveringAtSide)
@@ -488,7 +490,7 @@ namespace Idkmod.Npcs.TitanSoulsBoss
 	class HandVariables
     {
 		public float playerVelocityOffSet = 70f;
-		public float positionOffSet = 250f;
+		public float positionOffSet = 280f;
 
 		public float DefaultSpeed = 10f;
 		public float DefaultInertia = 10f;
